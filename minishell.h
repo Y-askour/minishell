@@ -21,10 +21,26 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// typedef struct s_list
+// typedef struct s_list_
 // {
-//     /* data */
-// }   t_list;
+//     struct s_list_ *list;
+// }       t_list_;
+
+// typedef struct s_command
+// {
+//     char **tab;
+//     struct s_command *next;
+//     struct s_command *prev;
+//    // struct s_red;
+// }       t_command;
+
+// typedef struct s_red
+// {
+//     int type;
+//     char *file;
+//     struct s_red *next;
+//     struct s_red *prev;
+// }
 
 void	signal_handler(int signal);
 
