@@ -1,45 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
+/*   Updated: 2022/06/04 13:36:47 by aboudoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
-    char *line;
-    char *prompt;
-    (void) ac;
-    (void) av;
+	char	*line;
+	char	*prompt;
 
-    prompt = "minishell$>";
-    while (1)
-    {
-        signal(SIGINT, signal_handler); //ctrl + c
-        signal(SIGQUIT, SIG_IGN); //ctrl + '\'
-        signal(SIGTSTP, SIG_IGN); //ctrl + z
-        line = readline(prompt);
-        if (!line)
-            exit(1);
-        if (!ft_strncmp(line, "exit", 4))
-        {
-            printf("%s\n", line);
-            exit(0);
-        }
-        printf("%s\n", line);
-    }
+	(void) ac;
+	(void) av;
+	(void) env;
+	prompt = "minishell$>";
+	while (1)
+	{
+		signal(SIGINT, signal_handler); //ctrl + c
+		signal(SIGQUIT, SIG_IGN); //ctrl + '\'
+		line = readline(prompt);
+		if (!line || !ft_strncmp(line, "exit", 4))
+		{
+			printf("%s", "exit");
+			exit(1);
+		}
+		if (line)
+			add_history(line);//to save the line away in a history list of such lines
+	}
 }
-// t_list  *head = NULL;
-// t_list  *taile = NULL;
-// head = malloc(sizeof(struct s_list));
-// second = malloc(sizeof(struct s_list));
-// taile = malloc(sizeof(struct s_list));
-// if (ac > 2)
-// {
-//     head->argument = av[1];
-//     head->next = second;
-//     second->argument = av[2];
-//     second->next = taile;
-//     taile->argument = av[3];
-//     taile->next = NULL;
-// } 
-// while(head)
-// {
-//     printf("%s\n", head->argument);
-//     head = head->next;
-// } 
