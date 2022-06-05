@@ -25,6 +25,7 @@ int	main(int ac, char **av, char **env)
 	{
 		signal(SIGINT, signal_handler); //ctrl + c
 		signal(SIGQUIT, SIG_IGN); //ctrl + '\'
+		signal(SIGTSTP, SIG_IGN); //ctrl + z
 		line = readline(prompt);
 		if (!line || !ft_strncmp(line, "exit", 4))
 		{

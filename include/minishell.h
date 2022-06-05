@@ -21,27 +21,57 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+/******TOKENS*********/
+
+
 typedef struct s_line
 {
     struct s_line *head;
     struct s_line *taile;
 }       t_line;
 
-typedef struct s_cmd_ele
+typedef struct s_cmd_elem
 {
     char **args;
-    struct s_cmd_ele *next;
-    struct s_cmd_ele *prev;
-    struct s_red *redir;
-}       t_cmd_ele;
+    struct s_cmd_elem *next;
+    struct s_cmd_elem *prev;
+    struct s_red_list *redir;
+}       t_cmd_elem;
 
-typedef struct s_red
+typedef struct s_red_elem
 {
     int type;
     char *file;
-    struct s_red *next;
-    struct s_red *prev;
-}   t_red;
+    struct s_red_elem *next;
+    struct s_red_elem *prev;
+}       t_red_elem;
+
+typedef struct s_cmd_list
+{
+    struct s_cmd_elem *head;
+    struct s_cmd_elem *taile;
+}       t_cmd_list;
+
+typedef struct s_red_list
+{
+    struct s_red_elem *head;
+    struct s_red_elem *taile;
+}       t_red_list;
+
+typedef struct s_token_list
+{
+    struct s_token_list *head;
+    struct s_token_list *taile;
+}       t_token_list;
+
+typedef struct s_token_elem
+{
+    char *value;
+    int type;
+    struct s_token *next;
+    struct s_token *prev;
+}       t_token_elem;
+
 
 void	signal_handler(int signal);
 
