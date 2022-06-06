@@ -22,6 +22,15 @@
 # include <readline/history.h>
 
 /******TOKENS*********/
+# define WORD 1
+# define S_QUOTE 2
+# define D_QUOTE 3
+# define PIPE 4
+# define APPEND 5 // >>
+# define HEREDOC 6 // <<
+# define REDIN 7
+# define REDOUT 8
+# define WHSPACE 9
 
 
 typedef struct s_line
@@ -46,6 +55,14 @@ typedef struct s_red_elem
     struct s_red_elem *prev;
 }       t_red_elem;
 
+typedef struct s_token_elem
+{
+    char *value;
+    int type;
+    struct s_token *next;
+    struct s_token *prev;
+}       t_token_elem;
+
 typedef struct s_cmd_list
 {
     struct s_cmd_elem *head;
@@ -60,17 +77,10 @@ typedef struct s_red_list
 
 typedef struct s_token_list
 {
-    struct s_token_list *head;
-    struct s_token_list *taile;
+    struct s_token_elem *head;
+    struct s_token_elem *taile;
 }       t_token_list;
 
-typedef struct s_token_elem
-{
-    char *value;
-    int type;
-    struct s_token *next;
-    struct s_token *prev;
-}       t_token_elem;
 
 
 void	signal_handler(int signal);

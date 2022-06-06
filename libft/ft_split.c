@@ -75,7 +75,7 @@ static char	**ft_split_two(char **word, char const *s, char c, int c_w)
 			word_len++;
 		}
 		word[i] = (char *)malloc(sizeof(char) * (word_len + 1));
-		if (word[i] == NULL)
+		if (word[i] == )
 			ft_free(word, i);
 		word_make(word[i], s, j, word_len);
 		word_len = 0;

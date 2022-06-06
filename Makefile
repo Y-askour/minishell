@@ -14,6 +14,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 FILES = minishell.c\
 		signal_handler.c\
+		parcer/lexer.c\
 
 OBJ = $(FILES:%.c=%.o)
 

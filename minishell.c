@@ -34,5 +34,6 @@ int	main(int ac, char **av, char **env)
 		}
 		if (line)
 			add_history(line);//to save the line away in a history list of such lines
+		lexecal_analyer(&line);
 	}
 }
