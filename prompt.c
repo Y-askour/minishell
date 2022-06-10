@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
+/*   Updated: 2022/06/10 17:45:06 by aboudoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
 char    *display_prompt()
 {
-    char    *line;
-    char    *prompt;
+	char    *line;
+	char    *prompt;
 
 	prompt = "minishell$>";
 
@@ -18,6 +30,6 @@ char    *display_prompt()
 	}
 	if (line)
 		add_history(line);//to save the line away in a history list of such lines
-    rl_on_new_line();
-    return (line);
+	rl_on_new_line();
+	return (line);
 }

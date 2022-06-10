@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/10 17:45:43 by aboudoun          #+#    #+#             */
+/*   Updated: 2022/06/10 18:15:17 by aboudoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
 void    tokenizer(t_token_list *tokens, char *line)
@@ -13,8 +25,8 @@ void    tokenizer(t_token_list *tokens, char *line)
         else if (*line == '\'')
             line = is_squout(tokens, line);
         else if (*line == '\"')
-            line  = is_dqout(tokens, line);
+            line  = is_dquout(tokens, line);
         else
-            is_word(tokens, line, " \t\'\"<|>$");
+           is_word(tokens, line, " \t\'\"<|>$");
     }
 }

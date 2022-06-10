@@ -15,13 +15,13 @@
 int	main(int ac, char **av, char **env)
 {
 	char    *line;
-	
+
 	(void) av;
 	if (ac != 1 || !*env)
 		return (1);
 	while (1)
 	{
 		line = display_prompt();
-		//lexical_analyser(line);
+		lexical_analyser(line);
 	}
 }

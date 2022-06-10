@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens_list_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/10 17:45:49 by aboudoun          #+#    #+#             */
+/*   Updated: 2022/06/10 18:12:17 by aboudoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
 t_token_elem    *new_token(char *val, int type)
@@ -25,4 +37,12 @@ void    add_back(t_token_list *list, char *val, int type)
         new->prev = list->taile;
     }
     list->taile = new;
+}
+
+t_token_list	*init_token_list(t_token_list *list)
+{
+	list = malloc(sizeof(t_token_list));
+	if (!list)
+		return (NULL);
+	return (list);
 }

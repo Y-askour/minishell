@@ -15,6 +15,13 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 FILES = minishell.c\
 		signal_handler.c\
 		prompt.c\
+		./tokenizer/lexer.c\
+		./tokenizer/tokens_list_utils.c\
+		./tokenizer/tokenizer.c\
+		./tokenizer/tokenizer_functions.c\
+		./tokenizer/tokenizer_functions2.c\
+		./tokenizer/print_tokens.c\
+		
 
 OBJ = $(FILES:%.c=%.o)
 

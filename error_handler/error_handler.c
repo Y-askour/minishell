@@ -1,10 +1,7 @@
 #include"minishell.h"
 
-void error_handler(int error)
+void error_handler(char *message)
 {
-    if (error == 1)
-        ft_putstr_fd("error unclosed single quouts\n", 2);
-    else if (error == 2)
-        ft_putstr_fd("error unclosed double quouts\n", 2);
+    ft_putstr_fd(message, 2);
     display_prompt();
 }
