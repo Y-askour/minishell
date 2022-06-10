@@ -83,10 +83,18 @@ typedef struct s_token_list
     struct s_token_elem *taile;
 }       t_token_list;
 
-
-
 void	signal_handler(int signal);
 void    add_back(t_token_list *list, char *val, int type);
+char    *display_prompt();
+/******TOKENIZER FUNCTIONS*******/
+void error_handler(int error);
+
+/******TOKENIZER FUNCTIONS*******/
 t_token_elem    *new_token(char *val, int type);
+char *is_word(t_token_list *tokens, char *line, char *stop);
+char	*ft_strndup(char *str, int n);
+char *is_wspace(t_token_list *tokens, char *line);
+char *is_redpip(t_token_list *tokens, char *line);
+char *is_sign(t_token_list *tokens, char *line);
 
 #endif

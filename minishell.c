@@ -14,26 +14,14 @@
 
 int	main(int ac, char **av, char **env)
 {
-	char	*line;
-	char	*prompt;
-
-	(void) ac;
+	char    *line;
+	
 	(void) av;
-	(void) env;
-	prompt = "minishell$>";
+	if (ac != 1 || !*env)
+		return (1);
 	while (1)
 	{
-		signal(SIGINT, signal_handler); //ctrl + c
-		signal(SIGQUIT, SIG_IGN); //ctrl + '\'
-		signal(SIGTSTP, SIG_IGN); //ctrl + z
-		line = readline(prompt);
-		if (!line || !ft_strncmp(line, "exit", 4))
-		{
-			printf("%s", "exit");
-			exit(1);
-		}
-		if (line)
-			add_history(line);//to save the line away in a history list of such lines
-		lexecal_analyer(line);
+		line = display_prompt();
+		//lexical_analyser(line);
 	}
 }
