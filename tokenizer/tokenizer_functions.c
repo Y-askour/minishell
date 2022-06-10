@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/10 18:17:38 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 00:26:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ static char *after_dollar(t_token_list *tokens, char *line)
     len = 0;
     /* i used in case we have to add other characters 
     if not replace it with line[line] == '_'*/
-    while(ft_isalnum(line[len]) && !strchr("_", line[len]))
+    while((ft_isalnum(line[len]) || strchr("_", line[len])) && len < (int)ft_strlen(line))
         len++;
-    add_back(tokens, ft_strndup(line, len + 1), WORD);
+    if (len)
+        add_back(tokens, ft_strndup(line, len + 1), WORD);
     return(line + len);
 }
 
@@ -85,6 +86,7 @@ char *is_sign(t_token_list *tokens, char *line)
     {
         add_back(tokens, "$", DOLLAR);
         line = after_dollar(tokens, line + 1);
+        //printf("line %s", line);
     }
     return (line);
 }

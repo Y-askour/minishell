@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/10 18:19:23 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 00:27:17 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char *is_word(t_token_list *tokens, char *line, char *stop)
     int len;
 
     len = 0;
-    while(!ft_strchr(stop, line[len]))
+    while(!strchr(stop, line[len]))
         len++;
     add_back(tokens, ft_strndup(line, len + 1), WORD);
     return(line + len);
@@ -49,9 +49,11 @@ char *is_dquout(t_token_list *tokens, char *line)
     if (*line == '$' || *line == '~')
     {
         line = is_sign(tokens, line);
-        is_dquout(tokens, line);
+        if (*line != '\"')
+            is_dquout(tokens, line);
     }
-    else if (*line == '\"')
+    /*if is_sign returns " like if the line was like : "afdi$afdfj"*/
+    if (*line == '\"')
         line ++;
     return (line);
 }
