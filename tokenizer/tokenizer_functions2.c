@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 14:40:30 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:55:22 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,29 @@ char *is_dquout(t_token_list *tokens, char *line)
     {
         add_back(tokens, ft_strndup("error unclosed double quout", 
                 ft_strlen("error unclosed double quout") + 1), ERROR);
-        printf("EEEEEEEERRRRRRROOOOOOOORRRRRR\n");
-        print_list(tokens);
-        printf("line sigf is:%s\n", line);
-        exit(0);
+        //printf("EEEEEEEERRRRRRROOOOOOOORRRRRR\n");
+        //printf("line sigf is:%s\n", line);
+        //exit(0);
         return(NULL);
     }
     line = is_word(tokens, line, "$~\"");
-    if (*line == '\"')
+    //printf("is_word returns:%s\n", line);
+    if (*line == '"')
     {
-        line ++;
-        return (line);
+       // printf("is_dooooobleeeee\n");
+        //print_list(tokens);
+        //printf("line is dooble:%s\n", line + 1);
+        //exit(0);
+        return (line + 1);
     }
     else if (*line == '$' || *line == '~')
     {
         line = is_sign(tokens, line);
-        printf("line after is_sign is:%s\n", line);
+        //printf("is_sign returns:%s\n", line);
         if (*line == '\"')
-            line++;
+            return(line + 1);
         else
-            is_dquout(tokens, line);
+            line = is_dquout(tokens, line);
     }
     /*if is_sign returns " like if the line was like : "afdi$afdfj"*/
     return (line);
