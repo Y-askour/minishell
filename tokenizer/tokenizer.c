@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:43 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 18:13:17 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 21:52:41 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void    tokenizer(t_token_list *tokens, char *line)
 {
-    // if (*line == '\"')
-    //     line  = is_dquout(tokens, line + 1);
     while (*line && *line != '\n')
     {
         if (ft_strchr(" \t\v\f\r", *line))
@@ -29,6 +27,20 @@ void    tokenizer(t_token_list *tokens, char *line)
         else if (*line == '\"')
             line  = is_dquout(tokens, line + 1);
         else
-            line = is_word(tokens, line, " \n\t\'\"<|>$");
+        {
+            line = is_word(tokens, line, " \n\t\'\"<|>$;\\");
+            if (*line == ';' || *line == '\\')
+            {
+                if (*line == ';')
+                    add_back(tokens, ft_strjoin("minishell: syntax error near unexpected token", " ';'"), ERROR);
+                else
+                    add_back(tokens, ft_strjoin("minishell: syntax error near unexpected token", " '\\'"), ERROR);
+                line++;    
+            }
+        }
+        /*check if there is ; or \
+        if (*line  == ';' || *line == '\')
+            add_back(error)
+            return(NULL);*/
     }
  }

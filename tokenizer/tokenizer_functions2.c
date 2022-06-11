@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 18:15:10 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 22:28:01 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char *is_squout(t_token_list *tokens, char *line)
     if (!ft_strchr(line + 1, '\''))
     {
         add_back(tokens, ft_strndup("error unclosed single quout", 
-                ft_strlen("error unclosed single quout")), ERROR);
-        return(NULL);
+                ft_strlen("error unclosed single quout") + 1), ERROR);
+        return(line + 1);
     }
     line = is_word(tokens, line + 1, "\'");
     /*line + 1 because is_word retuns stop with line
@@ -44,7 +44,7 @@ char *is_dquout(t_token_list *tokens, char *line)
     {
         add_back(tokens, ft_strndup("error unclosed double quout", 
                 ft_strlen("error unclosed double quout") + 1), ERROR);
-        return(NULL);
+        return(line + 1);
     }
     line = is_word(tokens, line, "$~\"");
     if (*line == '\"')
