@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/10 18:48:03 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 23:41:35 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ typedef struct s_red_list
 /** main functions **/
 void	signal_handler(int signal);
 char	*display_prompt();
-void	error_handler(int error);
+void    check_syntax(t_token_list   *list);
+void	error_handler(char *message);
 t_token_list   lexical_analyser(char *line);
 
 /**** token_list functions ***/

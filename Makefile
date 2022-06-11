@@ -21,6 +21,9 @@ FILES = minishell.c\
 		./tokenizer/tokenizer_functions.c\
 		./tokenizer/tokenizer_functions2.c\
 		./tokenizer/print_tokens.c\
+		./syntax_/check_syntax.c\
+		./error_handler/error_handler.c\
+
 		
 
 OBJ = $(FILES:%.c=%.o)
