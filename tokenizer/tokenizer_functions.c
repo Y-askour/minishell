@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 00:26:33 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:03:11 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ char *is_wspace(t_token_list *tokens, char *line)
     int len;
 
     len = 0;
-    while(ft_strchr(" \t\f\r\v", line[len]))
+    /* I added "&& len < (int)ft_strlen(line)" because it doesn't stope if the line is all wspace
+     * so a garbage value is added */
+    while(ft_strchr(" \t\f\r\v", line[len]) && len < (int)ft_strlen(line))
         len++;
     add_back(tokens, " ", WHSPACE);
     return (line + len);
@@ -86,7 +88,6 @@ char *is_sign(t_token_list *tokens, char *line)
     {
         add_back(tokens, "$", DOLLAR);
         line = after_dollar(tokens, line + 1);
-        //printf("line %s", line);
     }
     return (line);
 }
