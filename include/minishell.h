@@ -7,8 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
 /*   Updated: 2022/06/12 15:57:09 by aboudoun         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -86,6 +85,15 @@ typedef struct s_red_list
 }       t_red_list;
 
 
+typedef struct env t_env;
+struct env
+{
+	char *name;
+	char *value;
+	t_env *next;
+};
+
+
 /** main functions **/
 void	signal_handler(int signal);
 char	*display_prompt();
@@ -108,5 +116,11 @@ char	*is_redpip(t_token_list *tokens, char *line);
 char	*is_sign(t_token_list *tokens, char *line);
 char	*is_squout(t_token_list *tokens, char *line);
 char	*is_dquout(t_token_list *tokens, char *line);
+
+
+// execution functions 
+
+
+t_env *get_env(char **env);
 
 #endif

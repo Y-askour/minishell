@@ -23,6 +23,7 @@ FILES = minishell.c\
 		./tokenizer/print_tokens.c\
 		./syntax_/check_syntax.c\
 		./error_handler/error_handler.c\
+		./executor/get_paths.c
 
 		
 
