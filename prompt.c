@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/10 17:45:06 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 09:40:06 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ char    *display_prompt()
 	signal(SIGQUIT, SIG_IGN); //ctrl + '\'
 	signal(SIGTSTP, SIG_IGN); //ctrl + z
 	line = readline(prompt);
-	if (!line || !ft_strncmp(line, "exit", 4))
-	{
-		printf("%s", "exit");
-		exit(1);
-	}
 	if (line)
 		add_history(line);//to save the line away in a history list of such lines
 	rl_on_new_line();

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 17:43:53 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 09:40:17 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,10 @@ int	main(int ac, char **av, char **env)
 	{
 		line = display_prompt();
 		lexical_analyser(line);
+		if (!line || !ft_strncmp(line, "exit", 4))
+		{
+			printf("%s", "exit");
+			exit(1);
+		}
 	}
 }
