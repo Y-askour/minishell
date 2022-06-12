@@ -31,10 +31,10 @@ OBJ = $(FILES:%.c=%.o)
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
-	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline/lib -lreadline
+	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline1/lib -lreadline
 
 %.o : %.c $(HEADER)
-	@$(CC) -I./readline/include -I./include $(FLAGS) -o $@ -c $<
+	@$(CC) -I./readline1/include -I./include $(FLAGS) -o $@ -c $<
 	@echo "$(GREEN)" "compiling $<"
 
 $(LIBFT_LIB):

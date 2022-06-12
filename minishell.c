@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 12:13:10 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 14:10:39 by yaskour          ###   ########.fr       */
 
 #include"minishell.h"
 
@@ -29,6 +29,5 @@ int	main(int ac, char **av, char **env)
 			printf("%s", "exit");
 			exit(1);
 		}
-
 	}
 }
