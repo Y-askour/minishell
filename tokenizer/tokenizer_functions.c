@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 14:03:11 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:19:42 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char *is_sign(t_token_list *tokens, char *line)
 {
     if (*line == '~')
     {
-        add_back(tokens, "~", TILDE);
+        add_back(tokens, ft_strndup("HOME", 4), TILDE);
         line++;
     }
     else if (*line == '$')

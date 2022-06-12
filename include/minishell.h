@@ -106,7 +106,7 @@ void	print_list(t_token_list *list);
 void	add_back(t_token_list *list, char *val, int type);
 t_token_list	*init_token_list(t_token_list *list);
 void    del_node(t_token_elem *node);
-
+void	expand(t_token_list *list,t_env *env);
 /******TOKENIZER FUNCTIONS*******/
 void	tokenizer(t_token_list *tokens, char *line);
 char	*is_word(t_token_list *tokens, char *line, char *stop);
