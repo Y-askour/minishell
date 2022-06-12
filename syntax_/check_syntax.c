@@ -6,39 +6,54 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 12:19:29 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 13:32:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void    check_already(t_token_elem *node)
+int    check_already(t_token_elem *node)
 {
     if (node->type == ERROR)
+    {
         error_handler(node->value);
+        return (1);
+    }
+    return (0);
 }
 
-void    check_pipe(t_token_elem *node)
+int    check_pipe(t_token_elem *node)
 {
     if (node->type == PIPE)
     {
         if(!node->next || !node->prev)
+        {
             error_handler("minishell: syntax error near unexpected token `|'");
+            return (1);
+        }
         if (node->next->type == WHSPACE)
         {
             if (!node->next->next || node->next->next->type != WORD)
+            {
                 error_handler("minishell: syntax error near unexpected token `|'");
+                return (1);
+            }
         }
     }
+    return (0);
 }
 
-void    check_red(t_token_elem *node)
+int    check_red(t_token_elem *node)
 {
     if (node->type == REDIN || node->type == REDOUT || node->type == APPEND || node->type == HEREDOC)
         {
             if (!node->next || node->next->type != WORD)
+            {
                 error_handler("minishell: error no such file");
+                return (1);
+            }
         }
+        return (0);
 }
 void    check_syntax(t_token_list   *list)
 {
@@ -47,9 +62,12 @@ void    check_syntax(t_token_list   *list)
     node = list->head;
     while (node)
     {
-        check_already(node);
-        check_pipe(node);
-        check_red(node);
+        if (check_already(node))
+            return ;
+        if (check_pipe(node))
+            return ;
+        if (check_red(node))
+            return ;
         node = node->next;
     }
 }

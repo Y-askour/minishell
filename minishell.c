@@ -23,10 +23,12 @@ int	main(int ac, char **av, char **env)
 		line = display_prompt();
 		tokens = lexical_analyser(line);
 		check_syntax(tokens);
-		if (!line || !ft_strncmp(line, "exit", 4))
+		
+		if (!ft_strncmp(line, "exit", 4))
 		{
 			printf("%s", "exit");
 			exit(1);
 		}
+
 	}
 }
