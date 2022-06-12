@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:49 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 13:31:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 15:55:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,24 @@ t_token_list	*init_token_list(t_token_list *list)
 	if (!list)
 		return (NULL);
 	return (list);
+}
+
+void    del_node(t_token_elem *node)
+{
+    /* base case */
+    if (node == NULL)
+        return;
+        
+    /* Change next only if node to be deleted is NOT the last node */
+    if (node->next != NULL)
+        node->next->prev = node->prev;
+ 
+    /* Change prev only if node to be deleted is NOT the first node */
+    if (node->prev != NULL)
+        node->prev->next = node->next;
+ 
+    /* Finally, free the memory occupied by del*/
+    free(node->value);
+    free(node);
+    return;
 }

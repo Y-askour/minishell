@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 13:31:01 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 15:57:09 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_token_list   *lexical_analyser(char *line);
 void	print_list(t_token_list *list);
 void	add_back(t_token_list *list, char *val, int type);
 t_token_list	*init_token_list(t_token_list *list);
+void    del_node(t_token_elem *node);
 
 /******TOKENIZER FUNCTIONS*******/
 void	tokenizer(t_token_list *tokens, char *line);
