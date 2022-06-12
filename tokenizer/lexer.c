@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:44:13 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 11:33:11 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 12:11:50 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ t_token_list   *lexical_analyser(char *line)
     tokens = init_token_list(tokens);
     tokenizer(tokens, line);
     //check_syntax(tokens);
-    //print_list(tokens);
+    print_list(tokens);
     return (tokens);
 }
