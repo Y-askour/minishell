@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/11 23:41:35 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/12 11:17:19 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	signal_handler(int signal);
 char	*display_prompt();
 void    check_syntax(t_token_list   *list);
 void	error_handler(char *message);
-t_token_list   lexical_analyser(char *line);
+t_token_list   *lexical_analyser(char *line);
 
 /**** token_list functions ***/
 void	print_list(t_token_list *list);
