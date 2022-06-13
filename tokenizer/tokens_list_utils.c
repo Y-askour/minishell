@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:49 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 19:24:27 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:22:04 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void    del_node(t_token_elem *node)
         node->prev->next = node->next;
  
     /* Finally, free the memory occupied by del*/
-    // free(node->value);
-    // free(node);
+    if (node->type == WORD)
+        free(node->value);
+    free(node);
 }

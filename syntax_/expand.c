@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 19:30:20 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/13 22:04:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@ char *env_var(char *var, t_env *env)
     tmp = env;
     while (tmp)
     {
-        if (!ft_strncmp(var, tmp->name, ft_strlen(var)))
+        if (!ft_strncmp(var, tmp->name, ft_strlen(var) + 1))
             return (tmp->value);
         tmp = tmp->next;
     }
     return (" ");
 }
 
-void	expand(t_token_list *list, t_env *env)
+void	expand(t_token_list *list, char **var)
 {
 	t_token_elem	*temp;
-
+    t_env *env;
+    
+    env = get_env(var);
 	temp = list->head;
 	while(temp)
 	{
