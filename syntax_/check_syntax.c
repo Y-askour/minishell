@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 13:32:12 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:06:26 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int    check_red(t_token_elem *node)
         }
         return (0);
 }
-void    check_syntax(t_token_list   *list)
+int    check_syntax(t_token_list   *list)
 {
     t_token_elem    *node;
 
@@ -63,13 +63,14 @@ void    check_syntax(t_token_list   *list)
     while (node)
     {
         if (check_already(node))
-            return ;
+            return (1);
         if (check_pipe(node))
-            return ;
+            return (1);
         if (check_red(node))
-            return ;
+            return (1);
         node = node->next;
     }
+    return (0);
 }
 
 //errors:

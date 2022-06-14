@@ -97,15 +97,16 @@ struct env
 /** main functions **/
 void	signal_handler(int signal);
 char	*display_prompt();
-void    check_syntax(t_token_list   *list);
+int    check_syntax(t_token_list   *list);
 void	error_handler(char *message);
 t_token_list   *lexical_analyser(char *line);
+t_cmd_list  *parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 
 /**** token_list functions ***/
 void	print_list(t_token_list *list);
 void	add_back(t_token_list *list, char *val, int type);
 t_token_list	*init_token_list(t_token_list *list);
-void    del_node(t_token_elem *node);
+void    del_node(t_token_elem *node, t_token_list *list);
 void	expand(t_token_list *list, char **env);
 /******TOKENIZER FUNCTIONS*******/
 void	tokenizer(t_token_list *tokens, char *line);
