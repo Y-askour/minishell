@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/14 18:22:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/15 11:51:10 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av, char **env)
 {
 	char    *line;
 	t_token_list	*tokens;
-	t_cmd_list		*cmd_line;
+	//t_cmd_list		*cmd_line;
 
 	(void) av;
 	if (ac != 1 || !*env)
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **env)
 		//printf("\n-------after------\n\n");
 		check_syntax(tokens);
 		expand(tokens, env);
-		parse_cmd(tokens, cmd_line);
+		//cmd_line = parse_cmd(tokens, cmd_line);
 		print_list(tokens);
 		if (!ft_strncmp(line, "exit", 4))
 		{

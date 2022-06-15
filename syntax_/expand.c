@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/14 17:56:03 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:40:10 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ void	expand(t_token_list *list, char **var)
 		}
         else if (temp->type == TILDE)
         {
-            temp->value = env_var("HOME", env);
+            if ((!temp->next && temp->prev->type == WHSPACE) || (!temp->prev && temp->next->type == WHSPACE) || 
+                    (temp->next->type == WHSPACE && temp->prev->type == WHSPACE))
+                temp->value = env_var("HOME", env);
         }
+        /* how can you get tmp next after delleting the temp node*/
         temp = temp->next;
 		/* I aded &&temp-> because it segf in case of temp->next == NULL*/
 		//else if (temp->type == DOLLAR && temp->next)
