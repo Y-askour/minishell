@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/16 18:27:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/06/16 18:55:53 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,5 @@ int	main(int ac, char **av, char **env)
 		//expand(tokens, env);
 		//cmd_line = parse_cmd(tokens, cmd_line);
 		//print_list(tokens);
-		//if (!ft_strncmp(line, "exit", 4))
-		//{
-		//	printf("%s", "exit");
-		//	exit(1);
-		//}
 	}
 }
