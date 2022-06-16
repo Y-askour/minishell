@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/12 15:57:09 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:25:34 by yaskour          ###   ########.fr       */
 
 
 #ifndef MINISHELL_H
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# define  PATH_MAX  50
 
 /******TOKENS*********/
 # define WORD -1

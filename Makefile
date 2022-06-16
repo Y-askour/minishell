@@ -35,7 +35,7 @@ $(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
 	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline/lib -lreadline
 
 %.o : %.c $(HEADER)
-	@$(CC) -I./readline/include -I./include $(FLAGS) -o $@ -c $<
+	@$(CC) -I ./readline/include -I./include $(FLAGS) -o $@ -c $<
 	@echo "$(GREEN)" "compiling $<"
 
 $(LIBFT_LIB):
