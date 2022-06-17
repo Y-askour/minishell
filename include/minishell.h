@@ -102,7 +102,15 @@ int    check_syntax(t_token_list   *list);
 void	error_handler(char *message);
 t_token_list   *lexical_analyser(char *line);
 t_cmd_list  *parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
-
+ /** cmd functions and otils**/
+ t_cmd_list	*init_cmd_list(t_cmd_list *list);
+t_red_list	*init_red_list(t_red_list *list);
+t_red_elem  *new_red(int type, char *filename);
+t_cmd_elem  *new_cmd(char **args, t_red_list *red);
+void    red_back(t_red_list *list, char *file, int type);
+void    cmd_back(t_cmd_list *list, char **args, t_red_list *red);
+t_token_elem  *one_cmd(t_cmd_list *list, t_token_elem *tmp, t_token_list *list);
+t_cmd_list  *parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /**** token_list functions ***/
 void	print_list(t_token_list *list);
 void	add_back(t_token_list *list, char *val, int type);
