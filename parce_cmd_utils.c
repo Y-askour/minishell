@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cmc.c                                        :+:      :+:    :+:   */
+/*   parce_cmd_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/14 18:56:58 by aboudoun         ###   ########.fr       */
+/*   Created: 2022/06/16 21:38:21 by aboudoun          #+#    #+#             */
+/*   Updated: 2022/06/17 17:33:03 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,4 @@ void    cmd_back(t_cmd_list *list, char **args, t_red_list *red)
         new->prev = list->taile;
     }
     list->taile = new;
-}
-
-t_cmd_list  *parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line)
-{
-    /*blati arsbah okan nzr manik rayg ikhanad*/
 }

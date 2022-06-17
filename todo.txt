@@ -1,0 +1,5 @@
+| >file : not error
+;; : error 
+; : not erro jsut a charachter
+| $: not error
+$0123 : shoudl print 123

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/16 18:27:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/06/17 20:01:29 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,14 @@ int	main(int ac, char **av, char **env)
 		tokens = lexical_analyser(line);
 		//print_list(tokens);
 		//printf("\n-------after------\n\n");
+		// if (!check_syntax(tokens))
+		// 	run_command(line,shell_env,env);
 		if (!check_syntax(tokens))
-			run_command(line,shell_env,env);
-		//expand(tokens, env);
+		{	
+			expand(tokens, env);
+			print_list(tokens);
+		}
 		//cmd_line = parse_cmd(tokens, cmd_line);
-		//print_list(tokens);
 		//if (!ft_strncmp(line, "exit", 4))
 		//{
 		//	printf("%s", "exit");
