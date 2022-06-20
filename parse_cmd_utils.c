@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parce_cmd_utils.c                                  :+:      :+:    :+:   */
+/*   parse_cmd_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 21:38:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/17 17:33:03 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:05:26 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_red_elem  *new_red(int type, char *filename)
     new->type = type;
     new->next = NULL;
     new->prev = NULL;
+    return (new);
 }
 t_cmd_elem  *new_cmd(char **args, t_red_list *red)
 {
@@ -51,6 +52,7 @@ t_cmd_elem  *new_cmd(char **args, t_red_list *red)
     new->prev = NULL;
     new->args = args;
     new->redir = red;
+    return (new);
 }
 
 void    red_back(t_red_list *list, char *file, int type)

@@ -25,7 +25,9 @@ FILES = minishell.c\
 		./syntax_/expand.c\
 		./error_handler/error_handler.c\
 		./executor/get_paths.c\
-	#	parse_cmd.c\
+		parse_cmd.c\
+		parse_cmd_utils.c\
+		print_cmd.c\
 	
 OBJ = $(FILES:%.c=%.o)
 
