@@ -66,6 +66,7 @@ void  parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
         i++;
         node = node->next;
     }
+    args[i] = NULL;
     cmd_node->args = args;
     if (node && node->type == PIPE)
         parse_args(cmd_node->next, node->next);

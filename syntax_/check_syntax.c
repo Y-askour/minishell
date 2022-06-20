@@ -47,7 +47,7 @@ int    check_red(t_token_elem *node, t_token_list *list)
 {
     if (node->type == REDIN || node->type == REDOUT || node->type == APPEND || node->type == HEREDOC)
         {
-            if (node->next->type == WHSPACE)
+            if (node->next && node->next->type == WHSPACE)
                 del_node(node->next, list);
             if (!node->next || node->next->type != WORD)
             {

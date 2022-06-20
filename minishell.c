@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 17:31:24 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:48:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,13 +160,13 @@ int	main(int ac, char **av, char **env)
 		// if (!check_syntax(tokens))
 		// 	run_command(line,shell_env,env);
 		if (!check_syntax(tokens))
-		{	
+		{
 			expand(tokens, env);
+			cmd_line = parse_cmd(tokens, cmd_line);
+			print_cmdline(cmd_line);
 			//print_list(tokens);
 		}
-		cmd_line = parse_cmd(tokens, cmd_line);
 		//print_list(tokens);
-		print_cmdline(cmd_line);
 		//if (!ft_strncmp(line, "exit", 4))
 		//{
 		//	printf("%s", "exit");
@@ -174,3 +174,4 @@ int	main(int ac, char **av, char **env)
 		//}
 	}
 }
+//ls | grep > file > file2 >> fiel3
