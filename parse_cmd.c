@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 15:09:47 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:14:17 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,19 @@ void del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
     red = init_red_list(red);
     while (tmp)
     {
+        //printf("type:%d, value:%s\n", tmp->type, tmp->value);
         if (tmp->type == PIPE)
             break ;
         if (tmp->type == REDIN || tmp->type == REDOUT 
             || tmp->type == APPEND || tmp->type == HEREDOC)
         {
-            red_back(red, tmp->next->value, tmp->type);
+            red_back(red, ft_strndup(tmp->next->value, (int)ft_strlen(tmp->next->value) + 1), tmp->type);
             del_node(tmp, list);
             del_node(tmp->next, list);
-            // tmp = tmp->next;    
+           // tmp = tmp->next;    
         }
-        tmp = tmp->next;
+        if (tmp)
+            tmp = tmp->next;
     }
     cmd_back(cmd_line, NULL, red);
     if (tmp && tmp->type == PIPE)
