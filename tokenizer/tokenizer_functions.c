@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/15 12:24:29 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:26:39 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char *is_redpip(t_token_list *tokens, char *line)
             add_back(tokens, "<<", HEREDOC);
             return (line + 2);
         }
-        add_back(tokens, "<", REDOUT);
+        add_back(tokens, "<", REDIN);
         return (line + 1);
     }
     else

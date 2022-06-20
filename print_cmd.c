@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:19:59 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 16:35:41 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:30:08 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void    print_cmdline(t_cmd_list *cmdline)
         print_red(cmd->redir);
         printf("\n");
         print_args(cmd->args);
+        printf("\n============================================\n");
         cmd = cmd->next;
     }
     printf("\n");
