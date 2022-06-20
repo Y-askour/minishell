@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 14:43:41 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 15:09:47 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
         }
         tmp = tmp->next;
     }
+    cmd_back(cmd_line, NULL, red);
     if (tmp && tmp->type == PIPE)
-    {
-        cmd_back(cmd_line, NULL, red);
         del_red(cmd_line, tmp->next, list);
-    }
 }
 
 void  parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
@@ -69,11 +67,9 @@ void  parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
         i++;
         node = node->next;
     }
+    cmd_node->args = args;
     if (node && node->type == PIPE)
-    {
-        cmd_node->args = args;
         parse_args(cmd_node->next, node->next);
-    }
 }
 
 

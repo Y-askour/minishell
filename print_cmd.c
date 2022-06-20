@@ -5,7 +5,7 @@ void    print_args(char **args)
     int i;
     
     i = 0;
-    printf("  agrs are:");
+    printf("agrs are:");
     while (args[i])
     {
         printf("%s", args[i]);
@@ -17,7 +17,7 @@ void    print_red(t_red_list *redir)
 {
     t_red_elem *red;
     red  = redir->head;
-
+    printf("reds:");
     while (red)
     {
         printf("  redir value:%d", red->type);
@@ -32,9 +32,11 @@ void    print_cmdline(t_cmd_list *cmdline)
     cmd = cmdline->head;
     while (cmd)
     {
-        printf("============================================\n");
+        printf("\n============================================\n");
         print_red(cmd->redir);
+        printf("\n");
         print_args(cmd->args);
         cmd = cmd->next;
     }
+    printf("\n");
 }
