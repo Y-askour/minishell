@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:19:59 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 16:25:42 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:35:41 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void    print_red(t_red_list *redir)
     {
         printf("  redir value:%d", red->type);
         printf("  filename:%s", red->file);
+        if (!red->next)
+            break;
         red = red->next;
     }
 }

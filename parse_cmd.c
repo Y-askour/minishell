@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 16:26:23 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:36:44 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
             del_node(tmp->next, list);
             del_node(tmp, list);
         }
-        if (tmp)
-            tmp = tmp->next;
+        tmp = tmp->next;
     }
     cmd_back(cmd_line, NULL, red);
     if (tmp && tmp->type == PIPE)
