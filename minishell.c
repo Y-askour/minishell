@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 17:48:10 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:01:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,13 @@ int	main(int ac, char **av, char **env)
 {
 	char    *line;
 	t_token_list	*tokens;
-	//t_env *shell_env;
+	t_env *shell_env;
 	t_cmd_list		*cmd_line = NULL;
 
 	(void) av;
 	if (ac != 1 || !*env)
 		return (1);
-	//shell_env = get_env(env);
+	shell_env = get_env(env);
 	// while(shell_env)
 	// {
 	// 	printf("%s = %s\n",shell_env->name,shell_env->value);
@@ -158,14 +158,15 @@ int	main(int ac, char **av, char **env)
 		//print_list(tokens);
 		//printf("\n-------after------\n\n");
 		// if (!check_syntax(tokens))
-		// 	run_command(line,shell_env,env);
 		if (!check_syntax(tokens))
 		{
 			expand(tokens, env);
 			cmd_line = parse_cmd(tokens, cmd_line);
+		 	//run_command(line,shell_env,env);
 			print_cmdline(cmd_line);
 			//print_list(tokens);
 		}
+		//printf("\n");
 		//print_list(tokens);
 		//if (!ft_strncmp(line, "exit", 4))
 		//{
@@ -174,4 +175,3 @@ int	main(int ac, char **av, char **env)
 		//}
 	}
 }
-//ls | grep > file > file2 >> fiel3

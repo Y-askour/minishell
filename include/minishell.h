@@ -34,6 +34,7 @@
 # define DOLLAR -10
 # define TILDE -11 // ~
 # define ERROR -12
+# define AFDOLLAR -13
 
 
 typedef struct s_line

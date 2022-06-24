@@ -17,6 +17,5 @@ t_token_list   *lexical_analyser(char *line)
     tokens = NULL;
     tokens = init_token_list(tokens);
     tokenizer(tokens, line);
-    //print_list(tokens);
     return (tokens);
 }

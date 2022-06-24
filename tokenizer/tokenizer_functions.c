@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 17:26:39 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/24 16:06:31 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char *after_dollar(t_token_list *tokens, char *line)
     while((ft_isalnum(line[len]) || strchr("_", line[len])) && len < (int)ft_strlen(line))
         len++;
     if (len)
-        add_back(tokens, ft_strndup(line, len + 1), WORD);
+        add_back(tokens, ft_strndup(line, len + 1), AFDOLLAR);
     return(line + len);
 }
 
