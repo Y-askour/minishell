@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/24 16:01:12 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/25 00:05:31 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,18 +133,73 @@ void run_command(char *line,t_env *env,char **enver)
 }
 
 
+void	free_tokens(t_token_list *tokens)
+{
+	t_token_elem *tmp;
 
+	tmp = tokens->head;
+	while(tmp)
+	{
+		if (tmp->type == WORD)
+			free(tmp->value);
+		free(tmp);
+		tmp = tmp->next;
+	}
+	free(tokens);
+}
+
+void free_args(char **args)
+{
+	int i;
+	
+	i = 0;
+	while(args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args[i]);
+	free(args);
+}
+void	free_red(t_red_list *redir)
+{
+	t_red_elem *red;
+
+	red = redir->head;
+	while (red)
+	{
+		free(red->file);
+		free(red);
+		red = red->next;
+	}
+	free(redir);
+}
+
+void	free_cmd(t_cmd_list *cmdline)
+{
+	t_cmd_elem *cmd;
+
+	cmd = cmdline->head;
+	while(cmd)
+	{
+		free_args(cmd->args);
+		free_red(cmd->redir);
+		free(cmd);
+		cmd = cmd->next;
+	}
+	free(cmdline);
+}
 int	main(int ac, char **av, char **env)
 {
 	char    *line;
 	t_token_list	*tokens;
-	t_env *shell_env;
+	//t_env *shell_env;
 	t_cmd_list		*cmd_line = NULL;
 
 	(void) av;
 	if (ac != 1 || !*env)
 		return (1);
-	shell_env = get_env(env);
+	//shell_env = get_env(env);
 	// while(shell_env)
 	// {
 	// 	printf("%s = %s\n",shell_env->name,shell_env->value);
@@ -166,6 +221,9 @@ int	main(int ac, char **av, char **env)
 			print_cmdline(cmd_line);
 			//print_list(tokens);
 		}
+		free_tokens(tokens);
+		free_cmd(cmd_line);
+		sleep(300);
 		//printf("\n");
 		//print_list(tokens);
 		//if (!ft_strncmp(line, "exit", 4))

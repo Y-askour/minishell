@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/24 20:25:06 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/24 23:31:05 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void	expand(t_token_list *list, char **var)
 		/* I aded &&temp-> because it segf in case of temp->next == NULL*/
 		//else if (temp->type == DOLLAR && temp->next)
 	}
+    //free_env(env);
 }

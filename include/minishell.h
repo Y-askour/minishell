@@ -36,13 +36,6 @@
 # define ERROR -12
 # define AFDOLLAR -13
 
-
-typedef struct s_line
-{
-	struct s_line *head;
-	struct s_line *taile;
-}       t_line;
-
 typedef struct s_cmd_elem
 {
 	char **args;
@@ -87,13 +80,12 @@ typedef struct s_red_list
 }       t_red_list;
 
 
-typedef struct env t_env;
-struct env
+typedef struct s_env
 {
 	char *name;
 	char *value;
 	t_env *next;
-};
+}		t_env;
 
 
 /** main functions **/
