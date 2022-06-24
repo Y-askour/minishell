@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/24 16:21:34 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/24 20:25:06 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char *env_var(char *var, t_env *env)
     tmp = env;
     while (tmp)
     {
+        if (ft_isdigit(var[0]))
+            return(var + 1);
         if (!ft_strncmp(var, tmp->name, ft_strlen(var) + 1))
             return (tmp->value);
         tmp = tmp->next;
@@ -37,7 +39,6 @@ void	expand(t_token_list *list, char **var)
 	{
 		if (temp->type == DOLLAR && temp->next)
 		{
-			
 			if (temp->next->type == AFDOLLAR)
 			{
                 temp->next->value = env_var(temp->next->value, env);
