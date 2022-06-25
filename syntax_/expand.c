@@ -12,6 +12,17 @@
 
 #include"minishell.h"
 
+void    free_env(t_env *env)
+{
+    while(env)
+    {
+        free(env->name);
+        free(env->value);
+        free(env);
+        env = env->next;
+    }
+}
+
 char *env_var(char *var, t_env *env)
 {
     t_env *tmp;
@@ -32,8 +43,10 @@ void	expand(t_token_list *list, char **var)
 {
 	t_token_elem	*temp;
     t_env *env;
+    t_env   *tmp;
     
-    env = get_env(var);
+    tmp = get_env(var);
+    env = tmp;
 	temp = list->head;
 	while(temp)
 	{
@@ -56,5 +69,5 @@ void	expand(t_token_list *list, char **var)
 		/* I aded &&temp-> because it segf in case of temp->next == NULL*/
 		//else if (temp->type == DOLLAR && temp->next)
 	}
-    //free_env(env);
+    free_env(tmp);
 }
