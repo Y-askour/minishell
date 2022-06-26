@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/25 00:05:31 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/26 11:22:00 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,11 +221,11 @@ int	main(int ac, char **av, char **env)
 			print_cmdline(cmd_line);
 			//print_list(tokens);
 		}
+		printf("\n");
+		print_list(tokens);
 		free_tokens(tokens);
 		free_cmd(cmd_line);
 		sleep(300);
-		//printf("\n");
-		//print_list(tokens);
 		//if (!ft_strncmp(line, "exit", 4))
 		//{
 		//	printf("%s", "exit");

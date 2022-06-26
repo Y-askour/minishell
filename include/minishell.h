@@ -84,7 +84,7 @@ typedef struct s_env
 {
 	char *name;
 	char *value;
-	t_env *next;
+	struct s_env *next;
 }		t_env;
 
 
