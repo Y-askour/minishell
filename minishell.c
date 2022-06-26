@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/26 11:22:00 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:47:39 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	free_tokens(t_token_list *tokens)
 	tmp = tokens->head;
 	while(tmp)
 	{
-		if (tmp->type == WORD)
+		if (tmp->type == WORD || tmp->type == ERROR || tmp->type == AFDOLLAR)
 			free(tmp->value);
 		free(tmp);
 		tmp = tmp->next;
@@ -219,13 +219,13 @@ int	main(int ac, char **av, char **env)
 			cmd_line = parse_cmd(tokens, cmd_line);
 		 	//run_command(line,shell_env,env);
 			print_cmdline(cmd_line);
+			free_cmd(cmd_line);
 			//print_list(tokens);
 		}
 		printf("\n");
-		print_list(tokens);
+		//print_list(tokens);
 		free_tokens(tokens);
-		free_cmd(cmd_line);
-		sleep(300);
+		free(line);
 		//if (!ft_strncmp(line, "exit", 4))
 		//{
 		//	printf("%s", "exit");

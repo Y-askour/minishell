@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/26 11:19:32 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:45:36 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char *env_var(char *var, t_env *env)
             return (ft_strndup((tmp->value), (int)ft_strlen(tmp->value) + 1));
         tmp = tmp->next;
     }
-    return (" ");
+    return (ft_strndup(" ",1));
 }
 
 void	expand(t_token_list *list, char **var)
