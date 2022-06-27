@@ -14,10 +14,10 @@
 
 void	free_tokens(t_token_list *tokens)
 {
-	t_token_elem *tmp;
+	t_token_elem	*tmp;
 
 	tmp = tokens->head;
-	while(tmp)
+	while (tmp)
 	{
 		if (tmp->type == WORD)
 			free(tmp->value);

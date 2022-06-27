@@ -12,12 +12,12 @@
 
 #include"minishell.h"
 
-void free_args(char **args)
+void	free_args(char **args)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	while(args[i])
+	while (args[i])
 	{
 		free(args[i]);
 		i++;
@@ -25,9 +25,10 @@ void free_args(char **args)
 	free(args[i]);
 	free(args);
 }
+
 void	free_red(t_red_list *redir)
 {
-	t_red_elem *red;
+	t_red_elem	*red;
 
 	red = redir->head;
 	while (red)
@@ -41,10 +42,10 @@ void	free_red(t_red_list *redir)
 
 void	free_cmd(t_cmd_list *cmdline)
 {
-	t_cmd_elem *cmd;
+	t_cmd_elem	*cmd;
 
 	cmd = cmdline->head;
-	while(cmd)
+	while (cmd)
 	{
 		free_args(cmd->args);
 		free_red(cmd->redir);
