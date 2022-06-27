@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   free_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/04 13:37:04 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 15:07:50 by aboudoun         ###   ########.fr       */
+/*   Created: 2022/06/27 15:48:01 by aboudoun          #+#    #+#             */
+/*   Updated: 2022/06/27 15:48:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	signal_handler(int signal)
+void	free_tokens(t_token_list *tokens)
 {
-	(void) signal;
-	write(1, "\n", 1);
-	rl_replace_line(" ", 1);
-	rl_on_new_line();//Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
-	rl_redisplay();//Change what's displayed on the screen to reflect the current contents of rl_line_buffer
+	t_token_elem *tmp;
+
+	tmp = tokens->head;
+	while(tmp)
+	{
+		if (tmp->type == WORD)
+			free(tmp->value);
+		free(tmp);
+		tmp = tmp->next;
+	}
+	free(tokens);
 }

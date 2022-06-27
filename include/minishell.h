@@ -89,7 +89,6 @@ typedef struct s_env
 
 
 /** main functions **/
-void	signal_handler(int signal);
 char	*display_prompt();
 int    check_syntax(t_token_list   *list);
 void	error_handler(char *message);
@@ -120,7 +119,9 @@ char	*is_redpip(t_token_list *tokens, char *line);
 char	*is_sign(t_token_list *tokens, char *line);
 char	*is_squout(t_token_list *tokens, char *line);
 char	*is_dquout(t_token_list *tokens, char *line);
-
+/**free functions**/
+void	free_cmd(t_cmd_list *cmdline);
+void	free_tokens(t_token_list *tokens);
 
 // execution functions 
 
