@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/30 19:36:55 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:52:48 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ int	check_pipe(t_token_elem *node)
 		}
 		if (node->next->type == WHSPACE)
 		{
-			if (!node->next->next || node->next->next->type != WORD || node->next->next->type != AFDOLLAR)
-			{
+			if (!node->next->next || node->next->next->type != AFDOLLAR || node->next->next->type != WORD)
+			{ 
+				printf("error\n");
+				/*
 				error_handler("minishell: syntax error \
-					near unexpected token `|'");
+					near unexpected token `|'");*/
 				return (1);
 			}
 		}
