@@ -6,11 +6,13 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/27 16:02:54 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:35:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+int exit_status = 0;
 
 int check_command_type(char *line)
 {
@@ -162,12 +164,14 @@ int	main(int ac, char **av, char **env)
 			cmd_line = parse_cmd(tokens, cmd_line);
 		 	//run_command(line,shell_env,env);
 			print_cmdline(cmd_line);
+			free_cmd(cmd_line);
 			//print_list(tokens);
 		}
 		printf("\n");
-		print_list(tokens);
+		//print_list(tokens);
 		free_tokens(tokens);
-		free_cmd(cmd_line);
+		free(line);
+
 		//if (!ft_strncmp(line, "exit", 4))
 		//{
 		//	printf("%s", "exit");
