@@ -32,6 +32,7 @@ FILES = minishell.c\
 	
 OBJ = $(FILES:%.c=%.o)
 
+
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
