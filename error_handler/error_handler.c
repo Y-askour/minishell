@@ -12,9 +12,9 @@
 
 #include"minishell.h"
 
-void error_handler(char *message)
+void	error_handler(char *message)
 {
-    ft_putstr_fd(message, 2);
-    write(1, "\n", 1);
-    //display_prompt();
+	ft_putstr_fd(message, 2);
+	write(1, "\n", 1);
+	//display_prompt();
 }

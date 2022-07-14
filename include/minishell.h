@@ -6,12 +6,12 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/16 18:25:34 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:15:27 by yaskour          ###   ########.fr       */
 
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+# include <fcntl.h>
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <signal.h>
@@ -34,13 +34,7 @@
 # define DOLLAR -10
 # define TILDE -11 // ~
 # define ERROR -12
-
-
-typedef struct s_line
-{
-	struct s_line *head;
-	struct s_line *taile;
-}       t_line;
+# define AFDOLLAR -13
 
 typedef struct s_cmd_elem
 {
@@ -69,8 +63,8 @@ typedef struct s_token_elem
 
 typedef struct s_cmd_list
 {
-	struct s_cmd_elem *head;
-	struct s_cmd_elem *taile;
+	t_cmd_elem *head;
+	t_cmd_elem *taile;
 }       t_cmd_list;
 
 typedef struct s_token_list
@@ -86,23 +80,30 @@ typedef struct s_red_list
 }       t_red_list;
 
 
-typedef struct env t_env;
-struct env
+typedef struct s_env
 {
 	char *name;
 	char *value;
-	t_env *next;
-};
+	struct s_env *next;
+}		t_env;
 
 
 /** main functions **/
-void	signal_handler(int signal);
 char	*display_prompt();
 int    check_syntax(t_token_list   *list);
 void	error_handler(char *message);
 t_token_list   *lexical_analyser(char *line);
 t_cmd_list  *parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
-
+ /** cmd functions and otils**/
+ t_cmd_list	*init_cmd_list(t_cmd_list *list);
+t_red_list	*init_red_list(t_red_list *list);
+t_red_elem  *new_red(int type, char *filename);
+t_cmd_elem  *new_cmd(char **args, t_red_list *red);
+void    red_back(t_red_list *list, char *file, int type);
+void    cmd_back(t_cmd_list *list, char **args, t_red_list *red);
+t_token_elem  *one_cmd(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list);
+t_cmd_list  *parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
+void    print_cmdline(t_cmd_list *cmdline);
 /**** token_list functions ***/
 void	print_list(t_token_list *list);
 void	add_back(t_token_list *list, char *val, int type);
@@ -118,7 +119,9 @@ char	*is_redpip(t_token_list *tokens, char *line);
 char	*is_sign(t_token_list *tokens, char *line);
 char	*is_squout(t_token_list *tokens, char *line);
 char	*is_dquout(t_token_list *tokens, char *line);
-
+/**free functions**/
+void	free_cmd(t_cmd_list *cmdline);
+void	free_tokens(t_token_list *tokens);
 
 // execution functions 
 

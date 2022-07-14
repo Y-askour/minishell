@@ -13,21 +13,25 @@ LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 FILES = minishell.c\
-		signal_handler.c\
 		prompt.c\
 		./tokenizer/lexer.c\
 		./tokenizer/tokens_list_utils.c\
 		./tokenizer/tokenizer.c\
 		./tokenizer/tokenizer_functions.c\
 		./tokenizer/tokenizer_functions2.c\
-		./tokenizer/print_tokens.c\
+		./print/print_tokens.c\
 		./syntax_/check_syntax.c\
 		./syntax_/expand.c\
 		./error_handler/error_handler.c\
 		./executor/get_paths.c\
-	#	parse_cmd.c\
+		./parser/parse_cmd.c\
+		./parser/parse_cmd_utils.c\
+		./print/print_cmd.c\
+		./free/free_cmd.c\
+		./free/free_tokens.c\
 	
 OBJ = $(FILES:%.c=%.o)
+
 
 all : $(NAME)
 
