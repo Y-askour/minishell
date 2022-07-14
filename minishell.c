@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/14 16:21:55 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/14 17:45:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,30 @@ char **get_paths(char **env)
 
 int executer(int in, int out ,char **arg, char **paths,char **env)
 {
+	(void)arg;
 	(void) in; 
 	(void) out;
 	(void) paths;
 	pid_t pid;
 	int i = 0;
 	char *cmd;
+	char ***commands;
+	commands = malloc(sizeof(char **) * 2);
+	int j = 0;
+	while (j < 3)
+	{
+		commands[j] = malloc(sizeof(char *) * 3);
+		j++;
+	}
+	commands[0][0] = "ls";
+	commands[0][1] = NULL;
+	commands[0][2] = NULL;
+	
+	commands[1][0] = "grep";
+	commands[1][1] = "Makefile";
+	commands[1][2] = NULL;
 
+	static int d =0;
 	if (( pid = fork() ) == 0)
 	{
 		if (in != 0)
@@ -84,16 +101,18 @@ int executer(int in, int out ,char **arg, char **paths,char **env)
 
 		while(paths[i])
 		{
-			cmd = ft_strjoin(paths[i],arg[0]);
+			cmd = ft_strjoin(paths[i],commands[d][0]);
 			if (!access(cmd,F_OK))
 			{
-				execve(cmd,arg,env);
+				execve(cmd,commands[d],env);
 			}
 			free(cmd);
 			i++;
 		}
 		exit(1);
 	}
+	d++;
+	//waitpid(pid,(int *)NULL,(int)NULL);
 
 
 
@@ -117,7 +136,6 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 
 	in = 0;
 	i = 0;
-	(void) paths;
 	while(i < n -1)
 	{
 		// all this run in parent process
@@ -130,6 +148,10 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 		in = fd[0];
 		i++;
 	}
+	char **commands = malloc(sizeof(char *) * 3);
+	commands[0] = "wc";
+	commands[1] = "-l";
+	commands[1] = NULL;
 	// i need to execute the last command
 	if ( (pid = fork()) == 0)
 	{
@@ -137,10 +159,12 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 			dup2(in,0);
 		while(paths[i])
 		{
-			cmd = ft_strjoin(paths[i],head->args[0]);
+			//you need to check invalid commands
+			cmd = ft_strjoin(paths[i],commands[0]);
 			if (!access(cmd,F_OK))
 			{
-				execve(cmd,head->args,env);
+				//printf("%s\n",cmd);
+				execve(cmd,commands,env);
 			}
 			free(cmd);
 			i++;
