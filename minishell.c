@@ -6,12 +6,13 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/14 17:45:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:48:29 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
+FILE *fPtr;
 int exit_status = 0;
 
 char **get_paths(char **env)
@@ -111,7 +112,13 @@ int executer(int in, int out ,char **arg, char **paths,char **env)
 		}
 		exit(1);
 	}
+	fPtr = fopen("test", "a");
+	fputs(ft_strjoin(ft_itoa(d),"\n"), fPtr);
+	fPtr = freopen("test", "r", fPtr);
+	fclose(fPtr);
 	d++;
+	if (d == 2)
+		d = 0;
 	//waitpid(pid,(int *)NULL,(int)NULL);
 
 
@@ -151,7 +158,7 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 	char **commands = malloc(sizeof(char *) * 3);
 	commands[0] = "wc";
 	commands[1] = "-l";
-	commands[1] = NULL;
+	commands[2] = NULL;
 	// i need to execute the last command
 	if ( (pid = fork()) == 0)
 	{
@@ -207,6 +214,7 @@ int	main(int ac, char **av, char **env)
 	char    *line;
 	t_token_list	*tokens;
 	t_cmd_list		*cmd_line = NULL;
+
 
 	(void) av;
 	if (ac != 1 || !*env)

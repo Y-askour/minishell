@@ -6,12 +6,12 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/14 16:06:13 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:15:27 by yaskour          ###   ########.fr       */
 
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+# include <fcntl.h>
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <signal.h>
