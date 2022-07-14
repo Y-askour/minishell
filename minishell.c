@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/14 15:48:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/14 16:21:55 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,48 +60,94 @@ char **get_paths(char **env)
 	return (ret);
 }
 
-int executer(int in, int out ,char **arg, char **env)
+int executer(int in, int out ,char **arg, char **paths,char **env)
 {
 	(void) in; 
 	(void) out;
-	(void) env;
+	(void) paths;
+	pid_t pid;
+	int i = 0;
+	char *cmd;
 
-
-
-	int j = 0;
-	while(arg[j])
+	if (( pid = fork() ) == 0)
 	{
-		printf("%s\n",arg[j++]);
+		if (in != 0)
+		{
+			dup2(in,0);
+			close(in);
+		}
+		if ( out != 1 )
+		{
+			dup2(out,1);
+			close(out);
+		}
+
+		while(paths[i])
+		{
+			cmd = ft_strjoin(paths[i],arg[0]);
+			if (!access(cmd,F_OK))
+			{
+				execve(cmd,arg,env);
+			}
+			free(cmd);
+			i++;
+		}
+		exit(1);
 	}
-	printf("-------\n");
-	return (0);
+
+
+
+	//int j = 0;
+	//while(arg[j])
+	//{
+	//	printf("%s\n",arg[j++]);
+	//}
+	//printf("-------\n");
+	return (pid);
 }
 
-int pipes(int n,t_cmd_elem *head,char **paths)
+int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 {
 
-	//int in;
+	int in;
 	int i;
-	//int fd[2];
+	int fd[2];
+	pid_t pid;
+	char *cmd;
 
-	//in = 0;
+	in = 0;
 	i = 0;
-	int j;
 	(void) paths;
 	while(i < n -1)
 	{
-		j = 0;
-		//pipe(fd);
+		// all this run in parent process
+		pipe(fd);
 		// run command
-		executer(0,0,head->args,paths);
+		// this line run in child process
+		executer(in,fd[1],head->args,paths,env);
 		head = head->next;
-		//close(fd[1]);
-		//in = fd[0];
+		close(fd[1]);
+		in = fd[0];
 		i++;
 	}
-	//if (in != 0)
-	//	dup2(in,0);
 	// i need to execute the last command
+	if ( (pid = fork()) == 0)
+	{
+		if (in != 0)
+			dup2(in,0);
+		while(paths[i])
+		{
+			cmd = ft_strjoin(paths[i],head->args[0]);
+			if (!access(cmd,F_OK))
+			{
+				execve(cmd,head->args,env);
+			}
+			free(cmd);
+			i++;
+		}
+		exit(1);
+	}
+	waitpid(pid,(int *)NULL,(int)NULL);
 	return (0);
 }
 
@@ -111,7 +157,7 @@ int pipeline(int n,t_cmd_elem *head,char **env)
 
 
 	paths = get_paths(env); 
-	pipes(n,head,paths);
+	pipes(n,head,paths,env);
 	return (0);
 }
 
