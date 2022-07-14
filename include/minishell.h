@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/16 18:25:34 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/13 17:56:20 by yaskour          ###   ########.fr       */
 
 
 #ifndef MINISHELL_H
@@ -63,8 +63,8 @@ typedef struct s_token_elem
 
 typedef struct s_cmd_list
 {
-	struct s_cmd_elem *head;
-	struct s_cmd_elem *taile;
+	t_cmd_elem *head;
+	t_cmd_elem *taile;
 }       t_cmd_list;
 
 typedef struct s_token_list
