@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
+/*   Updated: 2022/07/15 18:24:05 by yaskour          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 
@@ -30,6 +42,7 @@ int executer(int in, int out ,char ***commands, char **paths,char **env,int n)
 			free(cmd);
 			i++;
 		}
+		write(2,"command not found\n",18);
 		exit(1);
 	}
 	d++;
@@ -117,6 +130,7 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 			free(cmd);
 			i++;
 		}
+		write(2,"command not found\n",18);
 		exit(1);
 	}
 	waitpid(pid,(int *)NULL,(int)NULL);
@@ -154,6 +168,8 @@ int run_command(t_cmd_list *cmdline,char **env)
 		i++;
 		ptr = ptr->next;
 	}
+	if (i == 1)
+		simple_cmd(cmdline->head,env);
 	if (i > 1)
 		pipeline(i,cmdline->head,env);
 	return (0);
