@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/14 18:15:27 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/15 17:31:04 by yaskour          ###   ########.fr       */
 
 
 #ifndef MINISHELL_H
@@ -126,6 +126,10 @@ void	free_tokens(t_token_list *tokens);
 // execution functions 
 
 
+char **get_paths(char **env);
 t_env *get_env(char **env);
+
+
+int run_command(t_cmd_list *cmdline,char **env);
 
 #endif
