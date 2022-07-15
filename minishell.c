@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/14 19:01:44 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/15 13:57:13 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,31 +61,11 @@ char **get_paths(char **env)
 	return (ret);
 }
 
-int executer(int in, int out ,char **arg, char **paths,char **env)
+int executer(int in, int out ,char ***commands, char **paths,char **env)
 {
-	(void)arg;
-	(void) in; 
-	(void) out;
-	(void) paths;
 	pid_t pid;
 	int i = 0;
 	char *cmd;
-	char ***commands;
-	commands = malloc(sizeof(char **) * 2);
-	int j = 0;
-	while (j < 3)
-	{
-		commands[j] = malloc(sizeof(char *) * 3);
-		j++;
-	}
-	commands[0][0] = "ls";
-	commands[0][1] = NULL;
-	commands[0][2] = NULL;
-	
-	commands[1][0] = "grep";
-	commands[1][1] = "Makefile";
-	commands[1][2] = NULL;
-
 	static int d =0;
 	if (( pid = fork() ) == 0)
 	{
@@ -112,17 +92,10 @@ int executer(int in, int out ,char **arg, char **paths,char **env)
 		}
 		exit(1);
 	}
-	fPtr = fopen("test", "a");
-	fputs(ft_strjoin(ft_itoa(d),"\n"), fPtr);
-	fPtr = freopen("test", "r", fPtr);
-	fclose(fPtr);
 	d++;
 	if (d == 2)
 		d = 0;
 	//waitpid(pid,(int *)NULL,(int)NULL);
-
-
-
 	//int j = 0;
 	//while(arg[j])
 	//{
@@ -130,6 +103,43 @@ int executer(int in, int out ,char **arg, char **paths,char **env)
 	//}
 	//printf("-------\n");
 	return (pid);
+}
+
+char	***delete_spaces(t_cmd_elem *head,int n)
+{
+	int i;
+	char ***commands;
+	int n_of_arg;
+	int s;
+	int j;
+
+	commands  =  malloc(sizeof(char **) * n + 1);
+	s = 0;
+	while(head)
+	{
+		n_of_arg = 0;
+		i = 0;
+		while(head->args[i])
+		{
+			if (ft_strncmp(head->args[i]," ",1))
+				n_of_arg++;
+			i++;
+		}
+		commands[s] = malloc(sizeof(char *) * n_of_arg + 1);
+		i = 0;
+		j = 0;
+		while(head->args[i])
+		{
+			if (ft_strncmp(head->args[i]," ",1))
+				commands[s][j++] = ft_strdup(head->args[i]);
+			i++;
+		}
+		commands[s][j] = NULL;
+		head = head->next;
+		s++;
+	}
+	commands[s] = NULL;
+	return (commands);
 }
 
 int pipes(int n,t_cmd_elem *head,char **paths,char **env)
@@ -143,22 +153,19 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 
 	in = 0;
 	i = 0;
+	char ***commands = delete_spaces(head,n);
 	while(i < n -1)
 	{
 		// all this run in parent process
 		pipe(fd);
 		// run command
 		// this line run in child process
-		executer(in,fd[1],head->args,paths,env);
+		executer(in,fd[1],commands,paths,env);
 		head = head->next;
 		close(fd[1]);
 		in = fd[0];
 		i++;
 	}
-	char **commands = malloc(sizeof(char *) * 3);
-	commands[0] = "wc";
-	commands[1] = "-l";
-	commands[2] = NULL;
 	// i need to execute the last command
 	if ( (pid = fork()) == 0)
 	{
@@ -167,11 +174,11 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 		while(paths[i])
 		{
 			//you need to check invalid commands
-			cmd = ft_strjoin(paths[i],commands[0]);
+			cmd = ft_strjoin(paths[i],commands[n - 1][0]);
 			if (!access(cmd,F_OK))
 			{
 				//printf("%s\n",cmd);
-				execve(cmd,commands,env);
+				execve(cmd,commands[n - 1],env);
 			}
 			free(cmd);
 			i++;
@@ -186,8 +193,17 @@ int pipeline(int n,t_cmd_elem *head,char **env)
 {
 	char **paths;
 
-
 	paths = get_paths(env); 
+	//int i;
+	//n = 0;
+	//while(head)
+	//{
+	//	i = 0;
+	//	while(head->args[i])
+	//		printf("%s\n",head->args[i++]);
+	//	head = head->next;
+	//	printf("-----------------\n");
+	//}
 	pipes(n,head,paths,env);
 	return (0);
 }
