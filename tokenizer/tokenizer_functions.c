@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/24 20:27:55 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/19 10:26:22 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ char	*is_redpip(t_token_list *tokens, char *line)
 		if (*(line + 1) == '<')
 		{
 			add_back(tokens, "<<", HEREDOC);
-			return (line + 2);
+			while (*(line + 2) == ' ')
+				line++;
+			line = is_word(tokens, line + 2, " \t\v\f\r");
+			return (line);
 		}
 		add_back(tokens, "<", REDIN);
 		return (line + 1);
 	}
-	else
-		add_back(tokens, "|", PIPE);
+	add_back(tokens, "|", PIPE);
 	return (line + 1);
 }
 
@@ -88,9 +90,16 @@ char	*is_sign(t_token_list *tokens, char *line)
 	else if (*line == '$')
 	{
 		line++;
+		if (*line == '?')
+		{
+			add_back(tokens, "$?", EXITS);
+			return (line);	
+		}
 		if (*line != '"' && *line != '\'')
+		{
 			add_back(tokens, "$", DOLLAR);
-		line = after_dollar(tokens, line);
+			line = after_dollar(tokens, line);	
+		}
 	}
 	return (line);
 }
