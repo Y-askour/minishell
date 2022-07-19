@@ -35,6 +35,7 @@
 # define TILDE -11 // ~
 # define ERROR -12
 # define AFDOLLAR -13
+# define EXITS -14
 
 typedef struct s_cmd_elem
 {

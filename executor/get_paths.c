@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/06/26 16:22:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/19 10:31:36 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void add_at_end(t_env *my_env,char *name,char *value)
 {
-	t_env *ptr;
 	t_env *tmp;
 	
-	ptr = my_env;
 	tmp = malloc(sizeof(t_env));
 	tmp->name = name;
 	tmp->value = value;
