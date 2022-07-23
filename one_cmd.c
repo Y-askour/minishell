@@ -53,6 +53,11 @@ void simple_cmd(t_cmd_elem *cmdline,char **env)
 	paths = get_paths(env);
 	if ((pid = fork() ) == 0)
 	{
+		if (command[0][0] == '/')
+		{
+			if (!access(command[0],F_OK))
+				execve(command[0],command,env);
+		}
 		while(paths[i])
 		{
 			cmd = ft_strjoin(paths[i],command[0]);
