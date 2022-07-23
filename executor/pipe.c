@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
+/*   Updated: 2022/07/15 18:24:05 by yaskour          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 
@@ -30,6 +42,7 @@ int executer(int in, int out ,char ***commands, char **paths,char **env,int n)
 			free(cmd);
 			i++;
 		}
+		write(2,"command not found\n",18);
 		exit(1);
 	}
 	d++;
@@ -97,7 +110,6 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 		head = head->next;
 		close(fd[1]);
 		in = fd[0];
-		waitpid(pid,(int *)NULL,(int)NULL);
 		i++;
 	}
 	// i need to execute the last command
@@ -107,7 +119,15 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 			dup2(in,0);
 		while(paths[i])
 		{
-			//you need to check invalid commands
+			if (commands[n - 1][0][0] == '/')
+			{
+				if (!access(commands[n -1][0],F_OK))
+					execve(commands[n -1][0],commands[n - 1],env);
+				else
+					write(2,"command not found\n",18);
+				exit(0);
+
+			}
 			cmd = ft_strjoin(paths[i],commands[n - 1][0]);
 			if (!access(cmd,F_OK))
 			{
@@ -117,9 +137,12 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 			free(cmd);
 			i++;
 		}
+		write(2,"command not found\n",18);
 		exit(1);
 	}
-	waitpid(pid,(int *)NULL,(int)NULL);
+	i = 0;
+	while ( i++ < n)
+		wait(NULL);
 	return (0);
 }
 
@@ -154,6 +177,8 @@ int run_command(t_cmd_list *cmdline,char **env)
 		i++;
 		ptr = ptr->next;
 	}
+	if (i == 1)
+		simple_cmd(cmdline->head,env);
 	if (i > 1)
 		pipeline(i,cmdline->head,env);
 	return (0);

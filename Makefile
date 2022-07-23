@@ -29,7 +29,8 @@ FILES = minishell.c\
 		./print/print_cmd.c\
 		./free/free_cmd.c\
 		./free/free_tokens.c\
-		./executor/pipe.c
+		./executor/pipe.c\
+		./one_cmd.c
 	
 OBJ = $(FILES:%.c=%.o)
 
