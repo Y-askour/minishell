@@ -81,9 +81,8 @@ int	main(int ac, char **av, char **env)
 			expand(tokens, env);
 			cmd_line = parse_cmd(tokens, cmd_line);
 			run_command(cmd_line,env);
-			print_cmdline(cmd_line);
+			//print_cmdline(cmd_line);
 		}
-		//print_list(tokens);
 		free_tokens(tokens);
 		free_cmd(cmd_line);
 		free(line);

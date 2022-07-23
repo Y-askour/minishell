@@ -42,15 +42,16 @@ void	free_red(t_red_list *redir)
 
 void	free_cmd(t_cmd_list *cmdline)
 {
-	t_cmd_elem	*cmd;
+	(void) cmdline;
+	//t_cmd_elem	*cmd;
 
-	cmd = cmdline->head;
-	while (cmd)
-	{
-		free_args(cmd->args);
-		free_red(cmd->redir);
-		free(cmd);
-		cmd = cmd->next;
-	}
-	free(cmdline);
+	//cmd = cmdline->head;
+	//while (cmd)
+	//{
+	//	free_args(cmd->args);
+	//	free_red(cmd->redir);
+	//	free(cmd);
+	//	cmd = cmd->next;
+	//}
+	//free(cmdline);
 }
