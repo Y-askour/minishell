@@ -42,7 +42,6 @@ int executer(int in, int out ,char ***commands, char **paths,char **env,int n)
 			free(cmd);
 			i++;
 		}
-		write(2,&cmd,ft_strlen(cmd));
 		write(2,"command not found\n",18);
 		exit(1);
 	}
@@ -139,7 +138,6 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 			//free(cmd);
 			i++;
 		}
-		printf("%s\n",cmd);
 		write(2,"command not found\n",18);
 		exit(1);
 	}
