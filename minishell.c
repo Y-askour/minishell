@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/19 10:34:27 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:01:58 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ int	main(int ac, char **av, char **env)
 			cmd_line = parse_cmd(tokens, cmd_line);
 			run_command(cmd_line,env);
 			print_cmdline(cmd_line);
+			free_cmd(cmd_line);
 		}
 		//print_list(tokens);
 		free_tokens(tokens);
-		free_cmd(cmd_line);
 		free(line);
 	}
 }
