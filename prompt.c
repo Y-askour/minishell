@@ -16,10 +16,10 @@ void	signal_handler(int signal)
 {
 	//printf("\n%d\n",signal);
 	(void) signal;
+	rl_replace_line(" ", 1);
 	write(1, "\n", 1);
-	//rl_replace_line(" ", 1);
-	//rl_on_new_line();//Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
-	//rl_redisplay();//Change what's displayed on the screen to reflect the current contents of rl_line_buffer
+	rl_on_new_line();//Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
+	rl_redisplay();//Change what's displayed on the screen to reflect the current contents of rl_line_buffer
 }
 
 char    *display_prompt()
