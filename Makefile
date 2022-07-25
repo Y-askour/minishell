@@ -30,7 +30,8 @@ FILES = minishell.c\
 		./free/free_cmd.c\
 		./free/free_tokens.c\
 		./executor/pipe.c\
-		./one_cmd.c
+		./one_cmd.c\
+		./builtins.c\
 	
 OBJ = $(FILES:%.c=%.o)
 

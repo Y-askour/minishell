@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/19 10:34:27 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:34:19 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int ac, char **av, char **env)
 	char    *line;
 	t_token_list	*tokens;
 	t_cmd_list		*cmd_line = NULL;
+	t_env *g_env = get_env(env);
 
 
 	(void) av;
@@ -80,7 +81,7 @@ int	main(int ac, char **av, char **env)
 		{
 			expand(tokens, env);
 			cmd_line = parse_cmd(tokens, cmd_line);
-			run_command(cmd_line,env);
+			run_command(cmd_line,env,g_env);
 			//print_cmdline(cmd_line);
 		}
 		free_tokens(tokens);

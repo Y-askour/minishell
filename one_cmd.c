@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/15 18:22:42 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/25 14:37:36 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 	return (command);
 }
 
-void simple_cmd(t_cmd_elem *cmdline,char **env)
+void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 {
 	(void) env;
 	char **command;
@@ -51,24 +51,35 @@ void simple_cmd(t_cmd_elem *cmdline,char **env)
 
 	command = simple_cmd_delete_spc(cmdline);
 	paths = get_paths(env);
-	if ((pid = fork() ) == 0)
+	if (!ft_strncmp(command[0],"cd",2))
 	{
-		if (command[0][0] == '/')
-		{
-			if (!access(command[0],F_OK))
-				execve(command[0],command,env);
-		}
-		while(paths[i])
-		{
-			cmd = ft_strjoin(paths[i],command[0]);
-			if (!access(cmd,F_OK))
-				execve(cmd,command,env);
-			free(cmd);
-			i++;
-		}
-		write(2,"command not found\n",18);
-		exit(1);
+		cd(command,g_env);
 	}
-	waitpid(pid,(int *)NULL,(int)NULL);
+	if (!ft_strncmp(command[0],"pwd",3))
+	{
+		pwd(command,g_env);
+	}
+	else
+	{
+		if ((pid = fork() ) == 0)
+		{
+			if (command[0][0] == '/')
+			{
+				if (!access(command[0],F_OK))
+					execve(command[0],command,env);
+			}
+			while(paths[i])
+			{
+				cmd = ft_strjoin(paths[i],command[0]);
+				if (!access(cmd,F_OK))
+					execve(cmd,command,env);
+				free(cmd);
+				i++;
+			}
+			write(2,"command not found\n",18);
+			exit(1);
+		}
+		waitpid(pid,(int *)NULL,(int)NULL);
+	}
 }
 
