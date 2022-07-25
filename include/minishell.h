@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:37:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/25 14:35:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/25 18:49:35 by yaskour          ###   ########.fr       */
 
 
 #ifndef MINISHELL_H
@@ -139,5 +139,7 @@ void	simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env);
  
 void cd(char **command,t_env *g_env);
 void pwd(char **command,t_env *g_env);
+void env_f(char **command,t_env *env);
+void exit_f();
 
 #endif

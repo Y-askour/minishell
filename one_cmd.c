@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/25 14:37:36 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/25 18:50:37 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,17 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 
 	command = simple_cmd_delete_spc(cmdline);
 	paths = get_paths(env);
+
+	//builtins
 	if (!ft_strncmp(command[0],"cd",2))
-	{
 		cd(command,g_env);
-	}
 	if (!ft_strncmp(command[0],"pwd",3))
-	{
 		pwd(command,g_env);
-	}
+	if (!ft_strncmp(command[0],"env",3))
+		env_f(command,g_env);
+	if (!ft_strncmp(command[0],"exit",4))
+		exit_f();
+
 	else
 	{
 		if ((pid = fork() ) == 0)

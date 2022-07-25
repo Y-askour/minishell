@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/25 14:37:09 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/25 18:49:24 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ void pwd(char **command,t_env *env)
 	}
 	pwd = env->value;
 	printf("%s\n",pwd);
+}
+
+void env_f(char **command,t_env *env)
+{
+	(void)command;
+	while(env)
+	{
+		printf("%s=%s\n",env->name,env->value);
+		env = env->next;
+	}
+}
+
+void exit_f()
+{
+	exit(1);
 }
