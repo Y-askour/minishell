@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/25 14:35:54 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:59:23 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,13 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env)
 	char ***commands = delete_spaces(head,n);
 	while(i < n -1)
 	{
+			
+
 		// all this run in parent process
 		pipe(fd);
 		// run command
 		// this line run in child process
+
 		pid = executer(in,fd[1],commands,paths,env,n);
 		head = head->next;
 		close(fd[1]);
