@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/26 13:44:20 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 11:57:29 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ char **get_paths(char **env)
 	char **paths;
 	char **ret;
 	int i;
-
-	// get env
 	ptr = get_env(env);
 	shell_env = ptr;
 	while(shell_env)
@@ -32,11 +30,7 @@ char **get_paths(char **env)
 			 break;
 		shell_env = shell_env->next;
 	}
-
-	// split PATHS
 	paths = ft_split(shell_env->value,':');
-	
-	// free env
 	while(ptr)
 	{
 		free(ptr->name);
@@ -45,8 +39,6 @@ char **get_paths(char **env)
 		ptr = ptr->next;
 		free(shell_env);
 	}
-
-	//add slash at the end of the paths
 	i = 0;
 	while(paths[i])
 		i++;
@@ -69,6 +61,7 @@ int	main(int ac, char **av, char **env)
 	t_cmd_list		*cmd_line = NULL;
 	t_env *g_env = get_env(env);
 	t_env *temp = g_env;
+	(void) av;
 	while(temp)
 	{
 		if(!ft_strncmp(temp->name,"SHLVL",5))
@@ -76,9 +69,6 @@ int	main(int ac, char **av, char **env)
 		temp = temp->next;
 	}
 	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
-
-
-	(void) av;
 	if (ac != 1 || !*env)
 		return (1);	
 	while (1)

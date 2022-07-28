@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 11:48:32 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 11:52:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int executer(int in, int out ,char ***commands, char **paths,char **env,int n,t_
 
 		if (builtins(commands[d]) == 1)
 		{
-			//printf("hey\n");
 			run_builtins(commands[d],g_env);
 			exit(1);
 		}
@@ -112,28 +111,21 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env,t_env *g_env)
 	char ***commands = delete_spaces(head,n);
 	while(i < n -1)
 	{
-			
-
-		// all this run in parent process
 		pipe(fd);
-		// run command
-		// this line run in child process
-
 		pid = executer(in,fd[1],commands,paths,env,n,g_env);
 		head = head->next;
 		close(fd[1]);
 		in = fd[0];
 		i++;
 	}
-	// i need to execute the last command
 	if ( (pid = fork()) == 0)
 	{
 		if (in != 0)
 		{
 			dup2(in,0);
-			//close(in);
+			close(in);
 		}
-		/*if (commands[n - 1][0][0] == '/')
+		if (commands[n - 1][0][0] == '/')
 		{
 			if (!access(commands[n -1][0],F_OK))
 				execve(commands[n -1][0],commands[n - 1],env);
@@ -141,11 +133,10 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env,t_env *g_env)
 				write(2,"command not found\n",18);
 			exit(0);
 
-		}*/
+		}
 
 		if (builtins(commands[n -1]) == 1)
 		{
-			//printf("hey");
 			run_builtins(commands[n -1],g_env);
 			exit(0);
 		}
@@ -157,10 +148,9 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env,t_env *g_env)
 				cmd = ft_strjoin(paths[i],commands[n - 1][0]);
 				if (!access(cmd,F_OK))
 				{
-					//printf("%s\n",cmd);
 					execve(cmd,commands[n - 1],env);
 				}
-				//free(cmd);
+				free(cmd);
 				i++;
 			}
 			write(2,"command not found\n",18);
@@ -177,16 +167,6 @@ int pipeline(int n,t_cmd_elem *head,char **env,t_env *g_env)
 {
 	char **paths;
 	paths = get_paths(env); 
-	//int i;
-	//n = 0;
-	//while(head)
-	//{
-	//	i = 0;
-	//	while(head->args[i])
-	//		printf("%s\n",head->args[i++]);
-	//	head = head->next;
-	//	printf("-----------------\n");
-	//}
 	pipes(n,head,paths,env,g_env);
 	return (0);
 }
