@@ -6,13 +6,13 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:36:40 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 16:57:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-int	heck_already(t_token_elem *node)
+int	check_already(t_token_elem *node)
 {
 	if (node->type == ERROR)
 	{
