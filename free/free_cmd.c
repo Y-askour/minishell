@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:46:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/27 15:47:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:47:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,4 @@ void	free_red(t_red_list *redir)
 void	free_cmd(t_cmd_list *cmdline)
 {
 	(void) cmdline;
-	//t_cmd_elem	*cmd;
-
-	//cmd = cmdline->head;
-	//while (cmd)
-	//{
-	//	free_args(cmd->args);
-	//	free_red(cmd->redir);
-	//	free(cmd);
-	//	cmd = cmd->next;
-	//}
-	//free(cmdline);
 }

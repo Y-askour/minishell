@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/19 10:13:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:36:40 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-int	check_already(t_token_elem *node)
+int	heck_already(t_token_elem *node)
 {
 	if (node->type == ERROR)
 	{
@@ -34,7 +34,7 @@ int	check_pipe(t_token_elem *node)
 		if (node->next->type == WHSPACE)
 			node = node->next;
 		if (!node->next)
-		{ 
+		{
 			error_handler("minishell: syntax error near unexpected token `|'");
 			return (1);
 		}
@@ -49,7 +49,8 @@ int	check_red(t_token_elem *node, t_token_list *list)
 	{
 		if (node->next && node->next->type == WHSPACE)
 			del_node(node->next, list);
-		if (!node->next || (node->next->type != WORD && node->next->type != DOLLAR))
+		if (!node->next || (node->next->type \
+			!= WORD && node->next->type != DOLLAR))
 		{
 			error_handler("syntax error near unexpected token `newline'");
 			return (1);

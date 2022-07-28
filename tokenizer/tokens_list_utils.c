@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:49 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/24 20:25:17 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:45:57 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,14 @@ t_token_list	*init_token_list(t_token_list *list)
 
 void	del_node(t_token_elem *node, t_token_list *list)
 {
-	/* base case */
 	if (node == NULL)
 		return ;
 	if (list->head == node)
 		list->head = node->next;
-	/* Change next only if node to be deleted is NOT the last node */
 	if (node->next != NULL)
 		node->next->prev = node->prev;
-	/* Change prev only if node to be deleted is NOT the first node */
 	if (node->prev != NULL)
 		node->prev->next = node->next;
-	/* Finally, free the memory occupied by del*/
 	if (node->type == WORD || node->type == AFDOLLAR)
 		free(node->value);
 	free(node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/19 10:26:22 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:46:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ char	*is_wspace(t_token_list *tokens, char *line)
 	int	len;
 
 	len = 0;
-	/* I added "&& len < (int)ft_strlen(line)" because it doesn't stope if the line is all wspace
-	 * so a garbage value is added */
 	while (ft_strchr(" \t\f\r\v", line[len]) && len < (int)ft_strlen(line))
 		len++;
 	add_back(tokens, " ", WHSPACE);
@@ -70,8 +68,6 @@ static char	*after_dollar(t_token_list *tokens, char *line)
 	int	len;
 
 	len = 0;
-	/* i used in case we have to add other characters 
-	   if not replace it with line[line] == '_'*/
 	while ((ft_isalnum(line[len]) || \
 			strchr("_", line[len])) && len < (int)ft_strlen(line))
 		len++;
@@ -93,12 +89,12 @@ char	*is_sign(t_token_list *tokens, char *line)
 		if (*line == '?')
 		{
 			add_back(tokens, "$?", EXITS);
-			return (line);	
+			return (line);
 		}
 		if (*line != '"' && *line != '\'')
 		{
 			add_back(tokens, "$", DOLLAR);
-			line = after_dollar(tokens, line);	
+			line = after_dollar(tokens, line);
 		}
 	}
 	return (line);

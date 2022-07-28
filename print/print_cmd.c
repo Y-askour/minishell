@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:19:59 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 17:30:08 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:42:13 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void    print_args(char **args)
 {
-    int i;
-    
+    int i;  
     i = 0;
     printf("agrs are:");
     while (args[i])
-    {
+        
         printf("%s", args[i]);
         i++;
     }
@@ -27,7 +26,8 @@ void    print_args(char **args)
 
 void    print_red(t_red_list *redir)
 {
-    t_red_elem *red;
+    t_red_elem  *red;
+
     red  = redir->head;
     printf("reds:");
     while (red)

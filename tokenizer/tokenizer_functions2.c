@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_functions2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/24 20:17:19 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:45:40 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ char	*is_squout(t_token_list *tokens, char *line)
 		return (line + 1);
 	}
 	line = is_word(tokens, line + 1, "\'");
-	/*line + 1 because is_word retuns stop with line
-	  so it will return ' + the rest of the line*/
 	return (line + 1);
 }
 
