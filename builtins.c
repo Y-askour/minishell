@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/25 18:49:24 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 10:50:56 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 void cd(char **command,t_env *env)
 {
-	(void) command;
-	chdir("/bin");
-	while(env)
+	char *path;
+	path = malloc(sizeof(char) * PATH_MAX);
+	if (!command[1])
 	{
-		if(!strncmp(env->name,"PWD",3))
+		chdir("..");
+		while(env)
 		{
-			env->value = "/bin";
-			break;
+			if(!strncmp(env->name,"PWD",3))
+			{
+				getcwd(path,PATH_MAX);
+				env->value = path;
+				break;
+			}
+			env = env->next;
 		}
-		env = env->next;
-	}	
+	}
 }
 
 void pwd(char **command,t_env *env)

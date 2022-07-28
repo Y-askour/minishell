@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/25 18:50:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 10:50:34 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 	//builtins
 	if (!ft_strncmp(command[0],"cd",2))
 		cd(command,g_env);
-	if (!ft_strncmp(command[0],"pwd",3))
+	else if (!ft_strncmp(command[0],"pwd",3))
 		pwd(command,g_env);
-	if (!ft_strncmp(command[0],"env",3))
+	else if (!ft_strncmp(command[0],"env",3))
 		env_f(command,g_env);
-	if (!ft_strncmp(command[0],"exit",4))
+	else if (!ft_strncmp(command[0],"exit",4))
 		exit_f();
 
 	else
