@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 10:59:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 11:48:06 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,20 @@
 void run_builtins(char **command,t_env *env)
 {
 	if (!ft_strncmp(command[0],"echo",4))
+	{
 		cd(command,env);
-	if (!ft_strncmp(command[0],"cd",2))
+	}
+	else if (!ft_strncmp(command[0],"cd",2))
 		cd(command,env);
-	if (!ft_strncmp(command[0],"pwd",3))
+	else if (!ft_strncmp(command[0],"pwd",3))
 		pwd(command,env);
-	if (!ft_strncmp(command[0],"export",6))
+	else if (!ft_strncmp(command[0],"export",6))
 		export_f(command,env);
-	if (!ft_strncmp(command[0],"unset",5))
+	else if (!ft_strncmp(command[0],"unset",5))
 		cd(command,env);
-	if (!ft_strncmp(command[0],"env",3))
+	else if (!ft_strncmp(command[0],"env",3))
 		env_f(command,env);
-	if (!ft_strncmp(command[0],"exit",4))
+	else if (!ft_strncmp(command[0],"exit",4))
 		exit_f(command,env);
 }
 
@@ -35,17 +37,17 @@ int builtins(char **command)
 {
 	if (!ft_strncmp(command[0],"echo",4))
 		return (1);
-	if (!ft_strncmp(command[0],"cd",2))
-		return (1);
-	if (!ft_strncmp(command[0],"pwd",3))
-		return (1);
-	if (!ft_strncmp(command[0],"export",6))
-		return (1);
-	if (!ft_strncmp(command[0],"unset",5))
-		return (1);
-	if (!ft_strncmp(command[0],"env",3))
-		return (1);
-	if (!ft_strncmp(command[0],"exit",4))
+	else if (!ft_strncmp(command[0],"cd",2))
+	 	return (1);
+	else if (!ft_strncmp(command[0],"pwd",3))
+	 	return (1);
+	else if (!ft_strncmp(command[0],"export",6))
+	 	return (1);
+	else if (!ft_strncmp(command[0],"unset",5))
+	 	return (1);
+	else if (!ft_strncmp(command[0],"env",3))
+	 	return (1);
+	else if (!ft_strncmp(command[0],"exit",4))
 		return (1);	
 	return (0);
 }
