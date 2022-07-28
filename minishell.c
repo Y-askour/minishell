@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/25 18:45:54 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/26 13:44:20 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,14 @@ int	main(int ac, char **av, char **env)
 	t_token_list	*tokens;
 	t_cmd_list		*cmd_line = NULL;
 	t_env *g_env = get_env(env);
+	t_env *temp = g_env;
+	while(temp)
+	{
+		if(!ft_strncmp(temp->name,"SHLVL",5))
+			break;
+		temp = temp->next;
+	}
+	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
 
 
 	(void) av;
