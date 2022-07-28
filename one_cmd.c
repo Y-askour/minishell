@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 11:01:10 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 12:34:08 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,12 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 		run_builtins(command,g_env);
 	else
 	{
-		if ((pid = fork() ) == 0)
+		if ((pid = fork() ) == -1)
+		{
+			write(2,"minishell: fork: Ressource temporarily unavailable\n",51);
+			return ;
+		}
+		else if (pid == 0)
 		{
 			if (command[0][0] == '/')
 			{

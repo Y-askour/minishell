@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 11:52:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/28 13:44:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ int executer(int in, int out ,char ***commands, char **paths,char **env,int n,t_
 	int i = 0;
 	char *cmd;
 	static int d =0;
-	if (( pid = fork() ) == 0)
+	if ((pid = fork()) == -1)
+	{
+		write(2,"minishell: fork: Ressource temporarily unavailable\n",51);
+		return (-1);
+	}
+	else if ( pid == 0)
 	{
 		if (in != 0)
 		{
@@ -105,6 +110,7 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env,t_env *g_env)
 	int fd[2];
 	pid_t pid;
 	char *cmd;
+	int check = 0;
 
 	in = 0;
 	i = 0;
@@ -113,12 +119,28 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env,t_env *g_env)
 	{
 		pipe(fd);
 		pid = executer(in,fd[1],commands,paths,env,n,g_env);
+		if (pid == -1)
+		{
+			check = 1;
+			close(in);
+			close(fd[0]);
+			close(fd[1]);
+			break ;
+		}
 		head = head->next;
 		close(fd[1]);
+		if (in != 0)
+			close(in);
 		in = fd[0];
 		i++;
 	}
-	if ( (pid = fork()) == 0)
+	if ( !check && ((pid = fork()) == -1))
+	{
+		check = 1;
+		write(2,"minishell: fork: Ressource temporarily unavailable\n",51);
+		return (-1);
+	}
+	else if ( !check && (pid == 0))
 	{
 		if (in != 0)
 		{
@@ -160,6 +182,7 @@ int pipes(int n,t_cmd_elem *head,char **paths,char **env,t_env *g_env)
 	i = 0;
 	while ( i++ < n)
 		wait(NULL);
+	close(in);
 	return (0);
 }
 
@@ -167,8 +190,7 @@ int pipeline(int n,t_cmd_elem *head,char **env,t_env *g_env)
 {
 	char **paths;
 	paths = get_paths(env); 
-	pipes(n,head,paths,env,g_env);
-	return (0);
+	return (pipes(n,head,paths,env,g_env));
 }
 
 int run_command(t_cmd_list *cmdline,char **env,t_env *g_env)
