@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/29 17:55:12 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/29 18:21:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ int redirections(t_cmd_elem *cmd_line,int in,int out)
 			dup2(f1,in);
 			close(f1);
 
+		}
+		if (red->type == APPEND)
+		{
+			if (!access("test",F_OK))
+			f1 = open(red->file,O_CREAT|O_APPEND,0666);
+			if (f1 < 0)
+			{
+				printf("failed to open the file\n");
+				return (-1);
+			}
+			dup2(f1,out);
+			close(f1);
 		}
 		red = red->next;
 	}

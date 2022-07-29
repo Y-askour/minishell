@@ -6,14 +6,14 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 16:29:19 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/29 18:11:00 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	executer(int in, int out, char ***commands, char **paths, \
-	char **env, int n, t_env *g_env)
+	char **env, int n, t_env *g_env,t_cmd_elem *cmdline)
 {
 	pid_t		pid;
 	int			i;
@@ -40,6 +40,7 @@ int	executer(int in, int out, char ***commands, char **paths, \
 			dup2(out, 1);
 			close(out);
 		}
+		redirections(cmdline,0,1);
 		if (builtins(commands[d]) == 1)
 		{
 			run_builtins(commands[d], g_env);
@@ -121,7 +122,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	while (i < n -1)
 	{
 		pipe(fd);
-		pid = executer(in, fd[1], commands, paths, env, n, g_env);
+		pid = executer(in, fd[1], commands, paths, env, n, g_env,head);
 		if (pid == -1)
 		{
 			check = 1;
