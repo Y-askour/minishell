@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 16:09:35 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/29 17:31:43 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
 void			exit_f(void);
+int				redirections(t_cmd_elem *cmd_line,int in,int out);
 void			export_f(char **command, t_env *env);
 
 #endif

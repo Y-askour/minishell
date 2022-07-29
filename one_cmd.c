@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/28 14:42:49 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/29 17:59:47 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 	char *cmd;
 	int i = 0;
 	int check = 0;
-
 	command = simple_cmd_delete_spc(cmdline);
 	paths = get_paths(env);
 
@@ -63,6 +62,8 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 		}
 		else if (pid == 0)
 		{
+			if ( -1 == redirections(cmdline,0,1))
+				return;
 			// i need to check "./______" and "____/"  and "no such file or directory" "and permission denied"
 			if (command[0][0] == '/')
 			{
@@ -71,8 +72,8 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 				else
 					write(2,"minishell : /ls : No such file a directory\n",43);
 			}
-			else
-			{
+			//else
+			//{
 				while(paths[i])
 				{
 					cmd = ft_strjoin(paths[i],command[0]);
@@ -86,7 +87,7 @@ void simple_cmd(t_cmd_elem *cmdline,char **env,t_env *g_env)
 				}
 				if ( check == 0)
 					write(2,"command not found\n",18);
-			}
+			//}
 			exit(1);
 		}
 		waitpid(pid,(int *)NULL,(int)NULL);
