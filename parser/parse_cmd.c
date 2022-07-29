@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/20 16:36:44 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:41:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	count_args(t_token_elem *node)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (node)
 	{
 		if (node->type == PIPE)
 			break ;
-		i++;
+		if (node->type == WHSPACE)
+			i++;
 		node = node->next;
 	}
 	return (i);
@@ -55,6 +56,7 @@ void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
 {
 	int		i;
 	char	**args;
+	char	*str;
 
 	i = count_args(node);
 	args = malloc (sizeof(char *) * i + 1);
@@ -63,7 +65,19 @@ void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
 	{
 		if (node->type == PIPE)
 			break ;
-		args[i] = ft_strndup(node->value, (int)ft_strlen(node->value) + 1);
+		if (node->type == WHSPACE)
+		{
+			args[i] = ft_strndup(" ", 2);
+			i++;
+			node = node->next;
+		}
+		str = node->value;
+		while (node->next && node->next->type != WHSPACE && node->next->type != PIPE)
+		{
+			str = ft_strjoin(str, node->next->value);
+			node = node->next;
+		}
+		args[i] = str;
 		i++;
 		node = node->next;
 	}
