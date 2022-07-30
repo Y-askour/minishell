@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/29 18:11:00 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/30 13:31:12 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	executer(int in, int out, char ***commands, char **paths, \
 	int			i;
 	char		*cmd;
 	static int	d;
-
 	(void)g_env;
 	i = 0;
 	pid = fork();
@@ -37,10 +36,23 @@ int	executer(int in, int out, char ***commands, char **paths, \
 		}
 		if (out != 1)
 		{
-			dup2(out, 1);
-			close(out);
+			if (d == n - 1)
+				close(out);
+			else
+			{
+				dup2(out, 1);
+				close(out);
+			}
 		}
 		redirections(cmdline,0,1);
+		if (commands[d][0][0] == '/')
+		{
+			if (!access(commands[d][0], F_OK))
+				execve(commands[d][0], commands[d], env);
+			else
+				write(2, "command not found\n", 18);
+			exit(0);
+		}
 		if (builtins(commands[d]) == 1)
 		{
 			run_builtins(commands[d], g_env);
@@ -63,7 +75,7 @@ int	executer(int in, int out, char ***commands, char **paths, \
 		}
 	}
 	d++;
-	if (d == n - 1)
+	if (d == n)
 		d = 0;
 	return (pid);
 }
@@ -111,7 +123,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	int		i;
 	int		fd[2];
 	pid_t	pid;
-	char	*cmd;
+	//char	*cmd;
 	int		check;
 	char	***commands;
 
@@ -119,7 +131,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	i = 0;
 	check = 0;
 	commands = delete_spaces(head, n);
-	while (i < n -1)
+	while (i < n)
 	{
 		pipe(fd);
 		pid = executer(in, fd[1], commands, paths, env, n, g_env,head);
@@ -138,6 +150,9 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 		in = fd[0];
 		i++;
 	}
+	if (in != 0)
+		close(in);
+/*	waitpid(pid, 0, 0);
 	pid = fork();
 	if (!check && (pid == -1))
 	{
@@ -152,14 +167,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 			dup2(in, 0);
 			close(in);
 		}
-		if (commands[n - 1][0][0] == '/')
-		{
-			if (!access(commands[n -1][0], F_OK))
-				execve(commands[n -1][0], commands[n - 1], env);
-			else
-				write(2, "command not found\n", 18);
-			exit(0);
-		}
+		redirections(head,0,1);
 		if (builtins(commands[n -1]) == 1)
 		{
 			run_builtins(commands[n -1], g_env);
@@ -181,11 +189,11 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 			write(2, "command not found\n", 18);
 			exit(1);
 		}
-	}
+	}*/
 	i = 0;
 	while (i++ < n)
 		wait(NULL);
-	close(in);
+	//close(in);
 	return (0);
 }
 
