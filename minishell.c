@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/31 13:47:53 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/31 14:00:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **env)
 		loop_body(&line, &tokens, env, &cmd_line, &g_env);
 		//print_list(tokens);
 		free_tokens(tokens);
-		//free_cmd(cmd_line);
+		free_cmd(cmd_line);
 		free(line);
 	}
 }
