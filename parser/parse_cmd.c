@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/31 12:50:26 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/07/31 13:55:28 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,10 @@ void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
 		}
 		if (node->type == PIPE)
 			break;
-		str = node->value;
-		while (node->next && node->next->type != WHSPACE)
+		str = ft_strndup(node->value, (int)ft_strlen(node->value) + 1);
+		while (node->next && node->next->type != WHSPACE && node->next->type != PIPE)
 		{
-			if (node->next->type == PIPE)
-				break;
-			str = ft_strjoin(str, node->next->value);
+			str = ft_strjoin(str, node->next->value); 
 			node = node->next;
 		}
 		args[i] = str;
