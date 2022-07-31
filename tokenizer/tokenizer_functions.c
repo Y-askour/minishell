@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:46:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/31 13:47:01 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ char	*is_sign(t_token_list *tokens, char *line)
 		if (*line == '?')
 		{
 			add_back(tokens, "$?", EXITS);
-			return (line);
+			return (line);	
 		}
 		if (*line != '"' && *line != '\'')
 		{
 			add_back(tokens, "$", DOLLAR);
-			line = after_dollar(tokens, line);
+			line = after_dollar(tokens, line);	
 		}
 	}
 	return (line);
