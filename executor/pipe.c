@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/30 13:31:12 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/31 12:00:17 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	int		i;
 	int		fd[2];
 	pid_t	pid;
-	//char	*cmd;
 	int		check;
 	char	***commands;
 
@@ -152,48 +151,9 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	}
 	if (in != 0)
 		close(in);
-/*	waitpid(pid, 0, 0);
-	pid = fork();
-	if (!check && (pid == -1))
-	{
-		check = 1;
-		write(2, "minishell: fork: Ressource temporarily unavailable\n", 51);
-		return (-1);
-	}
-	else if (!check && (pid == 0))
-	{
-		if (in != 0)
-		{
-			dup2(in, 0);
-			close(in);
-		}
-		redirections(head,0,1);
-		if (builtins(commands[n -1]) == 1)
-		{
-			run_builtins(commands[n -1], g_env);
-			exit(0);
-		}
-		else
-		{
-			i = 0;
-			while (paths[i])
-			{
-				cmd = ft_strjoin(paths[i], commands[n - 1][0]);
-				if (!access(cmd, F_OK))
-				{
-					execve(cmd, commands[n - 1], env);
-				}
-				free(cmd);
-				i++;
-			}
-			write(2, "command not found\n", 18);
-			exit(1);
-		}
-	}*/
 	i = 0;
 	while (i++ < n)
 		wait(NULL);
-	//close(in);
 	return (0);
 }
 
@@ -208,7 +168,7 @@ int	pipeline(int n,	t_cmd_elem *head,	char **env,	t_env *g_env)
 int	run_command(t_cmd_list *cmdline, char **env, t_env *g_env)
 {
 	t_cmd_elem	*ptr;
-	int			i;
+	int					i;
 
 	i = 0;
 	ptr = cmdline->head;

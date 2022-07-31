@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/29 14:24:56 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/07/31 11:53:08 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_cmd_list **cmd_line, t_env **g_env)
 		expand(*tokens, env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
 		run_command(*cmd_line, env, *g_env);
-		//print_cmdline(*cmd_line);
 	}
 }
 
