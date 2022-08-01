@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/31 15:04:21 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 10:25:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,15 +139,31 @@ void	export_f(char **command, t_env *env)
 			{
 				split = ft_split(command[i],'=');
 				node = malloc(sizeof(t_env) * 1);
+				t_env *temp = env;
+				while(temp)
+				{
+					if (!ft_strncmp(temp->name,split[0],ft_strlen(temp->name)))
+					{
+						free(temp->value);
+						if (!split[1])
+							temp->value = "";
+						else
+							temp->value = split[1];
+						return ;
+					}
+					temp = temp->next;
+				}
 				node->name = split[0];
 				if (!split[1])
 					node->value = " ";
 				else
 					node->value = split[1];
 				node->next = NULL;
-				t_env *temp = env;
-				while(temp)
+				temp = env;
+				while(temp->next)
+				{
 					temp = temp->next;
+				}
 				temp->next = node;
 			}
 			i++;
