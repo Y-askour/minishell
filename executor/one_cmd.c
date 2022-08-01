@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 13:56:05 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 14:31:18 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,28 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	char	*cmd;
 
 	i = 0;
+	if (command[0][0] == '.')
+	{
+		if (command[0][1] != '/')
+		{
+			error_handler("minishell: path : command not found");
+			exit(1);
+		}
+		else
+		{
+			char *path;
+			char *cmd;
+			path = malloc(sizeof(char) * PATH_MAX);
+			getcwd(path,PATH_MAX);
+			cmd = ft_strjoin(path,&command[0][1]);
+			if (!check_dir(cmd,0))
+			{
+				*check = 1;
+				execve(cmd, command, env);
+			}
+		}
+		exit(1);
+	}
 	while (paths[i])
 	{
 		cmd = ft_strjoin(paths[i], command[0]);
@@ -91,15 +113,18 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		free(cmd);
 		i++;
 	}
-	char *working_dir = malloc(sizeof(char) * PATH_MAX);
-	getcwd(working_dir,PATH_MAX);
-	working_dir = ft_strjoin(working_dir,"/");
-	cmd = ft_strjoin(working_dir,command[0]);
-	*check = 0;
-	if (!check_dir(cmd,0))
+	if (command[0][0] != '.')
 	{
-		*check = 1;
-		execve(cmd, command, env);
+		char *working_dir = malloc(sizeof(char) * PATH_MAX);
+		getcwd(working_dir,PATH_MAX);
+		working_dir = ft_strjoin(working_dir,"/");
+		cmd = ft_strjoin(working_dir,command[0]);
+		*check = 0;
+		if (!check_dir(cmd,0))
+		{
+			*check = 1;
+			execve(cmd, command, env);
+		}
 	}
 }
 
@@ -113,12 +138,10 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	if (redirections(cmdline, 0, 1) == -1)
 		return (-1);
 	// i need to check "./______" and "____/" 
-	if (command[0][0] == '.')
+	/*if (command[0][0] == '.')
 	{
-		return (-1);
-		printf("test\n");
 		exit(1);
-	}
+	}*/
 	if (command[0][0] == '/')
 	{
 		if (!check_dir(command[0],0))
@@ -127,7 +150,7 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	}
 	path_search(paths, command, env, &check);
 	if (check == 0)
-		write(2, "command not found\n", 18);
+		error_handler("command not found\n");
 	exit(1);
 }
 
