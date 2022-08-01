@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 12:30:55 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 13:52:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,6 @@ void			declare_export(t_env *env);
 void			check_f(char *command, int *check);
 int				search_in_exp(t_env **env, char **split);
 void			add_env_node(char **split, t_env **env);
+int				child(t_cmd_elem *cmdline, char **command, char **env, char **paths);
 
 #endif

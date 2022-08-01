@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 13:10:36 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 13:56:05 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,30 @@ char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 	return (command);
 }
 
+int check_dir(char *cmd,int check)
+{
+	if (!access(cmd,F_OK))
+	{
+		struct stat finfo;
+		lstat(cmd,&finfo);
+		if (S_ISDIR(finfo.st_mode))
+		{
+			error_handler("minishell : path: is a directory\n");
+			exit(1);
+		}
+		if (access(cmd, X_OK))
+		{
+			error_handler("minishell : path: Permission denied\n");
+			exit(1);
+		}
+	}
+	else if (check == 0)
+	{
+		error_handler("minishell : path: No such file or directory\n");
+		exit(1);
+	}
+	return (0);
+}
 void	path_search(char **paths, char **command, char	**env, int *check)
 {
 	int		i;
@@ -59,7 +83,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	while (paths[i])
 	{
 		cmd = ft_strjoin(paths[i], command[0]);
-		if (!access(cmd, F_OK))
+		if (!check_dir(cmd,1))
 		{
 			*check = 1;
 			execve(cmd, command, env);
@@ -72,13 +96,8 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	working_dir = ft_strjoin(working_dir,"/");
 	cmd = ft_strjoin(working_dir,command[0]);
 	*check = 0;
-	if (!access(cmd,F_OK))
+	if (!check_dir(cmd,0))
 	{
-		struct stat finfo;
-		lstat(cmd,&finfo);
-		if (S_ISDIR(finfo.st_mode))
-			printf("minishell : path: is a directory\n");
-		// i  need to check if file is executable
 		*check = 1;
 		execve(cmd, command, env);
 	}
@@ -94,26 +113,16 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	if (redirections(cmdline, 0, 1) == -1)
 		return (-1);
 	// i need to check "./______" and "____/" 
-	// and "no such file or directory" "and permission denied"
 	if (command[0][0] == '.')
 	{
 		return (-1);
 		printf("test\n");
 		exit(1);
 	}
-	//if (command[0][ft_strlen(command[0]) - 1] == '/')
-	//{
-	//	//char *path;
-	//	//path = ft_strjoin(,);
-	//	//printf("%d\n",d);
-	//	//exit(1);
-	//}
 	if (command[0][0] == '/')
 	{
-		if (!access(command[0], F_OK))
+		if (!check_dir(command[0],0))
 			execve(command[0], command, env);
-		else
-			write(2, "minishell : /ls : No such file a directory\n", 43);
 		exit(1);
 	}
 	path_search(paths, command, env, &check);

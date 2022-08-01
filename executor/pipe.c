@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/31 12:00:17 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 13:58:15 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ int	executer(int in, int out, char ***commands, char **paths, \
 {
 	pid_t		pid;
 	int			i;
-	char		*cmd;
 	static int	d;
 	(void)g_env;
 	i = 0;
 	pid = fork();
 	if (pid == -1)
 	{
-		write(2, "minishell: fork: Ressource temporarily unavailable\n", 51);
+		error_handler("minishell: fork: Ressource temporarily unavailable\n");
 		return (-1);
 	}
 	else if (pid == 0)
@@ -45,34 +44,13 @@ int	executer(int in, int out, char ***commands, char **paths, \
 			}
 		}
 		redirections(cmdline,0,1);
-		if (commands[d][0][0] == '/')
-		{
-			if (!access(commands[d][0], F_OK))
-				execve(commands[d][0], commands[d], env);
-			else
-				write(2, "command not found\n", 18);
-			exit(0);
-		}
 		if (builtins(commands[d]) == 1)
 		{
 			run_builtins(commands[d], g_env);
 			exit(1);
 		}
 		else
-		{
-			while (paths[i])
-			{
-				cmd = ft_strjoin(paths[i], commands[d][0]);
-				if (!access(cmd, F_OK))
-				{
-					execve(cmd, commands[d], env);
-				}
-				free(cmd);
-				i++;
-			}
-			write(2, "command not found\n", 18);
-			exit(1);
-		}
+			child(cmdline,commands[d],env,paths);
 	}
 	d++;
 	if (d == n)
