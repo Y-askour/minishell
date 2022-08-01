@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 14:31:18 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 14:51:31 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ int check_dir(char *cmd,int check)
 		lstat(cmd,&finfo);
 		if (S_ISDIR(finfo.st_mode))
 		{
-			error_handler("minishell : path: is a directory\n");
+			error_handler("minishell : path: is a directory");
 			exit(1);
 		}
 		if (access(cmd, X_OK))
 		{
-			error_handler("minishell : path: Permission denied\n");
+			error_handler("minishell : path: Permission denied");
 			exit(1);
 		}
 	}
 	else if (check == 0)
 	{
-		error_handler("minishell : path: No such file or directory\n");
+		error_handler("minishell : path: No such file or directory");
 		exit(1);
 	}
 	return (0);
@@ -150,7 +150,7 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	}
 	path_search(paths, command, env, &check);
 	if (check == 0)
-		error_handler("command not found\n");
+		error_handler("command not found");
 	exit(1);
 }
 
@@ -169,7 +169,7 @@ void	simple_cmd(t_cmd_elem *cmdline, char **env, t_env *g_env)
 		pid = fork();
 		if (pid == -1)
 		{
-			write(2, "minishell: fork: Ressource temporarily unavailable\n", 51);
+			error_handler("minishell: fork: Ressource temporarily unavailable");
 			return ;
 		}
 		else if (pid == 0)
