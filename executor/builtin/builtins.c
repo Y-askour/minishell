@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 10:25:30 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 11:03:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,39 +51,6 @@ int	builtins(char **command)
 	return (0);
 }
 
-void	cd(char **command, t_env *env)
-{
-	char	*path;
-
-	path = malloc(sizeof(char) * 255);
-	chdir(command[1]);
-	while (env)
-	{
-		if (!strncmp(env->name, "PWD", 3))
-		{
-			getcwd(path, PATH_MAX);
-			env->value = path;
-			break ;
-		}
-		env = env->next;
-	}
-}
-
-void	pwd(char **command, t_env *env)
-{
-	char	*pwd;
-
-	(void)command;
-	while (env)
-	{
-		if (!ft_strncmp(env->name, "PWD", 3))
-			break ;
-		env = env->next;
-	}
-	pwd = env->value;
-	printf("%s\n", pwd);
-}
-
 void	env_f(char **command, t_env *env)
 {
 	(void)command;
@@ -97,77 +64,4 @@ void	env_f(char **command, t_env *env)
 void	exit_f(void)
 {
 	exit(1);
-}
-
-void declare_export(t_env *env)
-{
-	while(env)
-	{
-		printf("declare -x %s=\"%s\"\n",env->name,env->value);
-		env = env->next;
-	}
-}
-
-void	export_f(char **command, t_env *env)
-{
-	int	i;
-	int j;
-	int check;
-	char **split;
-	t_env *node;
-
-	i = 0;
-	(void) env;
-	while (command[i])
-		i++;
-	if (i == 1)
-		declare_export(env);
-	else if (i >= 2 )
-	{
-		i = 1;
-		while(command[i])
-		{
-			check = 0;
-			j = 0;
-			while(command[i][j])
-			{
-				if (command[i][j] == '=')
-					check = 1;
-				j++;
-			}
-			if (check)
-			{
-				split = ft_split(command[i],'=');
-				node = malloc(sizeof(t_env) * 1);
-				t_env *temp = env;
-				while(temp)
-				{
-					if (!ft_strncmp(temp->name,split[0],ft_strlen(temp->name)))
-					{
-						free(temp->value);
-						if (!split[1])
-							temp->value = "";
-						else
-							temp->value = split[1];
-						return ;
-					}
-					temp = temp->next;
-				}
-				node->name = split[0];
-				if (!split[1])
-					node->value = " ";
-				else
-					node->value = split[1];
-				node->next = NULL;
-				temp = env;
-				while(temp->next)
-				{
-					temp = temp->next;
-				}
-				temp->next = node;
-			}
-			i++;
-		}
-	}
-		return ;
 }

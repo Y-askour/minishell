@@ -23,15 +23,19 @@ FILES = minishell.c\
 		./syntax_/check_syntax.c\
 		./syntax_/expand.c\
 		./error_handler/error_handler.c\
-		./executor/get_paths.c\
 		./parser/parse_cmd.c\
 		./parser/parse_cmd_utils.c\
 		./print/print_cmd.c\
 		./free/free_cmd.c\
 		./free/free_tokens.c\
+		./executor/get_paths.c\
 		./executor/pipe.c\
-		./one_cmd.c\
-		./builtins.c\
+		./executor/one_cmd.c\
+		./executor/builtin/builtins.c\
+		./executor/builtin/cd.c\
+		./executor/builtin/pwd.c\
+		./executor/builtin/export.c\
+		./executor/builtin/helpers.c\
 		./executor/redirections.c
 	
 OBJ = $(FILES:%.c=%.o)
