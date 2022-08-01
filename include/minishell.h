@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 11:11:48 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 12:30:55 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#	include <sys/stat.h>
 # define  PATH_MAX  50
 
 /******TOKENS*********/

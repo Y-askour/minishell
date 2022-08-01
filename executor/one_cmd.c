@@ -6,11 +6,24 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/31 12:47:42 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 13:10:36 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	delete_spc_helper(t_cmd_elem *cmdline, int *arg_n)
+{
+	int	i;
+
+	i = 0;
+	while (cmdline->args[i])
+	{
+		if (ft_strncmp(cmdline->args[i], " ", 1))
+			*arg_n += 1;
+		i++;
+	}
+}
 
 char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 {
@@ -20,12 +33,7 @@ char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 
 	i = 0;
 	arg_n = 0;
-	while (cmdline->args[i])
-	{
-		if (ft_strncmp(cmdline->args[i], " ", 1))
-			arg_n++;
-		i++;
-	}
+	delete_spc_helper(cmdline, &arg_n);
 	command = malloc(sizeof(char *) * arg_n + 1);
 	i = 0;
 	arg_n = 0;
@@ -42,9 +50,42 @@ char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 	return (command);
 }
 
+void	path_search(char **paths, char **command, char	**env, int *check)
+{
+	int		i;
+	char	*cmd;
+
+	i = 0;
+	while (paths[i])
+	{
+		cmd = ft_strjoin(paths[i], command[0]);
+		if (!access(cmd, F_OK))
+		{
+			*check = 1;
+			execve(cmd, command, env);
+		}
+		free(cmd);
+		i++;
+	}
+	char *working_dir = malloc(sizeof(char) * PATH_MAX);
+	getcwd(working_dir,PATH_MAX);
+	working_dir = ft_strjoin(working_dir,"/");
+	cmd = ft_strjoin(working_dir,command[0]);
+	*check = 0;
+	if (!access(cmd,F_OK))
+	{
+		struct stat finfo;
+		lstat(cmd,&finfo);
+		if (S_ISDIR(finfo.st_mode))
+			printf("minishell : path: is a directory\n");
+		// i  need to check if file is executable
+		*check = 1;
+		execve(cmd, command, env);
+	}
+}
+
 int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 {
-	char	*cmd;
 	int		check;
 	int		i;
 
@@ -54,6 +95,19 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 		return (-1);
 	// i need to check "./______" and "____/" 
 	// and "no such file or directory" "and permission denied"
+	if (command[0][0] == '.')
+	{
+		return (-1);
+		printf("test\n");
+		exit(1);
+	}
+	//if (command[0][ft_strlen(command[0]) - 1] == '/')
+	//{
+	//	//char *path;
+	//	//path = ft_strjoin(,);
+	//	//printf("%d\n",d);
+	//	//exit(1);
+	//}
 	if (command[0][0] == '/')
 	{
 		if (!access(command[0], F_OK))
@@ -62,17 +116,7 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 			write(2, "minishell : /ls : No such file a directory\n", 43);
 		exit(1);
 	}
-	while (paths[i])
-	{
-		cmd = ft_strjoin(paths[i], command[0]);
-		if (!access(cmd, F_OK))
-		{
-			check = 1;
-			execve(cmd, command, env);
-		}
-		free(cmd);
-		i++;
-	}
+	path_search(paths, command, env, &check);
 	if (check == 0)
 		write(2, "command not found\n", 18);
 	exit(1);
