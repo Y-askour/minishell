@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 14:51:31 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/01 16:30:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,19 @@ int check_dir(char *cmd,int check)
 		lstat(cmd,&finfo);
 		if (S_ISDIR(finfo.st_mode))
 		{
-			error_handler("minishell : path: is a directory");
+			error_handler("minishell : path: is a directory\n");
+			printf("hey\n");
 			exit(1);
 		}
 		if (access(cmd, X_OK))
 		{
-			error_handler("minishell : path: Permission denied");
+			error_handler("minishell : path: Permission denied\n");
 			exit(1);
 		}
 	}
 	else if (check == 0)
 	{
-		error_handler("minishell : path: No such file or directory");
+		error_handler("minishell : path: No such file or directory\n");
 		exit(1);
 	}
 	return (0);
@@ -84,7 +85,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	{
 		if (command[0][1] != '/')
 		{
-			error_handler("minishell: path : command not found");
+			error_handler("minishell: path : command not found\n");
 			exit(1);
 		}
 		else
@@ -113,19 +114,8 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		free(cmd);
 		i++;
 	}
-	if (command[0][0] != '.')
-	{
-		char *working_dir = malloc(sizeof(char) * PATH_MAX);
-		getcwd(working_dir,PATH_MAX);
-		working_dir = ft_strjoin(working_dir,"/");
-		cmd = ft_strjoin(working_dir,command[0]);
-		*check = 0;
-		if (!check_dir(cmd,0))
-		{
-			*check = 1;
-			execve(cmd, command, env);
-		}
-	}
+	error_handler("minishell: path : command not found\n");
+	exit(1);
 }
 
 int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
@@ -137,11 +127,6 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	i = 0;
 	if (redirections(cmdline, 0, 1) == -1)
 		return (-1);
-	// i need to check "./______" and "____/" 
-	/*if (command[0][0] == '.')
-	{
-		exit(1);
-	}*/
 	if (command[0][0] == '/')
 	{
 		if (!check_dir(command[0],0))
@@ -150,7 +135,7 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	}
 	path_search(paths, command, env, &check);
 	if (check == 0)
-		error_handler("command not found");
+		error_handler("command not found\n");
 	exit(1);
 }
 
@@ -169,7 +154,7 @@ void	simple_cmd(t_cmd_elem *cmdline, char **env, t_env *g_env)
 		pid = fork();
 		if (pid == -1)
 		{
-			error_handler("minishell: fork: Ressource temporarily unavailable");
+			error_handler("minishell: fork: Ressource temporarily unavailable\n");
 			return ;
 		}
 		else if (pid == 0)
