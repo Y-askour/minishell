@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:29 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:28:41 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 16:30:48 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -43,7 +43,6 @@ void	pipes_helper3(int in, int n)
 	while (i++ < n)
 		wait(NULL);
 }
-
 
 char	***delete_spaces(t_cmd_elem *head, int n)
 {
