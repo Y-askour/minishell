@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 14:47:12 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 16:16:20 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,21 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_exec_var
+{
+	t_env *g_env;
+	char	**paths;
+	int		in;
+	int		out;
+} t_exec;
+
+typedef struct s_pipe
+{
+	int in;
+	int fd[2];
+	int check;
+} t_pipe;
+
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
@@ -151,4 +166,8 @@ int				child(t_cmd_elem *cmdline, char **command, char **env, char **paths);
 void	path_search_helper(char **command, int **check, char **env);
 char	**simple_cmd_delete_spc(t_cmd_elem *cmdline);
 int	check_dir(char *cmd, int check);
+int	pipes_helper1(int pid, int in, int *fd, int *check);
+void	pipes_helper2(t_cmd_elem **head, int *fd, int *in);
+void	pipes_helper3(int in, int n);
+char	***delete_spaces(t_cmd_elem *head, int n);
 #endif

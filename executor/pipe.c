@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 15:45:02 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 16:18:44 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	executer_helper(int in, int out, int d, int n)
 	}
 }
 
-int	executer(int in, int out, char ***commands, char **paths, \
-	int n, t_env *g_env, t_cmd_elem *cmdline)
+int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
 {
 	pid_t		pid;
 	int			i;
@@ -45,12 +44,12 @@ int	executer(int in, int out, char ***commands, char **paths, \
 					"minishell: fork: Ressource temporarily unavailable\n"));
 	else if (pid == 0)
 	{
-		executer_helper(in, out, d, n);
+		executer_helper(var->in, var->out, d, n);
 		redirections(cmdline, 0, 1);
 		if (builtins(commands[d]) == 1)
-			exit(run_builtins(commands[d], g_env));
+			exit(run_builtins(commands[d], var->g_env));
 		else
-			child(cmdline, commands[d], g_env->env, paths);
+			child(cmdline, commands[d], var->g_env->env, var->paths);
 	}
 	d++;
 	if (d == n)
@@ -58,104 +57,32 @@ int	executer(int in, int out, char ***commands, char **paths, \
 	return (pid);
 }
 
-void	delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg)
-{
-	while (head->args[*i])
-	{
-		if (ft_strncmp(head->args[*i], " ", 1))
-			*n_of_arg += 1;
-		*i += 1;
-	}
-}
-
-char	***delete_spaces(t_cmd_elem *head, int n)
-{
-	int		i;
-	char	***commands;
-	int		n_of_arg;
-	int		s;
-	int		j;
-
-	commands = malloc(sizeof(char **) * n + 1);
-	s = 0;
-	while (head)
-	{
-		n_of_arg = 0;
-		i = 0;
-		delete_spaces_helper1(head, &i, &n_of_arg);
-		commands[s] = malloc(sizeof(char *) * n_of_arg + 1);
-		i = 0;
-		j = 0;
-		while (head->args[i])
-		{
-			if (ft_strncmp(head->args[i], " ", 1))
-				commands[s][j++] = ft_strdup(head->args[i]);
-			i++;
-		}
-		commands[s][j] = NULL;
-		head = head->next;
-		s++;
-	}
-	commands[s] = NULL;
-	return (commands);
-}
-
-int	pipes_helper1(int pid, int in, int *fd, int *check)
-{
-	if (pid == -1)
-	{
-		*check = 1;
-		close(in);
-		close(fd[0]);
-		close(fd[1]);
-		return (1);
-	}
-	return (0);
-}
-
-void	pipes_helper2(t_cmd_elem **head, int *fd, int *in)
-{
-	*head = (*head)->next;
-	close(fd[1]);
-	if (*in != 0)
-		close(*in);
-	*in = fd[0];
-}
-
-void	pipes_helper3(int in, int n)
-{
-	int	i;
-
-	if (in != 0)
-		close(in);
-	i = 0;
-	while (i++ < n)
-		wait(NULL);
-}
-
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
-	int		in;
 	int		i;
-	int		fd[2];
 	pid_t	pid;
-	int		check;
 	char	***commands;
+	t_exec	var;
+	t_pipe	in_out;
 
-	in = 0;
+	in_out.in = 0;
 	i = 0;
-	check = 0;
+	in_out.check = 0;
 	commands = delete_spaces(head, n);
 	while (i < n)
 	{
-		pipe(fd);
-		pid = executer(in, fd[1], commands, paths, n, g_env, head);
-		if (pipes_helper1(pid, in, fd, &check))
+		pipe(in_out.fd);
+		var.g_env = g_env;
+		var.paths = paths;
+		var.in = in_out.in;
+		var.out = in_out.fd[1];
+		pid = executer(commands, n, head, &var);
+		if (pipes_helper1(pid, in_out.in, in_out.fd, &in_out.check))
 			break ;
-		pipes_helper2(&head, fd, &in);
+		pipes_helper2(&head, in_out.fd, &in_out.in);
 		i++;
 	}
-	pipes_helper3(in, n);
+	pipes_helper3(in_out.in, n);
 	return (0);
 }
 
