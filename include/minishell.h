@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 12:42:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 14:47:12 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_env
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
-void			error_handler(char *message);
+int			error_handler(char *message);
 t_token_list	*lexical_analyser(char *line);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
@@ -136,7 +136,7 @@ void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
 // builtins
 
 int				builtins(char **command);
-void			run_builtins(char **command, t_env *env);
+int				run_builtins(char **command, t_env *env);
 void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
@@ -148,5 +148,7 @@ void			check_f(char *command, int *check);
 int				search_in_exp(t_env **env, char **split);
 void			add_env_node(char **split, t_env **env);
 int				child(t_cmd_elem *cmdline, char **command, char **env, char **paths);
-
+void	path_search_helper(char **command, int **check, char **env);
+char	**simple_cmd_delete_spc(t_cmd_elem *cmdline);
+int	check_dir(char *cmd, int check);
 #endif

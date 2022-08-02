@@ -6,13 +6,14 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:36 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/01 16:09:48 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 13:04:43 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	error_handler(char *message)
+int	error_handler(char *message)
 {
 	ft_putstr_fd(message, 2);
+	return (-1);
 }

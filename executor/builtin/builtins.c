@@ -6,13 +6,13 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 11:31:19 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 13:08:02 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../include/minishell.h>
 
-void	run_builtins(char **command, t_env *env)
+int	run_builtins(char **command, t_env *env)
 {
 	if (!ft_strncmp(command[0], "echo", 4))
 		cd(command, env);
@@ -28,6 +28,7 @@ void	run_builtins(char **command, t_env *env)
 		env_f(command, env);
 	else if (!ft_strncmp(command[0], "exit", 4))
 		exit_f();
+	return (1);
 }
 
 int	builtins(char **command)
