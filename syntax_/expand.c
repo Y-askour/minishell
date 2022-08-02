@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:39:20 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 12:46:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char	*env_var(char *var, t_env *env)
 	return (ft_strndup(" ", 1));
 }
 
-void	expand(t_token_list *list, char **var)
+void	expand(t_token_list *list,t_env **g_env)
 {
 	t_token_elem	*temp;
 	t_env			*env;
 	t_env			*tmp;
 	char			*tofree;
 
-	tmp = get_env(var);
+	tmp = *g_env;
 	env = tmp;
 	temp = list->head;
 	while (temp)
@@ -70,5 +70,4 @@ void	expand(t_token_list *list, char **var)
 		}
 		temp = temp->next;
 	}
-	free_env(tmp);
 }

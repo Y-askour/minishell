@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 13:52:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 12:42:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_red_list
 
 typedef struct s_env
 {
+	char 			**env;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
@@ -110,7 +111,7 @@ void			print_list(t_token_list *list);
 void			add_back(t_token_list *list, char *val, int type);
 t_token_list	*init_token_list(t_token_list *list);
 void			del_node(t_token_elem *node, t_token_list *list);
-void			expand(t_token_list *list, char **env);
+void			expand(t_token_list *list, t_env **env);
 /******TOKENIZER FUNCTIONS*******/
 void			tokenizer(t_token_list *tokens, char *line);
 char			*is_word(t_token_list *tokens, char *line, char *stop);
@@ -129,8 +130,8 @@ void			free_tokens(t_token_list *tokens);
 char			**get_paths(char **env);
 t_env			*get_env(char **env);
 
-int				run_command(t_cmd_list *cmdline, char **env, t_env *g_env);
-void			simple_cmd(t_cmd_elem *cmdline, char **env, t_env *g_env);
+int				run_command(t_cmd_list *cmdline, t_env *g_env);
+void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
 
 // builtins
 

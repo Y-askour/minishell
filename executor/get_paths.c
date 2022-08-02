@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 11:50:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 12:02:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_env	*get_env(char **env)
 		return (0);
 	splited = ft_split(env[i], '=');
 	my_env = malloc(sizeof(t_env) * 1);
+	my_env->env = env;
 	my_env->name = splited[0];
 	my_env->value = splited[1];
 	my_env->next = NULL;

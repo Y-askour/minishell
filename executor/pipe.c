@@ -6,19 +6,38 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 13:58:15 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 12:58:33 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	executer_helper(int in, int out, int d, int n)
+{
+	if (in != 0)
+	{
+		dup2(in, 0);
+		close(in);
+	}
+	if (out != 1)
+	{
+		if (d == n - 1)
+			close(out);
+		else
+		{
+			dup2(out, 1);
+			close(out);
+		}
+	}
+}
+
 int	executer(int in, int out, char ***commands, char **paths, \
-	char **env, int n, t_env *g_env,t_cmd_elem *cmdline)
+	int n, t_env *g_env, t_cmd_elem *cmdline)
 {
 	pid_t		pid;
 	int			i;
 	static int	d;
-	(void)g_env;
+
 	i = 0;
 	pid = fork();
 	if (pid == -1)
@@ -28,29 +47,15 @@ int	executer(int in, int out, char ***commands, char **paths, \
 	}
 	else if (pid == 0)
 	{
-		if (in != 0)
-		{
-			dup2(in, 0);
-			close(in);
-		}
-		if (out != 1)
-		{
-			if (d == n - 1)
-				close(out);
-			else
-			{
-				dup2(out, 1);
-				close(out);
-			}
-		}
-		redirections(cmdline,0,1);
+		executer_helper(in, out, d, n);
+		redirections(cmdline, 0, 1);
 		if (builtins(commands[d]) == 1)
 		{
 			run_builtins(commands[d], g_env);
 			exit(1);
 		}
 		else
-			child(cmdline,commands[d],env,paths);
+			child(cmdline, commands[d], g_env->env, paths);
 	}
 	d++;
 	if (d == n)
@@ -95,7 +100,7 @@ char	***delete_spaces(t_cmd_elem *head, int n)
 	return (commands);
 }
 
-int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
+int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
 	int		in;
 	int		i;
@@ -111,7 +116,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	while (i < n)
 	{
 		pipe(fd);
-		pid = executer(in, fd[1], commands, paths, env, n, g_env,head);
+		pid = executer(in, fd[1], commands, paths, n, g_env, head);
 		if (pid == -1)
 		{
 			check = 1;
@@ -135,18 +140,18 @@ int	pipes(int n, t_cmd_elem *head, char **paths, char **env, t_env *g_env)
 	return (0);
 }
 
-int	pipeline(int n,	t_cmd_elem *head,	char **env,	t_env *g_env)
+int	pipeline(int n,	t_cmd_elem *head,	t_env *g_env)
 {
-	char **paths;
+	char	**paths;
 
-	paths = get_paths(env);
-	return (pipes(n, head, paths, env, g_env));
+	paths = get_paths(g_env->env);
+	return (pipes(n, head, paths, g_env));
 }
 
-int	run_command(t_cmd_list *cmdline, char **env, t_env *g_env)
+int	run_command(t_cmd_list *cmdline, t_env *g_env)
 {
+	int			i;
 	t_cmd_elem	*ptr;
-	int					i;
 
 	i = 0;
 	ptr = cmdline->head;
@@ -156,8 +161,8 @@ int	run_command(t_cmd_list *cmdline, char **env, t_env *g_env)
 		ptr = ptr->next;
 	}
 	if (i == 1)
-		simple_cmd(cmdline->head, env, g_env);
+		simple_cmd(cmdline->head, g_env);
 	if (i > 1)
-		pipeline(i, cmdline->head, env, g_env);
+		pipeline(i, cmdline->head, g_env);
 	return (0);
 }

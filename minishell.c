@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/01 14:50:00 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 12:43:46 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	shllvl(t_env *g_env)
 	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
 }
 
-int	loop_body(char **line, t_token_list **tokens, char **env,
+int	loop_body(char **line, t_token_list **tokens,
 t_cmd_list **cmd_line, t_env **g_env)
 {
 	*line = display_prompt();
@@ -59,9 +59,9 @@ t_cmd_list **cmd_line, t_env **g_env)
 	*tokens = lexical_analyser(*line);
 	if (!check_syntax(*tokens))
 	{
-		expand(*tokens, env);
+		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
-		run_command(*cmd_line, env, *g_env);
+		run_command(*cmd_line, *g_env);
 	}
 	return (0);
 }
@@ -81,10 +81,10 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	while (1)
 	{
-		if (loop_body(&line, &tokens, env, &cmd_line, &g_env))
+		if (loop_body(&line, &tokens ,&cmd_line, &g_env))
 			continue ;
 		//print_list(tokens);
-		free_tokens(tokens);
+		//free_tokens(tokens);
 		free_cmd(cmd_line);
 		free(line);
 	}

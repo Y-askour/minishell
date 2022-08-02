@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 16:30:10 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 12:59:41 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 	return (command);
 }
 
-int check_dir(char *cmd,int check)
+int	check_dir(char *cmd, int check)
 {
-	if (!access(cmd,F_OK))
+	struct stat	finfo;
+
+	if (!access(cmd, F_OK))
 	{
-		struct stat finfo;
-		lstat(cmd,&finfo);
+		lstat(cmd, &finfo);
 		if (S_ISDIR(finfo.st_mode))
 		{
 			error_handler("minishell : path: is a directory\n");
-			printf("hey\n");
 			exit(1);
 		}
 		if (access(cmd, X_OK))
@@ -75,10 +75,12 @@ int check_dir(char *cmd,int check)
 	}
 	return (0);
 }
+
 void	path_search(char **paths, char **command, char	**env, int *check)
 {
 	int		i;
 	char	*cmd;
+	char	*path;
 
 	i = 0;
 	if (command[0][0] == '.')
@@ -90,12 +92,10 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		}
 		else
 		{
-			char *path;
-			char *cmd;
 			path = malloc(sizeof(char) * PATH_MAX);
-			getcwd(path,PATH_MAX);
-			cmd = ft_strjoin(path,&command[0][1]);
-			if (!check_dir(cmd,0))
+			getcwd(path, PATH_MAX);
+			cmd = ft_strjoin(path, &command[0][1]);
+			if (!check_dir(cmd, 0))
 			{
 				*check = 1;
 				execve(cmd, command, env);
@@ -106,7 +106,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	while (paths[i])
 	{
 		cmd = ft_strjoin(paths[i], command[0]);
-		if (!check_dir(cmd,1))
+		if (!check_dir(cmd, 1))
 		{
 			*check = 1;
 			execve(cmd, command, env);
@@ -129,7 +129,7 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 		return (-1);
 	if (command[0][0] == '/')
 	{
-		if (!check_dir(command[0],0))
+		if (!check_dir(command[0], 0))
 			execve(command[0], command, env);
 		exit(1);
 	}
@@ -139,14 +139,14 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	exit(1);
 }
 
-void	simple_cmd(t_cmd_elem *cmdline, char **env, t_env *g_env)
+void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 {
 	char	**command;
 	char	**paths;
 	int		pid;
 
 	command = simple_cmd_delete_spc(cmdline);
-	paths = get_paths(env);
+	paths = get_paths(g_env->env);
 	if (builtins(command) == 1)
 		run_builtins(command, g_env);
 	else
@@ -158,7 +158,7 @@ void	simple_cmd(t_cmd_elem *cmdline, char **env, t_env *g_env)
 			return ;
 		}
 		else if (pid == 0)
-			child(cmdline, command, env, paths);
+			child(cmdline, command, g_env->env, paths);
 		waitpid(pid, (int *) NULL, (int) NULL);
 	}
 }
