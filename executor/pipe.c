@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 15:23:49 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 15:45:02 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ int	pipes_helper1(int pid, int in, int *fd, int *check)
 	return (0);
 }
 
-void	pipes_helper2(t_cmd_elem **head, int *fd, int in)
+void	pipes_helper2(t_cmd_elem **head, int *fd, int *in)
 {
 	*head = (*head)->next;
 	close(fd[1]);
-	if (in != 0)
-		close(in);
-	in = fd[0];
+	if (*in != 0)
+		close(*in);
+	*in = fd[0];
 }
 
 void	pipes_helper3(int in, int n)
@@ -152,7 +152,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		pid = executer(in, fd[1], commands, paths, n, g_env, head);
 		if (pipes_helper1(pid, in, fd, &check))
 			break ;
-		pipes_helper2(&head, fd, in);
+		pipes_helper2(&head, fd, &in);
 		i++;
 	}
 	pipes_helper3(in, n);
