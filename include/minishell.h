@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:16:20 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/02 16:29:12 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,6 @@ int	pipes_helper1(int pid, int in, int *fd, int *check);
 void	pipes_helper2(t_cmd_elem **head, int *fd, int *in);
 void	pipes_helper3(int in, int n);
 char	***delete_spaces(t_cmd_elem *head, int n);
+void	delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
+void	helper(char ***commands, t_cmd_elem **head, int *s, int j);
 #endif

@@ -38,7 +38,8 @@ FILES = minishell.c\
 		./executor/builtin/helpers.c\
 		./executor/redirections.c\
 		./executor/one_cmd_helper.c\
-		./executor/pipe_helper.c
+		./executor/pipe_helper.c\
+		./executor/helper_pipe.c
 	
 OBJ = $(FILES:%.c=%.o)
 
