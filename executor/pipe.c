@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:18:44 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/03 13:20:01 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 {
 	int			i;
 	t_cmd_elem	*ptr;
+	(void)g_env;
 
 	i = 0;
 	ptr = cmdline->head;
@@ -106,6 +107,9 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		i++;
 		ptr = ptr->next;
 	}
+	ptr = cmdline->head;
+	if (!ft_strncmp(ptr->args[0], " ", 1) && !ptr->args[1])
+		return (0);
 	if (i == 1)
 		simple_cmd(cmdline->head, g_env);
 	if (i > 1)
