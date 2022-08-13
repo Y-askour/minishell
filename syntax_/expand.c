@@ -6,12 +6,12 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/13 15:32:12 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:12:05 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
-
+/*
 void	free_env(t_env *env)
 {
 	while (env)
@@ -21,7 +21,7 @@ void	free_env(t_env *env)
 		free(env);
 		env = env->next;
 	}
-}
+}*/
 
 char	*env_var(char *var, t_env *env)
 {
@@ -51,11 +51,9 @@ void	expand(t_token_list *list, t_env **g_env)
 {
 	t_token_elem	*temp;
 	t_env			*env;
-	t_env			*tmp;
 	char			*tofree;
 
-	tmp = *g_env;
-	env = tmp;
+	env = *g_env;
 	temp = list->head;
 	while (temp)
 	{
@@ -73,5 +71,4 @@ void	expand(t_token_list *list, t_env **g_env)
 			expand_tilde(temp, env);
 		temp = temp->next;
 	}
-	free_env(tmp);
 }
