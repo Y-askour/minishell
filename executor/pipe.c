@@ -1,160 +1,114 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
+/*   Updated: 2022/08/02 16:18:44 by yaskour          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int executer(int in, int out ,char ***commands, char **paths,char **env,int n)
+void	executer_helper(int in, int out, int d, int n)
 {
-	pid_t pid;
-	int i = 0;
-	char *cmd;
-	static int d =0;
-	if (( pid = fork() ) == 0)
+	if (in != 0)
 	{
-		if (in != 0)
+		dup2(in, 0);
+		close(in);
+	}
+	if (out != 1)
+	{
+		if (d == n - 1)
+			close(out);
+		else
 		{
-			dup2(in,0);
-			close(in);
-		}
-		if ( out != 1 )
-		{
-			dup2(out,1);
+			dup2(out, 1);
 			close(out);
 		}
+	}
+}
 
-		while(paths[i])
-		{
-			cmd = ft_strjoin(paths[i],commands[d][0]);
-			if (!access(cmd,F_OK))
-			{
-				execve(cmd,commands[d],env);
-			}
-			free(cmd);
-			i++;
-		}
-		exit(1);
+int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
+{
+	pid_t		pid;
+	int			i;
+	static int	d;
+
+	i = 0;
+	pid = fork();
+	if (pid == -1)
+		return (error_handler(\
+					"minishell: fork: Ressource temporarily unavailable\n"));
+	else if (pid == 0)
+	{
+		executer_helper(var->in, var->out, d, n);
+		redirections(cmdline, 0, 1);
+		if (builtins(commands[d]) == 1)
+			exit(run_builtins(commands[d], var->g_env));
+		else
+			child(cmdline, commands[d], var->g_env->env, var->paths);
 	}
 	d++;
-	if (d == n - 1)
+	if (d == n)
 		d = 0;
 	return (pid);
 }
 
-char	***delete_spaces(t_cmd_elem *head,int n)
+int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
-	int i;
-	char ***commands;
-	int n_of_arg;
-	int s;
-	int j;
+	int		i;
+	pid_t	pid;
+	char	***commands;
+	t_exec	var;
+	t_pipe	in_out;
 
-	commands  =  malloc(sizeof(char **) * n + 1);
-	s = 0;
-	while(head)
-	{
-		n_of_arg = 0;
-		i = 0;
-		while(head->args[i])
-		{
-			if (ft_strncmp(head->args[i]," ",1))
-				n_of_arg++;
-			i++;
-		}
-		commands[s] = malloc(sizeof(char *) * n_of_arg + 1);
-		i = 0;
-		j = 0;
-		while(head->args[i])
-		{
-			if (ft_strncmp(head->args[i]," ",1))
-				commands[s][j++] = ft_strdup(head->args[i]);
-			i++;
-		}
-		commands[s][j] = NULL;
-		head = head->next;
-		s++;
-	}
-	commands[s] = NULL;
-	return (commands);
-}
-
-int pipes(int n,t_cmd_elem *head,char **paths,char **env)
-{
-
-	int in;
-	int i;
-	int fd[2];
-	pid_t pid;
-	char *cmd;
-
-	in = 0;
+	in_out.in = 0;
 	i = 0;
-	char ***commands = delete_spaces(head,n);
-	while(i < n -1)
+	in_out.check = 0;
+	commands = delete_spaces(head, n);
+	while (i < n)
 	{
-		// all this run in parent process
-		pipe(fd);
-		// run command
-		// this line run in child process
-		pid = executer(in,fd[1],commands,paths,env,n);
-		head = head->next;
-		close(fd[1]);
-		in = fd[0];
-		waitpid(pid,(int *)NULL,(int)NULL);
+		pipe(in_out.fd);
+		var.g_env = g_env;
+		var.paths = paths;
+		var.in = in_out.in;
+		var.out = in_out.fd[1];
+		pid = executer(commands, n, head, &var);
+		if (pipes_helper1(pid, in_out.in, in_out.fd, &in_out.check))
+			break ;
+		pipes_helper2(&head, in_out.fd, &in_out.in);
 		i++;
 	}
-	// i need to execute the last command
-	if ( (pid = fork()) == 0)
-	{
-		if (in != 0)
-			dup2(in,0);
-		while(paths[i])
-		{
-			//you need to check invalid commands
-			cmd = ft_strjoin(paths[i],commands[n - 1][0]);
-			if (!access(cmd,F_OK))
-			{
-				//printf("%s\n",cmd);
-				execve(cmd,commands[n - 1],env);
-			}
-			free(cmd);
-			i++;
-		}
-		exit(1);
-	}
-	waitpid(pid,(int *)NULL,(int)NULL);
+	pipes_helper3(in_out.in, n);
 	return (0);
 }
 
-int pipeline(int n,t_cmd_elem *head,char **env)
+int	pipeline(int n,	t_cmd_elem *head,	t_env *g_env)
 {
-	char **paths;
+	char	**paths;
 
-	paths = get_paths(env); 
-	//int i;
-	//n = 0;
-	//while(head)
-	//{
-	//	i = 0;
-	//	while(head->args[i])
-	//		printf("%s\n",head->args[i++]);
-	//	head = head->next;
-	//	printf("-----------------\n");
-	//}
-	pipes(n,head,paths,env);
-	return (0);
+	paths = get_paths(g_env->env);
+	return (pipes(n, head, paths, g_env));
 }
 
-int run_command(t_cmd_list *cmdline,char **env)
+int	run_command(t_cmd_list *cmdline, t_env *g_env)
 {
+	int			i;
+	t_cmd_elem	*ptr;
 
-	t_cmd_elem *ptr;
-
-	int i = 0;
+	i = 0;
 	ptr = cmdline->head;
-	while(ptr)
+	while (ptr)
 	{
 		i++;
 		ptr = ptr->next;
 	}
+	if (i == 1)
+		simple_cmd(cmdline->head, g_env);
 	if (i > 1)
-		pipeline(i,cmdline->head,env);
+		pipeline(i, cmdline->head, g_env);
 	return (0);
 }

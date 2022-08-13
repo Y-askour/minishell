@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 23:25:36 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/02 13:04:43 by yaskour          ###   ########.fr       */
+/*   Created: 2022/08/01 11:00:50 by yaskour           #+#    #+#             */
+/*   Updated: 2022/08/01 11:01:14 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "../../include/minishell.h"
 
-int	error_handler(char *message)
+void	pwd(char **command, t_env *env)
 {
-	ft_putstr_fd(message, 2);
-	return (-1);
+	char	*pwd;
+
+	(void)command;
+	while (env)
+	{
+		if (!ft_strncmp(env->name, "PWD", 3))
+			break ;
+		env = env->next;
+	}
+	pwd = env->value;
+	printf("%s\n", pwd);
 }

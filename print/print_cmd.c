@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:19:59 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/06 18:22:41 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:54:17 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void    print_args(char **args)
 {
-    int i;
-    
+    int i;  
     i = 0;
     printf("agrs are:");
     while (args[i])
@@ -25,9 +24,11 @@ void    print_args(char **args)
     }
 }
 
+
 void    print_red(t_red_list *redir)
 {
-    t_red_elem *red;
+    t_red_elem  *red;
+
     red  = redir->head;
     printf("reds:");
     while (red)

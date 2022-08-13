@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/07 19:14:43 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:54:38 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ char	*is_wspace(t_token_list *tokens, char *line)
 	int	len;
 
 	len = 0;
-	/* I added "&& len < (int)ft_strlen(line)" because it doesn't stope if the line is all wspace
-	 * so a garbage value is added */
 	while (ft_strchr(" \t\f\r\v", line[len]) && len < (int)ft_strlen(line))
 		len++;
 	add_back(tokens, " ", WHSPACE);
@@ -70,8 +68,6 @@ static char	*after_dollar(t_token_list *tokens, char *line)
 	int	len;
 
 	len = 0;
-	/* i used in case we have to add other characters 
-	   if not replace it with line[line] == '_'*/
 	while ((ft_isalnum(line[len]) || \
 			strchr("_", line[len])) && len < (int)ft_strlen(line))
 		len++;

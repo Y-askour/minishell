@@ -23,13 +23,23 @@ FILES = minishell.c\
 		./syntax_/check_syntax.c\
 		./syntax_/expand.c\
 		./error_handler/error_handler.c\
-		./executor/get_paths.c\
 		./parser/parse_cmd.c\
 		./parser/parse_cmd_utils.c\
 		./print/print_cmd.c\
 		./free/free_cmd.c\
 		./free/free_tokens.c\
-		./executor/pipe.c
+		./executor/get_paths.c\
+		./executor/pipe.c\
+		./executor/one_cmd.c\
+		./executor/builtin/builtins.c\
+		./executor/builtin/cd.c\
+		./executor/builtin/pwd.c\
+		./executor/builtin/export.c\
+		./executor/builtin/helpers.c\
+		./executor/redirections.c\
+		./executor/one_cmd_helper.c\
+		./executor/pipe_helper.c\
+		./executor/helper_pipe.c
 	
 OBJ = $(FILES:%.c=%.o)
 
@@ -37,10 +47,10 @@ OBJ = $(FILES:%.c=%.o)
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
-	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline/lib -lreadline
+	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline1/lib -lreadline -g
 
 %.o : %.c $(HEADER)
-	@$(CC) -I ./readline/include -I./include $(FLAGS) -o $@ -c $<
+	@$(CC) -I ./readline1/include -I./include $(FLAGS) -o $@ -c $< -g
 	@echo "$(GREEN)" "compiling $<"
 
 $(LIBFT_LIB):

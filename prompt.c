@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/06/27 16:01:25 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/01 16:01:17 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	signal_handler(int signal)
 {
+	//printf("\n%d\n",signal);
 	(void) signal;
+	rl_replace_line("", 1);
 	write(1, "\n", 1);
-	rl_replace_line(" ", 1);
 	rl_on_new_line();//Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
 	rl_redisplay();//Change what's displayed on the screen to reflect the current contents of rl_line_buffer
 }

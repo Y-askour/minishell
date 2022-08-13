@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/31 14:57:37 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/01 10:12:49 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	count_args(t_token_elem *node)
 
 void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 {
-	t_red_list	*red = NULL;
+	t_red_list	*red;
 
+	red = NULL;
 	red = init_red_list(red);
 	while (tmp)
 	{
