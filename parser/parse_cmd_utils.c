@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 21:38:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:30:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/13 16:22:08 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,3 @@ void	red_back(t_red_list *list, char *file, int type)
 	list->taile = new;
 }
 
-void	cmd_back(t_cmd_list *list, char **args, t_red_list *red)
-{
-	t_cmd_elem	*new;
-
-	new = new_cmd(args, red);
-	if (!list->head)
-		list->head = new;
-	else
-	{
-		list->taile->next = new;
-		new->prev = list->taile;
-	}
-	list->taile = new;
-}

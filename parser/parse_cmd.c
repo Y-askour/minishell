@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/13 15:05:32 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:21:53 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
-
-int	count_args(t_token_elem *node)
-{
-	int	i;
-
-	i = 0;
-	while (node && node->type != PIPE)
-	{
-		if (node->type == WHSPACE)
-		{
-			i++;
-			node = node->next;
-		}
-		if (node)
-			i++;
-		while (node && node->type != WHSPACE)
-			node = node->next;
-	}
-	return (i);
-}
 
 void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 {
@@ -57,35 +37,43 @@ void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 		del_red(cmd_line, tmp->next, list);
 }
 
-void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
+t_token_elem	*parse_args2(t_token_elem *node, int *i, char ***args)
 {
-	int		i;
-	char	**args;
 	char	*str;
 
-	i = count_args(node);
-	args = malloc (sizeof(char *) * i + 1);
-	i = 0;
 	while (node)
 	{
 		if (node->type == WHSPACE)
 		{
-			args[i] = ft_strndup(" ", 2);
-			i++;
+			(*args)[*i] = ft_strndup(" ", 2);
+			(*i)++;
 			node = node->next;
 		}
 		if (!node || node->type == PIPE)
 			break ;
 		str = ft_strndup(node->value, (int)ft_strlen(node->value) + 1);
-		while (node->next && node->next->type != WHSPACE && node->next->type != PIPE)
+		while (node->next && node->next->type != WHSPACE && \
+			node->next->type != PIPE)
 		{
-			str = ft_strjoin(str, node->next->value); 
+			str = ft_strjoin(str, node->next->value);
 			node = node->next;
 		}
-		args[i] = str;
-		i++;
+		(*args)[*i] = str;
+		(*i)++;
 		node = node->next;
 	}
+	return (node);
+}
+
+void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
+{
+	int		i;
+	char	**args;
+
+	i = count_args(node);
+	args = malloc (sizeof(char *) * i + 1);
+	i = 0;
+	node = parse_args2(node, &i, &args);
 	args[i] = NULL;
 	cmd_node->args = args;
 	if (node && node->type == PIPE)

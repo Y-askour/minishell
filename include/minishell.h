@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/13 14:34:23 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:23:32 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_cmd_list		*init_cmd_list(t_cmd_list *list);
 t_red_list		*init_red_list(t_red_list *list);
 t_red_elem		*new_red(int type, char *filename);
 t_cmd_elem		*new_cmd(char **args, t_red_list *red);
+int				count_args(t_token_elem *node);
 void			red_back(t_red_list *list, char *file, int type);
 void			cmd_back(t_cmd_list *list, char **args, t_red_list *red);
 t_token_elem	*one_cmd(t_cmd_list *cmd_line, \

@@ -25,6 +25,7 @@ FILES = minishell.c\
 		./error_handler/error_handler.c\
 		./parser/parse_cmd.c\
 		./parser/parse_cmd_utils.c\
+		./parser/parse_cmd_utils2.c\
 		./print/print_cmd.c\
 		./free/free_cmd.c\
 		./free/free_tokens.c\
