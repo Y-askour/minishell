@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/01 10:12:49 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/13 15:05:32 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	count_args(t_token_elem *node)
 		}
 		if (node)
 			i++;
-		while(node && node->type != WHSPACE)
+		while (node && node->type != WHSPACE)
 			node = node->next;
 	}
 	return (i);
@@ -43,10 +43,10 @@ void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 		if (tmp->type == PIPE)
 			break ;
 		if (tmp->type == REDIN || tmp->type == REDOUT \
-			|| tmp->type == APPEND || tmp->type == HEREDOC)
+				|| tmp->type == APPEND || tmp->type == HEREDOC)
 		{
 			red_back(red, ft_strndup(tmp->next->value, \
-				(int)ft_strlen(tmp->next->value) + 1), tmp->type);
+						(int)ft_strlen(tmp->next->value) + 1), tmp->type);
 			del_node(tmp->next, list);
 			del_node(tmp, list);
 		}
@@ -75,7 +75,7 @@ void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
 			node = node->next;
 		}
 		if (!node || node->type == PIPE)
-			break;
+			break ;
 		str = ft_strndup(node->value, (int)ft_strlen(node->value) + 1);
 		while (node->next && node->next->type != WHSPACE && node->next->type != PIPE)
 		{

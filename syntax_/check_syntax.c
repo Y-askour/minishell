@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/31 14:01:03 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/13 15:14:06 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_pipe(t_token_elem *node)
 		if (node->next->type == WHSPACE)
 			node = node->next;
 		if (!node->next)
-		{ 
+		{
 			error_handler("minishell: syntax error near unexpected token `|'");
 			return (1);
 		}
@@ -49,7 +49,8 @@ int	check_red(t_token_elem *node, t_token_list *list)
 	{
 		if (node->next && node->next->type == WHSPACE)
 			del_node(node->next, list);
-		if (!node->next || (node->next->type != WORD && node->next->type != DOLLAR))
+		if (!node->next || (node->next->type != WORD && \
+			node->next->type != DOLLAR))
 		{
 			error_handler("syntax error near unexpected token `newline'");
 			return (1);

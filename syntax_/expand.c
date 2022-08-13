@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/02 12:46:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/13 15:32:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,15 @@ char	*env_var(char *var, t_env *env)
 	return (ft_strndup(" ", 1));
 }
 
-void	expand(t_token_list *list,t_env **g_env)
+static void	expand_tilde(t_token_elem *temp, t_env *env)
+{
+	if ((!temp->next && temp->prev->type == WHSPACE) \
+			|| (!temp->prev && temp->next->type == WHSPACE) \
+			|| (temp->next->type == WHSPACE && temp->prev->type == WHSPACE))
+		temp->value = env_var("HOME", env);
+}
+
+void	expand(t_token_list *list, t_env **g_env)
 {
 	t_token_elem	*temp;
 	t_env			*env;
@@ -62,12 +70,8 @@ void	expand(t_token_list *list,t_env **g_env)
 			}
 		}
 		else if (temp->type == TILDE)
-		{
-			if ((!temp->next && temp->prev->type == WHSPACE) \
-				|| (!temp->prev && temp->next->type == WHSPACE) \
-				|| (temp->next->type == WHSPACE && temp->prev->type == WHSPACE))
-				temp->value = env_var("HOME", env);
-		}
+			expand_tilde(temp, env);
 		temp = temp->next;
 	}
+	free_env(tmp);
 }

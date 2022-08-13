@@ -6,12 +6,13 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:29:12 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/13 14:34:23 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <fcntl.h>
 # include "../libft/libft.h"
 # include <stdio.h>
@@ -20,7 +21,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#	include <sys/stat.h>
+# include <sys/stat.h>
 # define  PATH_MAX  50
 
 /******TOKENS*********/
@@ -83,7 +84,7 @@ typedef struct s_red_list
 
 typedef struct s_env
 {
-	char 			**env;
+	char			**env;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
@@ -91,23 +92,23 @@ typedef struct s_env
 
 typedef struct s_exec_var
 {
-	t_env *g_env;
-	char	**paths;
-	int		in;
-	int		out;
-} t_exec;
+	t_env			*g_env;
+	char			**paths;
+	int				in;
+	int				out;
+}	t_exec;
 
 typedef struct s_pipe
 {
-	int in;
-	int fd[2];
-	int check;
-} t_pipe;
+	int				in;
+	int				fd[2];
+	int				check;
+}	t_pipe;
 
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
-int			error_handler(char *message);
+int				error_handler(char *message);
 t_token_list	*lexical_analyser(char *line);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
@@ -118,7 +119,7 @@ t_cmd_elem		*new_cmd(char **args, t_red_list *red);
 void			red_back(t_red_list *list, char *file, int type);
 void			cmd_back(t_cmd_list *list, char **args, t_red_list *red);
 t_token_elem	*one_cmd(t_cmd_list *cmd_line, \
-	t_token_elem *tmp, t_token_list *list);
+		t_token_elem *tmp, t_token_list *list);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 void			print_cmdline(t_cmd_list *cmdline);
 /**** token_list functions ***/
@@ -156,20 +157,21 @@ void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
 void			exit_f(void);
-int				redirections(t_cmd_elem *cmd_line,int in,int out);
+int				redirections(t_cmd_elem *cmd_line, int in, int out);
 void			export_f(char **command, t_env *env);
 void			declare_export(t_env *env);
 void			check_f(char *command, int *check);
 int				search_in_exp(t_env **env, char **split);
 void			add_env_node(char **split, t_env **env);
-int				child(t_cmd_elem *cmdline, char **command, char **env, char **paths);
-void	path_search_helper(char **command, int **check, char **env);
-char	**simple_cmd_delete_spc(t_cmd_elem *cmdline);
-int	check_dir(char *cmd, int check);
-int	pipes_helper1(int pid, int in, int *fd, int *check);
-void	pipes_helper2(t_cmd_elem **head, int *fd, int *in);
-void	pipes_helper3(int in, int n);
-char	***delete_spaces(t_cmd_elem *head, int n);
-void	delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
-void	helper(char ***commands, t_cmd_elem **head, int *s, int j);
+int				child(t_cmd_elem *cmdline, char **command,
+					char **env, char **paths);
+void			path_search_helper(char **command, int **check, char **env);
+char			**simple_cmd_delete_spc(t_cmd_elem *cmdline);
+int				check_dir(char *cmd, int check);
+int				pipes_helper1(int pid, int in, int *fd, int *check);
+void			pipes_helper2(t_cmd_elem **head, int *fd, int *in);
+void			pipes_helper3(int in, int n);
+char			***delete_spaces(t_cmd_elem *head, int n);
+void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
+void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
 #endif
