@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/31 14:57:37 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:14:50 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,15 @@ void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 	if (tmp && tmp->type == PIPE)
 		del_red(cmd_line, tmp->next, list);
 }
-
-void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
+t_token_elem	*parse_args2(t_token_elem *node, int *i, char ***args)
 {
-	int		i;
-	char	**args;
 	char	*str;
-
-	i = count_args(node);
-	args = malloc (sizeof(char *) * i + 1);
-	i = 0;
 	while (node)
 	{
 		if (node->type == WHSPACE)
 		{
-			args[i] = ft_strndup(" ", 2);
-			i++;
+			(*args)[*i] = ft_strndup(" ", 2);
+			(*i)++;
 			node = node->next;
 		}
 		if (!node || node->type == PIPE)
@@ -81,10 +74,22 @@ void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
 			str = ft_strjoin(str, node->next->value); 
 			node = node->next;
 		}
-		args[i] = str;
-		i++;
+		(*args)[*i] = str;
+		(*i)++;
 		node = node->next;
 	}
+	return (node);
+}
+
+void	parse_args(t_cmd_elem *cmd_node, t_token_elem *node)
+{
+	int		i;
+	char	**args;
+
+	i = count_args(node);
+	args = malloc (sizeof(char *) * i + 1);
+	i = 0;
+	node = parse_args2(node, &i, &args);
 	args[i] = NULL;
 	cmd_node->args = args;
 	if (node && node->type == PIPE)

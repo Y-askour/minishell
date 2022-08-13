@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/13 13:47:33 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:57:18 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ char **get_paths(char **env)
 static void	is_heredoc(t_token_list *tokens)
 {
 	t_token_elem	*tmp;
-	char			**input;
-	int				i;
+	char			*input;
 
 	tmp = tokens->head;
 	while (tmp)
