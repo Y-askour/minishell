@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/14 17:13:11 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:44:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ static void	is_heredoc(t_token_list *tokens)
 				str = ft_strjoin(str, "\n");
 				rl_on_new_line();
 			}
-			del_node(tmp->next, tokens);
-			tmp->value = str;
+			int fd = open("garbage",O_CREAT|O_WRONLY,0666);
+			ft_putstr_fd(str,fd);
+			//del_node(tmp->next, tokens);
+			//del_node(tmp,tokens);
 		}
 		tmp = tmp->next;
 	}
