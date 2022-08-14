@@ -6,13 +6,25 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/13 17:12:39 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:13:11 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
 int	g_exit_status = 0;
+
+static int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
 
 char	**get_paths(char **env)
 {
@@ -40,7 +52,7 @@ static void	is_heredoc(t_token_list *tokens)
 {
 	t_token_elem	*tmp;
 	char			*input;
-	//int				i;
+	char			*str;
 
 	tmp = tokens->head;
 	while (tmp)
@@ -49,12 +61,23 @@ static void	is_heredoc(t_token_list *tokens)
 		{
 			if (tmp->next && tmp->next->type == WHSPACE)
 				del_node(tmp->next, tokens);
-			input = readline(">");		
-			while (ft_strncmp(input, tmp->next->value, ft_strlen(tmp->next->value) + 1))
+			if (!tmp->next || tmp->next->type != WORD)
 			{
+				tmp->value = ft_strdup("syntax error near unexpected token `newline'\n");
+				tmp->type = ERROR;
+				break;
+			}
+			input = readline(">");
+			str = ft_strdup("");		
+			while (ft_strcmp(input, tmp->next->value))
+			{
+				str = ft_strjoin(str, input);
 				input = readline(">");
+				str = ft_strjoin(str, "\n");
 				rl_on_new_line();
 			}
+			del_node(tmp->next, tokens);
+			tmp->value = str;
 		}
 		tmp = tmp->next;
 	}
@@ -111,7 +134,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		//print_list(tokens);
 		free_tokens(tokens);
-		free_cmd(cmd_line);
+		//free_cmd(cmd_line);
 		free(line);
 	}
 }
