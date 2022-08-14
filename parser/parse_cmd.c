@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/14 16:35:31 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:04:45 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 		if (tmp->type == PIPE)
 			break ;
 		if (tmp->type == REDIN || tmp->type == REDOUT \
-				|| tmp->type == APPEND)
+				|| tmp->type == APPEND || tmp->type == HEREDOC)
 		{
 			red_back(red, ft_strndup(tmp->next->value, \
 						(int)ft_strlen(tmp->next->value) + 1), tmp->type);

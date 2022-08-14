@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/14 17:44:16 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/14 18:07:21 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	is_heredoc(t_token_list *tokens)
 {
 	t_token_elem	*tmp;
 	char			*input;
-	char			*str;
 
 	tmp = tokens->head;
 	while (tmp)
@@ -67,19 +66,14 @@ static void	is_heredoc(t_token_list *tokens)
 				tmp->type = ERROR;
 				break;
 			}
+			int fd = open("garbage",O_CREAT|O_WRONLY,0666);
 			input = readline(">");
-			str = ft_strdup("");		
 			while (ft_strcmp(input, tmp->next->value))
 			{
-				str = ft_strjoin(str, input);
+				ft_putstr_fd(input, fd);
 				input = readline(">");
-				str = ft_strjoin(str, "\n");
 				rl_on_new_line();
 			}
-			int fd = open("garbage",O_CREAT|O_WRONLY,0666);
-			ft_putstr_fd(str,fd);
-			//del_node(tmp->next, tokens);
-			//del_node(tmp,tokens);
 		}
 		tmp = tmp->next;
 	}
