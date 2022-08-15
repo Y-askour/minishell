@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/13 16:23:32 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:31:20 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,4 +175,5 @@ void			pipes_helper3(int in, int n);
 char			***delete_spaces(t_cmd_elem *head, int n);
 void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
+int exit_status;
 #endif

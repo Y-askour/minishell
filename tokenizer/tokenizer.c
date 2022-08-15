@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:43 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/31 14:01:19 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 15:20:59 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	tokenizer(t_token_list *tokens, char *line)
 					add_back(tokens, ft_strndup("syntax error near unexpected token `;;'", 40), ERROR);
 					line++;
 				}
-				// else
-				// 	add_back(tokens, ft_strndup(";", 2), WORD);
+				else
+					add_back(tokens, ft_strndup(";", 2), WORD);
 			}
 		}
 	}

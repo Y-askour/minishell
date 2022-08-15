@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/14 16:02:07 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:59:54 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,21 @@ int	check_pipe(t_token_elem *node)
 {
 	if (node->type == PIPE)
 	{
-		if (!node->next || !node->prev)
+		if (node->prev && node->prev->type == WHSPACE)
 		{
-			error_handler("minishell: syntax error near unexpected token `|'");
-			return (1);
+			if(!node->prev->prev)
+			{
+				error_handler("minishell: syntax error near unexpected token `|'");
+				exit_status = 258;
+				return (1);
+			}
 		}
 		if (node->next->type == WHSPACE)
 			node = node->next;
 		if (!node->next)
 		{
 			error_handler("minishell: syntax error near unexpected token `|'");
+			exit_status = 258;
 			return (1);
 		}
 	}
@@ -45,7 +50,7 @@ int	check_pipe(t_token_elem *node)
 int	check_red(t_token_elem *node, t_token_list *list)
 {
 	if (node->type == REDIN || node->type == REDOUT
-		|| node->type == APPEND)
+		|| node->type == APPEND || node->type == HEREDOC)
 	{
 		if (node->next && node->next->type == WHSPACE)
 			del_node(node->next, list);
@@ -53,6 +58,7 @@ int	check_red(t_token_elem *node, t_token_list *list)
 			node->next->type != DOLLAR))
 		{
 			error_handler("syntax error near unexpected token `newline'");
+			exit_status = 258;
 			return (1);
 		}
 	}
@@ -63,6 +69,12 @@ int	check_syntax(t_token_list *list)
 {
 	t_token_elem	*node;
 
+	if (list->head->type == PIPE || list->taile->type == PIPE)
+	{
+		error_handler("syntax error near unexpected token `newline'");
+		exit_status = 258;
+		return(1);
+	}
 	node = list->head;
 	while (node)
 	{

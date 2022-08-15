@@ -6,26 +6,24 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/14 18:07:21 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:56:18 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-int	g_exit_status = 0;
-
-static int	ft_strcmp(char *s1, char *s2)
-{
-	while (*s1 && *s2)
-	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
-
+// static int	ft_strcmp(char *s1, char *s2)
+// {
+// 	while (*s1 && *s2)
+// 	{
+// 		if (*s1 != *s2)
+// 			return (*s1 - *s2);
+// 		s1++;
+// 		s2++;
+// 	}
+// 	return (*s1 - *s2);
+// }
+int exit_status = 0;
 char	**get_paths(char **env)
 {
 	char	**paths;
@@ -46,37 +44,6 @@ char	**get_paths(char **env)
 	}
 	ret[i] = NULL;
 	return (ret);
-}
-
-static void	is_heredoc(t_token_list *tokens)
-{
-	t_token_elem	*tmp;
-	char			*input;
-
-	tmp = tokens->head;
-	while (tmp)
-	{
-		if (tmp->type == HEREDOC)
-		{
-			if (tmp->next && tmp->next->type == WHSPACE)
-				del_node(tmp->next, tokens);
-			if (!tmp->next || tmp->next->type != WORD)
-			{
-				tmp->value = ft_strdup("syntax error near unexpected token `newline'\n");
-				tmp->type = ERROR;
-				break;
-			}
-			int fd = open("garbage",O_CREAT|O_WRONLY,0666);
-			input = readline(">");
-			while (ft_strcmp(input, tmp->next->value))
-			{
-				ft_putstr_fd(input, fd);
-				input = readline(">");
-				rl_on_new_line();
-			}
-		}
-		tmp = tmp->next;
-	}
 }
 
 void	shllvl(t_env *g_env)
@@ -100,14 +67,13 @@ int	loop_body(char **line, t_token_list **tokens,
 	if (!ft_strlen(*line))
 		return (1);
 	*tokens = lexical_analyser(*line);
-	is_heredoc(*tokens);
 	if (!check_syntax(*tokens))
 	{
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
-		run_command(*cmd_line, *g_env);
+		//run_command(*cmd_line, *g_env);
+		print_cmdline(*cmd_line);
 	}
-	//print_cmdline(*cmd_line);
 	return (0);
 }
 

@@ -1,0 +1,6 @@
+0:succeeded
+1-127:failure
+1:operation not permitted
+127:command not found
+126:command is found but is not executable
+130:bash script terminated by ctrl_C
