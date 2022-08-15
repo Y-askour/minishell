@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 15:11:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 15:27:07 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -56,15 +56,28 @@ int	red_append(t_red_elem *red, int out)
 	return (0);
 }
 
-void	is_heredoc(t_red_elem *red)
+//void	is_heredoc(t_red_elem *red)
+//{
+//	char *input;
+//	input = 0;
+//}
+
+int	red_heredoc(t_red_elem *red)
 {
 	char *input;
+	int		fd;
 
+	input = readline(">");
+	fd = open("garbage",O_CREAT|O_RDWR|O_APPEND,0666);
+	if (fd < 0)
+		return (-1);
 	while(ft_strncmp(input, red->file, ft_strlen(red->file) + 1))
 	{
+		ft_putstr_fd(input,fd);
 		input = readline(">");
 		rl_on_new_line();
 	}
+	return(0);
 }
 
 int	redirections(t_cmd_elem *cmd_line, int in, int out)
@@ -78,15 +91,12 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 	{
 		if (red->type == REDOUT)
 			return (red_out(red, out));
-		else if (red->type == HEREDOC)
-		{
-			is_heredoc(red);
-			return(0);
-		}
 		else if (red->type == REDIN)
 			return (red_in(red, in));
 		else if (red->type == APPEND)
 			return (red_append(red, out));
+		else if (red->type == HEREDOC)
+			return(red_heredoc(red));
 		red = red->next;
 	}
 	return (0);
