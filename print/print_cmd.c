@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:19:59 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:57:47 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 12:10:09 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void    print_args(char **args)
     i = 0;
     printf("agrs are:");
     while (args[i])
-    {    
-        printf("%s", args[i]);
+    {
+        printf("%s\n", args[i]);
         i++;
     }
 }
