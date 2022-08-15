@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 17:30:03 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 17:48:37 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -62,21 +62,23 @@ int	red_append(t_red_elem *red, int out)
 //	input = 0;
 //}
 
-int	red_heredoc(t_red_elem *red)
+int	red_heredoc(t_red_elem *red,int in)
 {
 	char *input;
-	int		fd;
+	int		fd[2];
 
+	pipe(fd);
 	input = readline(">");
-	fd = open("/tmp/sh_younes_test55541213151",O_CREAT|O_RDWR|O_APPEND,0666);
-	if (fd < 0)
-		return (-1);
 	while(ft_strncmp(input, red->file, ft_strlen(red->file) + 1))
 	{
-		ft_putstr_fd(input,fd);
+		ft_putstr_fd(input,fd[1]);
 		input = readline(">");
 		rl_on_new_line();
 	}
+	close(fd[1]);
+	dup2(fd[0],in);
+	close(fd[0]);
+	sleep(20);
 	return(0);
 }
 
@@ -96,7 +98,7 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 		else if (red->type == APPEND)
 			return (red_append(red, out));
 		else if (red->type == HEREDOC)
-			return(red_heredoc(red));
+			return(red_heredoc(red,in));
 		red = red->next;
 	}
 	return (0);
