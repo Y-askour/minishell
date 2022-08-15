@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/07/31 12:22:17 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 15:11:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -56,6 +56,17 @@ int	red_append(t_red_elem *red, int out)
 	return (0);
 }
 
+void	is_heredoc(t_red_elem *red)
+{
+	char *input;
+
+	while(ft_strncmp(input, red->file, ft_strlen(red->file) + 1))
+	{
+		input = readline(">");
+		rl_on_new_line();
+	}
+}
+
 int	redirections(t_cmd_elem *cmd_line, int in, int out)
 {
 	t_cmd_elem	*temp;
@@ -67,9 +78,14 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 	{
 		if (red->type == REDOUT)
 			return (red_out(red, out));
-		if (red->type == REDIN)
+		else if (red->type == HEREDOC)
+		{
+			is_heredoc(red);
+			return(0);
+		}
+		else if (red->type == REDIN)
 			return (red_in(red, in));
-		if (red->type == APPEND)
+		else if (red->type == APPEND)
 			return (red_append(red, out));
 		red = red->next;
 	}
