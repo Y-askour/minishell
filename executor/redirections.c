@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 15:27:07 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 17:30:03 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -68,7 +68,7 @@ int	red_heredoc(t_red_elem *red)
 	int		fd;
 
 	input = readline(">");
-	fd = open("garbage",O_CREAT|O_RDWR|O_APPEND,0666);
+	fd = open("/tmp/sh_younes_test55541213151",O_CREAT|O_RDWR|O_APPEND,0666);
 	if (fd < 0)
 		return (-1);
 	while(ft_strncmp(input, red->file, ft_strlen(red->file) + 1))

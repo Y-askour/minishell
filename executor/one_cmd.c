@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 15:03:27 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 16:42:01 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,13 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		cmd = ft_strjoin(paths[i], command[0]);
 		if (!check_dir(cmd, 1))
 		{
-			*check = 1;
+			//*check = 1;
 			execve(cmd, command, env);
 		}
 		free(cmd);
 		i++;
 	}
 	error_handler("minishell: path : command not found\n");
-	exit(1);
 }
 
 int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
@@ -80,8 +79,8 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 		exit(1);
 	}
 	path_search(paths, command, env, &check);
-	if (check == 0)
-		error_handler("command not found\n");
+	//if (check == 0)
+	//	error_handler("command not found\n");
 	exit(1);
 }
 

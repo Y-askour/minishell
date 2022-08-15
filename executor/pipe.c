@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 14:30:51 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 16:51:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
 	else if (pid == 0)
 	{
 		executer_helper(var->in, var->out, d, n);
-		redirections(cmdline, 0, 1);
+		// i need to check heree
+		//redirections(cmdline, 0, 1);
 		if (builtins(commands[d]) == 1)
 			exit(run_builtins(commands[d], var->g_env));
 		else
