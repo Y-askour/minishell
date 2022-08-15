@@ -172,5 +172,4 @@ void	pipes_helper3(int in, int n);
 char	***delete_spaces(t_cmd_elem *head, int n);
 void	delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void	helper(char ***commands, t_cmd_elem **head, int *s, int j);
-void	is_heredoc(t_red_elem *red);
 #endif

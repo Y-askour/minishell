@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/15 14:37:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 20:33:18 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,34 @@ void	shllvl(t_env *g_env)
 	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
 }
 
+void	red_heredoc(t_token_list *list)
+{
+	t_token_elem *node;
+	char *input;
+	int		fd[2];
+
+	node = list->head;
+	while (node)
+	{
+		if(node->type == HEREDOC)
+		{
+			pipe(fd);
+			input = readline(">");
+			while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
+			{
+				ft_putstr_fd(input,fd[1]);
+				input = readline(">");
+				rl_on_new_line();
+			}
+		close(fd[1]);
+		node->type = REDIN;
+		node->next->value = ft_itoa(fd[0]);
+		}
+		node = node->next;
+	}
+			
+}
+
 int	loop_body(char **line, t_token_list **tokens,
 t_cmd_list **cmd_line, t_env **g_env)
 {
@@ -57,6 +85,7 @@ t_cmd_list **cmd_line, t_env **g_env)
 	*tokens = lexical_analyser(*line);
 	if (!check_syntax(*tokens))
 	{
+		red_heredoc(*tokens);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
 		run_command(*cmd_line, *g_env);
@@ -82,9 +111,6 @@ int	main(int ac, char **av, char **env)
 	{
 		if (loop_body(&line, &tokens ,&cmd_line, &g_env))
 			continue ;
-		//print_list(tokens);
-		//free_tokens(tokens);
-		//free_cmd(cmd_line);
 		free(line);
 	}
 }
