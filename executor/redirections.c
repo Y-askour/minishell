@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 17:48:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/15 17:52:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -78,7 +78,6 @@ int	red_heredoc(t_red_elem *red,int in)
 	close(fd[1]);
 	dup2(fd[0],in);
 	close(fd[0]);
-	sleep(20);
 	return(0);
 }
 
