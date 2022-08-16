@@ -6,26 +6,39 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 20:23:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 12:21:05 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
+int ft_is_number(char *str)
+{
+	int i = 0;
+	while(str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	red_in(t_red_elem *red, int in)
 {	
-	// check no such file
-	//int	f1;
-	(void)in;
+	int	f1;
 
-	printf("%s\n",red->file);
-	/*f1 = open(red->file, O_RDONLY);
-	if (f1 < 0)
+	if (ft_is_number(red->file))
+		f1 = ft_atoi(red->file);
+	else
 	{
-		printf("failed to open the file\n");
-		return (-1);
+		f1 = open(red->file, O_RDONLY);
+		if (f1 < 0)
+		{
+			printf("failed to open the file\n");
+			return (-1);
+		}
 	}
 	dup2(f1, in);
-	close(f1);*/
+	close(f1);
 	return (0);
 }
 

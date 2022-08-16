@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/15 20:33:18 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 12:10:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	red_heredoc(t_token_list *list)
 	t_token_elem *node;
 	char *input;
 	int		fd[2];
-
 	node = list->head;
 	while (node)
 	{
