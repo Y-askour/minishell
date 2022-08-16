@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 11:12:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/03 13:41:15 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -23,13 +23,18 @@ void	declare_export(t_env *env)
 void	check_f(char *command, int *check)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (command[i])
+	j = 0;
+	if (ft_isalpha(command[i]) || command[i++] == '_')
 	{
-		if (command[i] == '=')
-			*check = 1;
-		i++;
+		while(command[i])
+		{
+			if (ft_isalnum(command[i]) || command[i] == '_')
+			i++;
+		}
+		*check = 1;
 	}
 }
 
@@ -42,7 +47,7 @@ int	search_in_exp(t_env **env, char **split)
 	{
 		if (!ft_strncmp(temp->name, split[0], ft_strlen(temp->name)))
 		{
-			free(temp->value);
+			//free(temp->value);
 			if (!split[1])
 				temp->value = "";
 			else

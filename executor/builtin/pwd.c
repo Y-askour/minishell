@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:00:50 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 11:01:14 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 17:51:20 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 void	pwd(char **command, t_env *env)
 {
+	(void) command;
+	(void) env;
 	char	*pwd;
-
-	(void)command;
-	while (env)
-	{
-		if (!ft_strncmp(env->name, "PWD", 3))
-			break ;
-		env = env->next;
-	}
-	pwd = env->value;
+	pwd = malloc(sizeof(char) * PATH_MAX);
+	getcwd(pwd,PATH_MAX);
 	printf("%s\n", pwd);
 }

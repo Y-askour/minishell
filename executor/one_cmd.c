@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:38:33 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 17:38:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,13 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		cmd = ft_strjoin(paths[i], command[0]);
 		if (!check_dir(cmd, 1))
 		{
-			*check = 1;
+			//*check = 1;
 			execve(cmd, command, env);
 		}
 		free(cmd);
 		i++;
 	}
 	error_handler("minishell: path : command not found\n");
-	exit(1);
 }
 
 int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
@@ -80,8 +79,8 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 		exit(1);
 	}
 	path_search(paths, command, env, &check);
-	if (check == 0)
-		error_handler("command not found\n");
+	//if (check == 0)
+	//	error_handler("command not found\n");
 	exit(1);
 }
 
@@ -90,9 +89,10 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 	char	**command;
 	char	**paths;
 	int		pid;
+	(void)g_env;
 
 	command = simple_cmd_delete_spc(cmdline);
-	paths = get_paths(g_env->env);
+	paths = get_paths();
 	if (builtins(command) == 1)
 		run_builtins(command, g_env);
 	else
@@ -105,7 +105,9 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 			return ;
 		}
 		else if (pid == 0)
+		{
 			child(cmdline, command, g_env->env, paths);
+		}
 		waitpid(pid, (int *) NULL, (int) NULL);
 	}
 }

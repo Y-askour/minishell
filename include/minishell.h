@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 15:31:20 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:34:35 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void			free_tokens(t_token_list *tokens);
 
 // execution functions 
 
-char			**get_paths(char **env);
+char			**get_paths();
 t_env			*get_env(char **env);
 
 int				run_command(t_cmd_list *cmdline, t_env *g_env);
@@ -158,8 +158,8 @@ void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
 void			exit_f(void);
-int				redirections(t_cmd_elem *cmd_line, int in, int out);
-void			export_f(char **command, t_env *env);
+int				redirections(t_cmd_elem *cmd_line,int in,int out);
+int				export_f(char **command, t_env *env);
 void			declare_export(t_env *env);
 void			check_f(char *command, int *check);
 int				search_in_exp(t_env **env, char **split);

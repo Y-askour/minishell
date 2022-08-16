@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 12:02:30 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 17:59:50 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ t_env	*get_env(char **env)
 	int		i;
 	t_env	*my_env;
 	char	**splited;
-
+	my_env = NULL;
 	i = 0;
-	if (!**env)
-		return (0);
+	if (!*env)
+	{
+		env = malloc(sizeof(char *) * 2);
+		env[0] = ft_strdup("SHLVL=1");
+		env[1] = NULL;
+	}
 	splited = ft_split(env[i], '=');
 	my_env = malloc(sizeof(t_env) * 1);
 	my_env->env = env;
@@ -51,3 +55,8 @@ t_env	*get_env(char **env)
 	}
 	return (my_env);
 }
+
+//char **set_env(t_env **env)
+//{
+//	return (0);
+//}

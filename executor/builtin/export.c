@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 11:12:59 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/03 16:40:08 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,72 @@ void	count_and_declare(int *i, char **command, t_env *env)
 		declare_export(env);
 }
 
-void	export_f(char **command, t_env *env)
+int	option(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] && str[i] == '-' && str[i + 1])
+		return (1);
+	return (0);
+}
+
+int valid(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isalpha(str[i]) || str[i++] == '_')
+	{
+		while(str[i])
+		{
+			if (!ft_isalnum(str[i]) || !(str[i] == '-'))
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
+
+void	add_env(char *command,t_env *env)
+{
+	int	i;
+	char **split;
+	t_env	*node;
+	
+	i = 0;
+	split = ft_split(command,'=');
+	node = malloc(sizeof(t_env) * 1);
+	node->env = env->env;
+	node->name = split[0];
+	if (!split[1])
+		node->value = " ";
+	else
+		node->value = split[1];
+	while(env->next)
+		env = env->next;
+	env->next = node; 
+}
+
+int check_to_add(char *command)
+{
+	int	i;
+
+	i = 0;
+	while(command[i])
+	{
+		if (command[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	export_f(char **command, t_env *env)
 {
 	int		i;
-	int		check;
-	char	**split;
+	//int		check;
+	//char	**split;
 
 	i = 0;
 	count_and_declare(&i, command, env);
@@ -33,17 +94,19 @@ void	export_f(char **command, t_env *env)
 		i = 1;
 		while (command[i])
 		{
-			check = 0;
-			check_f(command[i], &check);
-			if (check)
+			if (option(command[i]))
 			{
-				split = ft_split(command[i], '=');
-				if (search_in_exp(&env, split))
-					return ;
-				add_env_node(split, &env);
+				error_handler("minishell : export : invalid option\n");
 			}
+			else if (valid(command[i]))
+			{
+				if (check_to_add(command[i]))
+					add_env(command[i],env);
+			}
+			else
+				error_handler("minishell: export: `=` :not a valid indentifier\n");
 			i++;
 		}
 	}
-	return ;
+	return (0);
 }
