@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 12:10:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 15:19:07 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,24 @@ void	red_heredoc(t_token_list *list)
 		if(node->type == HEREDOC)
 		{
 			pipe(fd);
-			input = readline(">");
-			while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
+			int pid = fork();
+			if (pid == -1)
+				return ;
+			if (pid == 0)
 			{
-				ft_putstr_fd(input,fd[1]);
 				input = readline(">");
-				rl_on_new_line();
+				while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
+				{
+					ft_putstr_fd(input,fd[1]);
+					input = readline(">");
+					rl_on_new_line();
+				}
+				close(fd[0]);
+				close(fd[1]);
+				exit(0);
 			}
+			else
+				waitpid(pid,0,0);
 		close(fd[1]);
 		node->type = REDIN;
 		node->next->value = ft_itoa(fd[0]);
