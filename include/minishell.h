@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 14:36:49 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 14:01:44 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void			free_tokens(t_token_list *tokens);
 
 // execution functions 
 
-char			**get_paths(char **env);
+char			**get_paths();
 t_env			*get_env(char **env);
 
 int				run_command(t_cmd_list *cmdline, t_env *g_env);

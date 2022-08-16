@@ -6,19 +6,21 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 15:19:07 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 15:21:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 15:10:02 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-char **get_paths(char **env)
+char **get_paths()
 {
 	char	**paths;
 	char	**ret;
 	int		i;
 
-	(void)env;
+	//if (*env)
+	//	return 0;
 	paths = ft_split(getenv("PATH"), ':');
 	i = 0;
 	while (paths[i])
@@ -71,8 +73,8 @@ void	red_heredoc(t_token_list *list)
 					input = readline(">");
 					rl_on_new_line();
 				}
-				close(fd[0]);
 				close(fd[1]);
+				close(fd[0]);
 				exit(0);
 			}
 			else
@@ -89,6 +91,8 @@ void	red_heredoc(t_token_list *list)
 int	loop_body(char **line, t_token_list **tokens,
 t_cmd_list **cmd_line, t_env **g_env)
 {
+	(void)	g_env;
+	(void)	cmd_line;
 	*line = display_prompt();
 	if (!ft_strlen(*line))
 		return (1);
@@ -114,7 +118,7 @@ int	main(int ac, char **av, char **env)
 	cmd_line = NULL;
 	g_env = get_env(env);
 	(void) av;
-	shllvl(g_env);
+	//shllvl(g_env);
 	if (ac != 1 || !*env)
 		return (1);
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 16:42:01 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 15:22:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 	char	**command;
 	char	**paths;
 	int		pid;
+	(void)g_env;
 
 	command = simple_cmd_delete_spc(cmdline);
-	paths = get_paths(g_env->env);
+	paths = get_paths();
 	if (builtins(command) == 1)
 		run_builtins(command, g_env);
 	else

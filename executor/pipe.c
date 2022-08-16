@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/15 16:51:16 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 14:01:56 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	pipeline(int n,	t_cmd_elem *head,	t_env *g_env)
 {
 	char	**paths;
 
-	paths = get_paths(g_env->env);
+	paths = get_paths();
 	return (pipes(n, head, paths, g_env));
 }
 
@@ -113,7 +113,7 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		return (0);
 	if (i == 1)
 		simple_cmd(cmdline->head, g_env);
-	if (i > 1)
-		pipeline(i, cmdline->head, g_env);
+	//if (i > 1)
+	//	pipeline(i, cmdline->head, g_env);
 	return (0);
 }
