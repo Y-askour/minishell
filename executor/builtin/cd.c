@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/01 10:59:40 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 19:40:52 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	cd(char **command, t_env *env)
 		}
 		env = env->next;
 	}
+	exit_status = 0;
 }

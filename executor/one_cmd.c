@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 17:38:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 19:38:47 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,20 @@ int	check_dir(char *cmd, int check)
 		if (S_ISDIR(finfo.st_mode))
 		{
 			error_handler("minishell : path: is a directory\n");
+			exit_status = 126;
 			exit(1);
 		}
 		if (access(cmd, X_OK))
 		{
 			error_handler("minishell : path: Permission denied\n");
+			exit_status = 126;
 			exit(1);
 		}
 	}
 	else if (check == 0)
 	{
 		error_handler("minishell : path: No such file or directory\n");
+		exit_status = 127;
 		exit(1);
 	}
 	return (0);
@@ -61,6 +64,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		i++;
 	}
 	error_handler("minishell: path : command not found\n");
+	exit(127);
 }
 
 int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
@@ -75,13 +79,14 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	if (command[0][0] == '/')
 	{
 		if (!check_dir(command[0], 0))
-			execve(command[0], command, env);
-		exit(1);
+		{
+			execve(command[0], command, env);	
+		}
 	}
 	path_search(paths, command, env, &check);
 	//if (check == 0)
 	//	error_handler("command not found\n");
-	exit(1);
+	return (0);
 }
 
 void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
@@ -89,10 +94,11 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 	char	**command;
 	char	**paths;
 	int		pid;
-	(void)g_env;
+	int tmpexit;
 
 	command = simple_cmd_delete_spc(cmdline);
 	paths = get_paths();
+	// you need to check builtins exit_status
 	if (builtins(command) == 1)
 		run_builtins(command, g_env);
 	else
@@ -100,6 +106,7 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 		pid = fork();
 		if (pid == -1)
 		{
+			exit_status = 1;
 			error_handler(\
 					"minishell: fork: Ressource temporarily unavailable\n");
 			return ;
@@ -108,6 +115,7 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 		{
 			child(cmdline, command, g_env->env, paths);
 		}
-		waitpid(pid, (int *) NULL, (int) NULL);
+		waitpid(pid,&tmpexit, (int) NULL);
+		exit_status = WEXITSTATUS(tmpexit);
 	}
 }

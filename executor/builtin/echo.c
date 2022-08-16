@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 23:25:36 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 19:36:39 by yaskour          ###   ########.fr       */
+/*   Created: 2022/08/16 19:13:42 by yaskour           #+#    #+#             */
+/*   Updated: 2022/08/16 19:40:58 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "minishell.h"
 
-#include"minishell.h"
-
-int	error_handler(char *message)
+void	echo(char **command)
 {
-	ft_putstr_fd(message, 2);
-	return (-1);
+	int i = 1;
+	while(command[i])
+		printf("%s",command[i++]);
+	printf("\n");
+	exit_status = 0;
 }

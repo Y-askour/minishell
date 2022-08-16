@@ -37,6 +37,7 @@ FILES = minishell.c\
 		./executor/builtin/pwd.c\
 		./executor/builtin/export.c\
 		./executor/builtin/helpers.c\
+		./executor/builtin/echo.c\
 		./executor/redirections.c\
 		./executor/one_cmd_helper.c\
 		./executor/pipe_helper.c\

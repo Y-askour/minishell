@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 15:47:24 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 19:20:24 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
 	i = 0;
 	pid = fork();
 	if (pid == -1)
+	{
+		exit_status = 1;
 		return (error_handler(\
 					"minishell: fork: Ressource temporarily unavailable\n"));
+	}
 	else if (pid == 0)
 	{
 		executer_helper(var->in, var->out, d, n);
-		// i need to check heree
-		//redirections(cmdline, 0, 1);
+		// you need to check builtins exit_status
 		if (builtins(commands[d]) == 1)
 			exit(run_builtins(commands[d], var->g_env));
 		else
