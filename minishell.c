@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 17:59:16 by yaskour          ###   ########.fr       */
-/*   Updated: 2022/08/16 15:10:02 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 18:28:48 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include"minishell.h"
 
@@ -53,33 +53,51 @@ void	shllvl(t_env *g_env)
 	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
 }
 
-void	red_heredoc(t_token_list *list)
+void	heredoc_signal(int signal)
+{
+	(void) signal;
+	exit(1);
+}
+
+void input_heredoc(int *fd, t_token_elem *node)
+{
+	char	*input;
+
+	input = readline(">");
+	if  (!input)
+		exit(1);
+	while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
+	{
+		signal(SIGINT, heredoc_signal);
+		ft_putstr_fd(input,fd[1]);
+		input = readline(">");
+		if (!input)
+			exit(1);
+		rl_on_new_line();
+	}
+	close(fd[0]);
+	close(fd[1]);
+	exit(1);
+}
+
+void	is_heredoc(t_token_list *list)
 {
 	t_token_elem *node;
-	char *input;
 	int		fd[2];
+	int		pid;
+	
 	node = list->head;
 	while (node)
 	{
 		if(node->type == HEREDOC)
 		{
+			signal(SIGINT, SIG_IGN);
 			pipe(fd);
-			int pid = fork();
+			pid = fork();
 			if (pid == -1)
 				return ;
 			if (pid == 0)
-			{
-				input = readline(">");
-				while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
-				{
-					ft_putstr_fd(input,fd[1]);
-					input = readline(">");
-					rl_on_new_line();
-				}
-				close(fd[1]);
-				close(fd[0]);
-				exit(0);
-			}
+				input_heredoc(fd, node);
 			else
 				waitpid(pid,0,0);
 		close(fd[1]);
@@ -88,7 +106,6 @@ void	red_heredoc(t_token_list *list)
 		}
 		node = node->next;
 	}
-			
 }
 
 int	loop_body(char **line, t_token_list **tokens,
@@ -102,7 +119,7 @@ t_cmd_list **cmd_line, t_env **g_env)
 	*tokens = lexical_analyser(*line);
 	if (!check_syntax(*tokens))
 	{
-		red_heredoc(*tokens);
+		is_heredoc(*tokens);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
 		run_command(*cmd_line, *g_env);

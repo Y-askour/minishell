@@ -25,6 +25,7 @@ FILES = minishell.c\
 		./error_handler/error_handler.c\
 		./parser/parse_cmd.c\
 		./parser/parse_cmd_utils.c\
+		./parser/parse_cmd_utils2.c\
 		./print/print_cmd.c\
 		./free/free_cmd.c\
 		./free/free_tokens.c\
@@ -47,10 +48,10 @@ OBJ = $(FILES:%.c=%.o)
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
-	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline1/lib -lreadline
+	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline/lib -lreadline
 
 %.o : %.c $(HEADER)
-	@$(CC) -I ./readline1/include -I./include $(FLAGS) -o $@ -c $<
+	@$(CC) -I ./readline/include -I./include $(FLAGS) -o $@ -c $<
 	@echo "$(GREEN)" "compiling $<"
 
 $(LIBFT_LIB):
