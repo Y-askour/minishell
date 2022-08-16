@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 15:22:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 17:38:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
 			return ;
 		}
 		else if (pid == 0)
+		{
 			child(cmdline, command, g_env->env, paths);
+		}
 		waitpid(pid, (int *) NULL, (int) NULL);
 	}
 }

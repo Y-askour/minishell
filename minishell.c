@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 16:08:10 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 17:59:16 by yaskour          ###   ########.fr       */
 /*   Updated: 2022/08/16 15:10:02 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -19,20 +19,23 @@ char **get_paths()
 	char	**ret;
 	int		i;
 
-	//if (*env)
-	//	return 0;
-	paths = ft_split(getenv("PATH"), ':');
-	i = 0;
-	while (paths[i])
-		i++;
-	ret = malloc(sizeof(char *) * i +1);
-	i = 0;
-	while (paths[i])
+	ret = 0;
+	char *tmp = getenv("PATH");
+	if (tmp)
 	{
-		ret[i] = ft_strjoin(paths[i], "/");
-		i++;
+		paths = ft_split(tmp, ':');
+		i = 0;
+		while (paths[i])
+			i++;
+		ret = malloc(sizeof(char *) * i +1);
+		i = 0;
+		while (paths[i])
+		{
+			ret[i] = ft_strjoin(paths[i], "/");
+			i++;
+		}
+		ret[i] = NULL;
 	}
-	ret[i] = NULL;
 	return (ret);
 }
 
@@ -119,7 +122,7 @@ int	main(int ac, char **av, char **env)
 	g_env = get_env(env);
 	(void) av;
 	//shllvl(g_env);
-	if (ac != 1 || !*env)
+	if (ac != 1)
 		return (1);
 	while (1)
 	{
