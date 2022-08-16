@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 14:12:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:21:00 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,53 @@ void	shllvl(t_env *g_env)
 	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
 }
 
+void	heredoc_signal(int signal)
+{
+	(void) signal;
+	exit(1);
+}
+
+void input_heredoc(int fd[2], t_token_elem *node)
+{
+	char	*input;
+
+	input = readline(">");
+	if  (!input)
+		exit(1);
+	while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
+	{
+		signal(SIGINT, heredoc_signal);
+		ft_putstr_fd(input,fd[1]);
+		input = readline(">");
+		if (!input)
+			exit(1);
+		rl_on_new_line();
+	}
+	close(fd[0]);
+	close(fd[1]);
+	exit(1);
+}
+
 void	is_heredoc(t_token_list *list)
 {
-	t_token_elem	*node;
-	char			*input;
-	
+	t_token_elem *node;
 	int		fd[2];
-
+	int		pid;
+	
 	node = list->head;
 	while (node)
 	{
 		if(node->type == HEREDOC)
 		{
+			signal(SIGINT, SIG_IGN);
 			pipe(fd);
-			input = readline(">");
-			while(ft_strncmp(input, node->next->value, ft_strlen(node->next->value) + 1))
-			{
-				signal(SIGINT, SIG_IGN);/*ctrl + c*/
-				ft_putstr_fd(input,fd[1]);
-				input = readline(">");
-				rl_on_new_line();
-			}
+			pid = fork();
+			if (pid == -1)
+				return ;
+			if (pid == 0)
+				input_heredoc(&fd[2], node);
+			else
+				waitpid(pid,0,0);
 		close(fd[1]);
 		node->type = REDIN;
 		node->next->value = ft_itoa(fd[0]);
@@ -102,7 +128,7 @@ int	loop_body(char **line, t_token_list **tokens,
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
 		//run_command(*cmd_line, *g_env);
-		print_cmdline(*cmd_line);
+		//print_cmdline(*cmd_line);
 		free_cmd(*cmd_line);
 	}
 	return (0);
