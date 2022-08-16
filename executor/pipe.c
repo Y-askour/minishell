@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 14:01:56 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 15:47:24 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		return (0);
 	if (i == 1)
 		simple_cmd(cmdline->head, g_env);
-	//if (i > 1)
-	//	pipeline(i, cmdline->head, g_env);
+	if (i > 1)
+		pipeline(i, cmdline->head, g_env);
 	return (0);
 }
