@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   one_cmd_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:44:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 14:51:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/17 14:24:42 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/minishell.h"
+
+
+#include"minishell.h"
 
 void	path_search_helper(char **command, int **check, char **env)
 {
@@ -18,7 +20,7 @@ void	path_search_helper(char **command, int **check, char **env)
 
 	if (command[0][1] != '/')
 	{
-		error_handler("minishell: path : command not found\n");
+		error_handler("minishell: path : command not found", 1);
 		exit(1);
 	}
 	else

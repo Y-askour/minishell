@@ -14,6 +14,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 FILES = minishell.c\
 		prompt.c\
+		heredoc.c\
 		./tokenizer/lexer.c\
 		./tokenizer/tokens_list_utils.c\
 		./tokenizer/tokenizer.c\
@@ -49,10 +50,10 @@ OBJ = $(FILES:%.c=%.o)
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
-	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline1/lib -lreadline -g
+	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline/lib -lreadline -g
 
 %.o : %.c $(HEADER)
-	@$(CC) -I ./readline1/include -I./include $(FLAGS) -o $@ -c $< -g
+	@$(CC) -I ./readline/include -I./include $(FLAGS) -o $@ -c $< -g
 	@echo "$(GREEN)" "compiling $<"
 
 $(LIBFT_LIB):

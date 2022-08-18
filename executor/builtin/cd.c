@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 19:40:52 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:50:29 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	cd(char **command, t_env *env)
 {
@@ -28,5 +28,5 @@ void	cd(char **command, t_env *env)
 		}
 		env = env->next;
 	}
-	exit_status = 0;
+	g_exit_status = 0;
 }

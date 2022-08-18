@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 19:20:24 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:50:29 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	executer_helper(int in, int out, int d, int n)
 {
@@ -41,14 +41,13 @@ int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
 	pid = fork();
 	if (pid == -1)
 	{
-		exit_status = 1;
 		return (error_handler(\
-					"minishell: fork: Ressource temporarily unavailable\n"));
+					"minishell: fork: Ressource temporarily unavailable", 1));
 	}
 	else if (pid == 0)
 	{
 		executer_helper(var->in, var->out, d, n);
-		// you need to check builtins exit_status
+		// you need to check builtins g_exit_status
 		if (builtins(commands[d]) == 1)
 			exit(run_builtins(commands[d], var->g_env));
 		else

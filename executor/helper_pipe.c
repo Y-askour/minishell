@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helper_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:28:08 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:28:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 15:13:54 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg)
 {

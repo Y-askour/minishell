@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/03 16:40:08 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/17 14:23:13 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	count_and_declare(int *i, char **command, t_env *env)
 {
@@ -96,7 +96,7 @@ int	export_f(char **command, t_env *env)
 		{
 			if (option(command[i]))
 			{
-				error_handler("minishell : export : invalid option\n");
+				error_handler("minishell : export : invalid option", 1);
 			}
 			else if (valid(command[i]))
 			{
@@ -104,7 +104,7 @@ int	export_f(char **command, t_env *env)
 					add_env(command[i],env);
 			}
 			else
-				error_handler("minishell: export: `=` :not a valid indentifier\n");
+				error_handler("minishell: export: `=` :not a valid indentifier", 1);
 			i++;
 		}
 	}

@@ -1,0 +1,13 @@
+env -i 
+cd 
+redirections
+check leaks
+norminette
+protect every single function 
+lookup exitStatus one_cmd_helper.c:23:54
+                export.c:107:68
+                export.c:99:56
+echo should print spaces
+cmd | | cmd should print error
+i removed wspaces, test it
+>file, segfaults

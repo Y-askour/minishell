@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 18:40:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:57:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void	signal_handler(int signal)
 	rl_redisplay();/*Change what's displayed on the screen to reflect the current contents of rl_line_buffer*/
 }
 
-char	*display_prompt()
+char	*display_prompt(void)
 {
 	char	*line;
 	char	*prompt;
 
 	prompt = "minishell$>";
-
 	signal(SIGINT, signal_handler);/*ctrl + c*/
 	signal(SIGQUIT, SIG_IGN); /*ctrl + '\'*/
 	signal(SIGTSTP, SIG_IGN); /*ctrl + z*/

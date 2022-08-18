@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:29 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/02 16:30:48 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 15:13:50 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/minishell.h"
+
+
+#include"minishell.h"
 
 int	pipes_helper1(int pid, int in, int *fd, int *check)
 {

@@ -6,11 +6,29 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:43 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/15 15:20:59 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/18 12:10:51 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+static char	*tokenizer_help(t_token_list *tokens, char *line)
+{
+	line = is_word(tokens, line, " \n\t\'\"<|>$;");
+	if (*line == ';')
+	{
+		line++;
+		if (*line == ';')
+		{
+			add_back(tokens, ft_strndup("syntax error near unexpected token \
+				`;;'", 40), ERROR);
+			line++;
+		}
+		else
+			add_back(tokens, ft_strndup(";", 2), WORD);
+	}
+	return (line);
+}
 
 void	tokenizer(t_token_list *tokens, char *line)
 {
@@ -27,19 +45,6 @@ void	tokenizer(t_token_list *tokens, char *line)
 		else if (*line == '\"')
 			line = is_dquout(tokens, line + 1);
 		else
-		{
-			line = is_word(tokens, line, " \n\t\'\"<|>$;");
-			if (*line == ';')
-			{
-				line++;
-				if (*line == ';')
-				{
-					add_back(tokens, ft_strndup("syntax error near unexpected token `;;'", 40), ERROR);
-					line++;
-				}
-				else
-					add_back(tokens, ft_strndup(";", 2), WORD);
-			}
-		}
+			line = tokenizer_help(tokens, line);
 	}
 }

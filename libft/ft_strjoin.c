@@ -6,7 +6,7 @@
 /*   By: aboudoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:28:33 by aboudoun          #+#    #+#             */
-/*   Updated: 2021/12/10 11:10:16 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:53:49 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -33,6 +33,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	str[i + j] = 0;
-	free((char*)s1);
+	free((char *)s1);
 	return (str);
 }

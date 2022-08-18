@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 21:38:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/13 16:22:08 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:55:22 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,3 @@ void	red_back(t_red_list *list, char *file, int type)
 	}
 	list->taile = new;
 }
-

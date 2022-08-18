@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:13:42 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 19:40:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:50:29 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	echo(char **command)
@@ -17,5 +18,5 @@ void	echo(char **command)
 	while(command[i])
 		printf("%s",command[i++]);
 	printf("\n");
-	exit_status = 0;
+	g_exit_status = 0;
 }

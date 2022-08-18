@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/16 18:39:36 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 14:59:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	del_red(t_cmd_list *cmd_line, t_token_elem *tmp, t_token_list *list)
 t_token_elem	*parse_args2(t_token_elem *node, int *i, char ***args)
 {
 	char	*str;
+
 	while (node)
 	{
 		if (node->type == WHSPACE)
 		{
-			(*args)[*i] = ft_strndup(" ", 2);
-			(*i)++;
+			// (*args)[*i] = ft_strndup(" ", 2);
+			// (*i)++;
 			node = node->next;
 		}
 		if (!node || node->type == PIPE)

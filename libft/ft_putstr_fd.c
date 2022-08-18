@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 23:07:44 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/15 17:31:40 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:53:10 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	while (*s)
 		ft_putchar_fd(*s++, fd);
-	ft_putchar_fd('\n',fd);
+	ft_putchar_fd('\n', fd);
 }

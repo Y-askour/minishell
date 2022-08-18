@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 19:15:50 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/18 15:13:45 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ typedef struct s_pipe
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
-int				error_handler(char *message);
+int				error_handler(char *message, int status);
+void			is_heredoc(t_token_list *list);
 t_token_list	*lexical_analyser(char *line);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
@@ -144,7 +145,7 @@ void			free_tokens(t_token_list *tokens);
 
 // execution functions 
 
-char			**get_paths();
+char			**get_paths(void);
 t_env			*get_env(char **env);
 
 int				run_command(t_cmd_list *cmdline, t_env *g_env);
@@ -158,7 +159,7 @@ void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
 void			exit_f(void);
-int				redirections(t_cmd_elem *cmd_line,int in,int out);
+int				redirections(t_cmd_elem *cmd_line, int in, int out);
 int				export_f(char **command, t_env *env);
 void			declare_export(t_env *env);
 void			check_f(char *command, int *check);
@@ -175,6 +176,6 @@ void			pipes_helper3(int in, int n);
 char			***delete_spaces(t_cmd_elem *head, int n);
 void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
-void	echo(char **command);
-int exit_status;
+void			echo(char **command);
+int				g_exit_status;
 #endif

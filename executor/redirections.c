@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 19:31:23 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/16 20:45:03 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/minishell.h"
+
+#include"minishell.h"
+
 int ft_is_number(char *str)
 {
 	int i = 0;
@@ -33,8 +35,7 @@ int	red_in(t_red_elem *red, int in)
 		f1 = open(red->file, O_RDONLY);
 		if (f1 < 0)
 		{
-			exit_status = 1;
-			error_handler("minishell: path : No such  file or directory\n");
+			error_handler("minishell: path : No such  file or directory", 1);
 			return (-1);
 		}
 	}
@@ -50,8 +51,7 @@ int	red_out(t_red_elem *red, int out)
 	f1 = open(red->file, O_CREAT | O_WRONLY, 0666);
 	if (f1 < 0)
 	{
-		exit_status = 1;
-		error_handler("minishell: path : No such  file or directory\n");
+		error_handler("minishell: path : No such  file or directory", 1);
 		return (-1);
 	}
 	dup2(f1, out);
@@ -66,8 +66,7 @@ int	red_append(t_red_elem *red, int out)
 	f1 = open(red->file, O_CREAT | O_APPEND | O_RDWR, 0666);
 	if (f1 < 0)
 	{
-		exit_status = 1;
-		error_handler("minishell: path : No such  file or directory\n");
+		error_handler("minishell: path : No such  file or directory", 1);
 		return (-1);
 	}
 	dup2(f1, out);

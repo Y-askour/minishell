@@ -1,5 +1,0 @@
-env -i 
-cd 
-redirections
-check leaks
-norminette
