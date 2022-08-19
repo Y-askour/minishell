@@ -11,3 +11,4 @@ echo should print spaces
 cmd | | cmd should print error
 i removed wspaces, test it
 >file, segfaults
+multiple redirections > t > s >  l
