@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 20:45:03 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:10:31 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,14 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 
 	temp = cmd_line;
 	red = cmd_line->redir->head;
-	(void)in;
-	(void)out;
 	while (red)
 	{
 		if (red->type == REDOUT)
-			return (red_out(red, out));
+			red_out(red, out);
 		else if (red->type == REDIN)
-			return (red_in(red, in));
+			red_in(red, in);
 		else if (red->type == APPEND)
-			return (red_append(red, out));
+			red_append(red, out);
 		red = red->next;
 	}
 	return (0);
