@@ -15,11 +15,10 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 FILES = minishell.c\
 		prompt.c\
 		heredoc.c\
-		./tokenizer/lexer.c\
 		./tokenizer/tokens_list_utils.c\
 		./tokenizer/tokenizer.c\
-		./tokenizer/tokenizer_functions.c\
-		./tokenizer/tokenizer_functions2.c\
+		./tokenizer/lexer1.c\
+		./tokenizer/lexer2.c\
 		./print/print_tokens.c\
 		./syntax_/check_syntax.c\
 		./syntax_/expand.c\

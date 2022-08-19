@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:43 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/18 12:10:51 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:35:21 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ static char	*tokenizer_help(t_token_list *tokens, char *line)
 	return (line);
 }
 
-void	tokenizer(t_token_list *tokens, char *line)
+t_token_list	*tokenizer(char *line)
 {
+	t_token_list	*tokens;
+
+	tokens = NULL;
+	tokens = init_token_list(tokens);
 	while (*line && *line != '\n')
 	{
 		if (ft_strchr(" \t\v\f\r", *line))
@@ -47,4 +51,5 @@ void	tokenizer(t_token_list *tokens, char *line)
 		else
 			line = tokenizer_help(tokens, line);
 	}
+	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/18 15:13:45 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:36:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
 int				error_handler(char *message, int status);
 void			is_heredoc(t_token_list *list);
-t_token_list	*lexical_analyser(char *line);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
 t_cmd_list		*init_cmd_list(t_cmd_list *list);
@@ -131,7 +130,7 @@ t_token_list	*init_token_list(t_token_list *list);
 void			del_node(t_token_elem *node, t_token_list *list);
 void			expand(t_token_list *list, t_env **env);
 /******TOKENIZER FUNCTIONS*******/
-void			tokenizer(t_token_list *tokens, char *line);
+t_token_list	*tokenizer(char *line);
 char			*is_word(t_token_list *tokens, char *line, char *stop);
 char			*ft_strndup(char *str, int n);
 char			*is_wspace(t_token_list *tokens, char *line);
