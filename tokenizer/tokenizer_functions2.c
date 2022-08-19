@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_functions2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:45:40 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 15:51:39 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*is_squout(t_token_list *tokens, char *line)
 				ft_strlen("error unclosed single quout") + 1), ERROR);
 		return (line + 1);
 	}
+	if (*(line) == '\'')
+		add_back(tokens, ft_strdup(""), WORD);
 	line = is_word(tokens, line + 1, "\'");
 	return (line + 1);
 }
@@ -44,6 +46,8 @@ char	*is_dquout(t_token_list *tokens, char *line)
 				ft_strlen("error unclosed double quout") + 1), ERROR);
 		return (line + 1);
 	}
+	if (*(line) == '\"')
+		add_back(tokens, ft_strdup(""), WORD);
 	line = is_word(tokens, line, "$~\"");
 	if (*line == '\"')
 		line ++;

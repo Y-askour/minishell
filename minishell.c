@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 15:08:12 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:53:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	loop_body(char **line, t_token_list **tokens,
 		//print_list(*tokens);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
-		run_command(*cmd_line, *g_env);
-		//print_cmdline(*cmd_line);
+		//run_command(*cmd_line, *g_env);
+		print_cmdline(*cmd_line);
 		free_cmd(*cmd_line);
 	}
 	return (0);
