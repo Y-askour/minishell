@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 15:27:53 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:55:14 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,38 +31,25 @@ void	executer_helper(int in, int out, int d, int n)
 	}
 }
 
-int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
+int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 {
-	pid_t		pid;
-	int			i;
-	static int	d;
-
-	i = 0;
-	pid = -60;
-	if (builtins(commands[d]) && n == 1)
-		run_builtins(commands[d], var->g_env);
+	(void)n;
+	(void)cmdline;
+	(void)var;
+	(void)commands;
+	if (builtins(commands) && n == 1)
+		run_builtins(commands,var->g_env);
 	else
 	{
-		pid = fork();
+		int pid = fork();
 		if (pid == -1)
-		{
-			return (error_handler(\
-						"minishell: fork: Ressource temporarily unavailable", 1));
-		}
+			error_handler("fork error\n",2);
 		else if (pid == 0)
 		{
-			executer_helper(var->in, var->out, d, n);
-			// you need to check builtins g_exit_status
-			if (builtins(commands[d]))
-				exit(run_builtins(commands[d], var->g_env));
-			else
-				child(cmdline, commands[d], var->g_env->env, var->paths);
 		}
+		printf("%d\n",i);
 	}
-	d++;
-	if (d == n)
-		d = 0;
-	return (pid);
+	return (0);
 }
 
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
@@ -82,7 +69,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		var.paths = paths;
 		var.in = in_out.in;
 		var.out = in_out.fd[1];
-		pid = executer(&head->args, n, head, &var);
+		pid = executer(head->args, n, i,head, &var);
 		if (pipes_helper1(pid, in_out.in, in_out.fd, &in_out.check))
 			break ;
 		pipes_helper2(&head, in_out.fd, &in_out.in);
@@ -114,6 +101,7 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		ptr = ptr->next;
 	}
 	ptr = cmdline->head;
-	pipeline(i, cmdline->head, g_env);
+	//print_cmdline(cmdline);
+	pipeline(i, ptr, g_env);
 	return (0);
 }

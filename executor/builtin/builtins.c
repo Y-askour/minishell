@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 13:31:18 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:30:55 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	run_builtins(char **command, t_env *env)
 
 int	builtins(char **command)
 {
+	// for redirections
 	if (!command[0])
 		return (0);
 	if (!ft_strncmp(command[0], "echo", 4))
