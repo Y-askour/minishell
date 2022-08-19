@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:19:59 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 14:32:41 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:18:35 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void    print_args(char **args)
     printf("agrs are:");
     while (args[i])
     {
-        printf("%s\n", args[i]);
+        printf("%s", args[i]);
         i++;
     }
+    printf("\n");
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 12:42:25 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:14:48 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,37 +81,5 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 		}
 	}
 	path_search(paths, command, env, &check);
-	//if (check == 0)
-	//	error_handler("command not found\n");
 	return (0);
-}
-
-void	simple_cmd(t_cmd_elem *cmdline, t_env *g_env)
-{
-	char	**command;
-	char	**paths;
-	int		pid;
-	int tmpexit;
-
-	command = simple_cmd_delete_spc(cmdline);
-	paths = get_paths();
-	// you need to check builtins g_exit_status
-	if (builtins(command) == 1)
-		run_builtins(command, g_env);
-	else
-	{
-		pid = fork();
-		if (pid == -1)
-		{
-			error_handler(\
-					"minishell: fork: Ressource temporarily unavailable", 1);
-			return ;
-		}
-		else if (pid == 0)
-		{
-			child(cmdline, command, g_env->env, paths);
-		}
-		waitpid(pid,&tmpexit, (int) NULL);
-		g_exit_status = WEXITSTATUS(tmpexit);
-	}
 }
