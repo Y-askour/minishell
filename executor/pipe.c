@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 12:43:36 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 13:33:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
 	{
 		executer_helper(var->in, var->out, d, n);
 		// you need to check builtins g_exit_status
-		if (builtins(commands[d]) == 1)
+		if (builtins(commands[d]))
 			exit(run_builtins(commands[d], var->g_env));
 		else
 			child(cmdline, commands[d], var->g_env->env, var->paths);
@@ -109,11 +109,9 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		i++;
 		ptr = ptr->next;
 	}
-	//ptr = cmdline->head;
-	if (!cmdline->head->args[0])
-		return(0);
-	/*if (!ft_strncmp(ptr->args[0], " ", 1) && !ptr->args[1])
-		return (0);*/
+	ptr = cmdline->head;
+	//if (!cmdline->head->args[0])
+	//	return(0);
 	pipeline(i, cmdline->head, g_env);
 	return (0);
 }
