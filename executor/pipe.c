@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 13:33:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 14:15:39 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,6 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		ptr = ptr->next;
 	}
 	ptr = cmdline->head;
-	//if (!cmdline->head->args[0])
-	//	return(0);
 	pipeline(i, cmdline->head, g_env);
 	return (0);
 }

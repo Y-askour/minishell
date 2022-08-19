@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 14:07:41 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 14:14:48 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,5 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 		}
 	}
 	path_search(paths, command, env, &check);
-	//if (check == 0)
-	//	error_handler("command not found\n");
 	return (0);
 }
