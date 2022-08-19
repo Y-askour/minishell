@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/18 11:44:39 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:04:26 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	heredoc_signal(int signal)
 {
 	(void) signal;
-	exit(1);
+	exit(130);
 }
 
 void	input_heredoc(int *fd, t_token_elem *node)

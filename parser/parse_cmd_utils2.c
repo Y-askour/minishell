@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 16:20:24 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/18 15:15:52 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:29:25 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	count_args(t_token_elem *node)
 	while (node && node->type != PIPE)
 	{
 		if (node->type == WHSPACE)
-		{
-			i++;
 			node = node->next;
-		}
 		if (node)
 			i++;
 		while (node && node->type != WHSPACE)
