@@ -12,3 +12,7 @@ cmd | | cmd should print error
 i removed wspaces, test it
 >file, segfaults
 multiple redirections > t > s >  l
+
+shell lvl
+i need to check builtins cases
+env segfaults
