@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 15:19:57 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 15:27:53 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,26 @@ int	executer(char ***commands, int n, t_cmd_elem *cmdline, t_exec *var)
 	static int	d;
 
 	i = 0;
-	pid = fork();
-	if (pid == -1)
+	pid = -60;
+	if (builtins(commands[d]) && n == 1)
+		run_builtins(commands[d], var->g_env);
+	else
 	{
-		return (error_handler(\
-					"minishell: fork: Ressource temporarily unavailable", 1));
-	}
-	else if (pid == 0)
-	{
-		executer_helper(var->in, var->out, d, n);
-		// you need to check builtins g_exit_status
-		if (builtins(commands[d]))
-			exit(run_builtins(commands[d], var->g_env));
-		else
-			child(cmdline, commands[d], var->g_env->env, var->paths);
+		pid = fork();
+		if (pid == -1)
+		{
+			return (error_handler(\
+						"minishell: fork: Ressource temporarily unavailable", 1));
+		}
+		else if (pid == 0)
+		{
+			executer_helper(var->in, var->out, d, n);
+			// you need to check builtins g_exit_status
+			if (builtins(commands[d]))
+				exit(run_builtins(commands[d], var->g_env));
+			else
+				child(cmdline, commands[d], var->g_env->env, var->paths);
+		}
 	}
 	d++;
 	if (d == n)
