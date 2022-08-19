@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 17:55:14 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 18:46:34 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ void	executer_helper(int in, int out, int d, int n)
 
 int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 {
-	(void)n;
-	(void)cmdline;
-	(void)var;
-	(void)commands;
+	(void)i;
 	if (builtins(commands) && n == 1)
 		run_builtins(commands,var->g_env);
 	else
@@ -46,8 +43,12 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 			error_handler("fork error\n",2);
 		else if (pid == 0)
 		{
+			executer_helper(var->in, var->out, i, n);
+			if (builtins(commands))
+				run_builtins(commands,var->g_env);
+			else
+				child(cmdline,commands,var->g_env->env,var->paths);
 		}
-		printf("%d\n",i);
 	}
 	return (0);
 }
