@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 18:17:31 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 12:29:36 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:06:15 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_token_elem	*parse_args2(t_token_elem *node, int *i, char ***args)
 
 	while (node)
 	{
-		if (node->type == WHSPACE)
+		while (node->type == WHSPACE)
 			node = node->next;
 		if (!node || node->type == PIPE)
 			break ;

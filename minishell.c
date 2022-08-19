@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 14:05:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/19 15:16:51 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	loop_body(char **line, t_token_list **tokens,
 	if (!check_syntax(*tokens))
 	{
 		is_heredoc(*tokens);
+		//print_list(*tokens);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
 		run_command(*cmd_line, *g_env);
@@ -90,7 +91,6 @@ int	main(int ac, char **av, char **env)
 	{
 		if (loop_body(&line, &tokens, &cmd_line, &g_env))
 			continue ;
-		//print_list(tokens);
 		free_tokens(tokens);
 		free(line);
 	}
