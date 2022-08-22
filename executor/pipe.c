@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 14:51:59 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 14:54:45 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 {
 	// khassni nhandli hadi redirections f builtins 
 	int old_stdout = dup(STDOUT_FILENO);
+	int old_stdin = dup(STDIN_FILENO);
 	if (builtins(commands) && n == 1)
 	{
 		run_builtins(cmdline,commands,var->g_env);
 		dup2(old_stdout,STDOUT_FILENO);
+		dup2(old_stdout,STDIN_FILENO);
 		close(old_stdout);
+		close(old_stdin);
 	}
 	else
 	{
