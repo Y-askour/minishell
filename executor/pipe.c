@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 14:54:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 18:19:29 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 			if (builtins(commands))
 				exit(run_builtins(cmdline,commands,var->g_env));
 			else
-				child(cmdline,commands,var->g_env->env,var->paths);
+				child(cmdline,commands,var->g_env,var->paths);
 		}
 	}
 	return (0);

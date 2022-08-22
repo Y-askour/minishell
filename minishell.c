@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 15:20:11 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 18:06:40 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	main(int ac, char **av, char **env)
 	cmd_line = NULL;
 	g_env = get_env(env);
 	(void) av;
-	//shllvl(g_env);
 	if (ac != 1)
 		return (1);
 	while (1)
