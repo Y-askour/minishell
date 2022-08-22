@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 14:47:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 14:50:27 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int ft_is_number(char *str)
 	return (1);
 }
 
-int	red_in(t_red_elem *red, int in,int check)
+int	red_in(t_red_elem *red, int in)
 {	
 	int	f1;
-	(void)check;
 
 	if (ft_is_number(red->file))
 		f1 = ft_atoi(red->file);
@@ -45,11 +44,9 @@ int	red_in(t_red_elem *red, int in,int check)
 	return (0);
 }
 
-int	red_out(t_red_elem *red, int out,int check)
+int	red_out(t_red_elem *red, int out)
 {
 	int	f1;
-	//old_stdout = dup(out);
-	(void) check;
 
 	f1 = open(red->file, O_CREAT | O_WRONLY, 0666);
 	if (f1 < 0)
@@ -59,20 +56,12 @@ int	red_out(t_red_elem *red, int out,int check)
 	}
 	dup2(f1, out);
 	close(f1);
-	//if (check)
-	//{
-	//	dup2(old_stdout,STDOUT_FILENO);
-	//	close(old_stdout);
-	//}
-	//else
-	//	close(old_stdout);
 	return (0);
 }
 
-int	red_append(t_red_elem *red, int out,int check)
+int	red_append(t_red_elem *red, int out)
 {
 	int	f1;
-	(void)check;
 
 	f1 = open(red->file, O_CREAT | O_APPEND | O_RDWR, 0666);
 	if (f1 < 0)
@@ -86,7 +75,7 @@ int	red_append(t_red_elem *red, int out,int check)
 }
 
 
-int	redirections(t_cmd_elem *cmd_line, int in, int out,int check)
+int	redirections(t_cmd_elem *cmd_line, int in, int out)
 {
 	t_cmd_elem	*temp;
 	t_red_elem	*red;
@@ -96,11 +85,11 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out,int check)
 	while (red)
 	{
 		if (red->type == REDOUT)
-			red_out(red, out,check);
+			red_out(red, out);
 		else if (red->type == REDIN)
-			red_in(red, in,check);
+			red_in(red, in);
 		else if (red->type == APPEND)
-			red_append(red, out,check);
+			red_append(red, out);
 		red = red->next;
 	}
 	return (0);
