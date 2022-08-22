@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_functions.c                              :+:      :+:    :+:   */
+/*   lexer1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 14:43:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:43:04 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*is_redpip(t_token_list *tokens, char *line)
 			add_back(tokens, "<<", HEREDOC);
 			while (*(line + 2) == ' ')
 				line++;
-			line = is_word(tokens, line + 2, " |\t\v\f\r");
+			line = is_word(tokens, line + 2, " |\'\"\t\v\f\r");
 			return (line);
 		}
 		add_back(tokens, "<", REDIN);
@@ -93,7 +93,7 @@ char	*is_sign(t_token_list *tokens, char *line)
 		}
 		if (*line != '"' && *line != '\'')
 		{
-			add_back(tokens, "$", DOLLAR);
+			add_back(tokens, ft_strdup("$"), DOLLAR);
 			line = after_dollar(tokens, line);
 		}
 	}

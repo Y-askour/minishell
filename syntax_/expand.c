@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 18:03:27 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:26:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*env_var(char *var, t_env *env)
 		if (ft_isdigit(var[0]))
 		{
 			if (var[0] == '0')
-            	return(ft_strjoin(ft_strdup("minishell"), (var + 1)));
+            	return(ft_strjoin(ft_strdup("minishell"), ft_strdup((var + 1))));
 			return (ft_strndup(var + 1, (int)ft_strlen(var + 1) + 1));
 		}
 		if (!ft_strncmp(var, tmp->name, ft_strlen(var) + 1))

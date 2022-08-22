@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_functions2.c                             :+:      :+:    :+:   */
+/*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 15:51:39 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:36:55 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ char	*is_squout(t_token_list *tokens, char *line)
 {
 	if (!ft_strchr(line + 1, '\''))
 	{
-		add_back(tokens, ft_strndup("error unclosed single quout",
-				ft_strlen("error unclosed single quout") + 1), ERROR);
+		add_back(tokens, ft_strdup("error unclosed single quout"), ERROR);
 		return (line + 1);
 	}
 	if (*(line) == '\'')
@@ -42,8 +41,7 @@ char	*is_dquout(t_token_list *tokens, char *line)
 {
 	if (!ft_strchr(line, '\"'))
 	{
-		add_back(tokens, ft_strndup("error unclosed double quout",
-				ft_strlen("error unclosed double quout") + 1), ERROR);
+		add_back(tokens, ft_strdup("error unclosed double quout"), ERROR);
 		return (line + 1);
 	}
 	if (*(line) == '\"')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:49 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/07/28 16:45:57 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 21:49:28 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	del_node(t_token_elem *node, t_token_list *list)
 		node->next->prev = node->prev;
 	if (node->prev != NULL)
 		node->prev->next = node->next;
-	if (node->type == WORD || node->type == AFDOLLAR)
+	if (node->type == WORD || node->type == ERROR || \
+		node->type == AFDOLLAR || node->type == EXITS || \
+		node->type == DOLLAR)
 		free(node->value);
 	free(node);
 }

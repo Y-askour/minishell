@@ -16,3 +16,4 @@ multiple redirections > t > s >  l
 shell lvl
 i need to check builtins cases
 env segfaults
+malloc all the tokenz to free them all at the end

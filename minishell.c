@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 19:01:53 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 21:35:44 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**get_paths(void)
 		i = 0;
 		while (paths[i])
 		{
-			ret[i] = ft_strjoin(paths[i], "/");
+			ret[i] = ft_strjoin(ft_strdup(paths[i]), ft_strdup("/"));
 			i++;
 		}
 		ret[i] = NULL;

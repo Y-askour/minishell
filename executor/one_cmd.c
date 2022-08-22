@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 14:14:48 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 21:24:47 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	}
 	while (paths[i])
 	{
-		cmd = ft_strjoin(paths[i], command[0]);
+		cmd = ft_strjoin(ft_strdup(paths[i]), ft_strdup(command[0]));
 		if (!check_dir(cmd, 1))
 		{
 			//*check = 1;
