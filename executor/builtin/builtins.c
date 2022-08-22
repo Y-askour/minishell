@@ -6,15 +6,15 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 12:46:32 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 14:27:37 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_builtins(t_cmd_elem *cmdline,char **command, t_env *env)
+int	run_builtins(t_cmd_elem *cmdline,char **command, t_env *env,int check)
 {
-	if (redirections(cmdline, 0, 1) == -1)
+	if (redirections(cmdline, 0, 1,check) == -1)
 		return (-1);
 	if (!ft_strncmp(command[0], "echo", 4))
 		echo(command);
