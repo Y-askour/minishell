@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 12:29:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:05:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int				run_builtins(t_cmd_elem *cmdline,char **command, t_env *env);
 void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
-void			exit_f(void);
+void			exit_f(char **command);
 int				redirections(t_cmd_elem *cmd_line, int in, int out);
 int				export_f(char **command, t_env *env);
 void			declare_export(t_env *env);

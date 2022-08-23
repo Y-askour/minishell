@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 17:42:20 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/23 18:46:02 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,17 @@ t_env	*get_env(char **env)
 	t_env	*my_env;
 	char	**splited;
 	char *tmp;
+	char *pwd;
 	my_env = NULL;
 	i = 0;
+	pwd = NULL;
 	if (!*env)
 	{
+		pwd = malloc(sizeof(char) * PATH_MAX);
+		getcwd(pwd,PATH_MAX);
 		env[0] = ft_strdup("SHLVL=1");
-		env[1] = NULL;
+		env[1] = ft_strjoin(ft_strjoin(ft_strdup("PWD"),ft_strdup("=")),pwd);
+		env[2] = NULL;
 	}
 	splited = ft_split(env[i], '=');
 	my_env = malloc(sizeof(t_env) * 1);
