@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 18:12:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/22 19:06:24 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,22 @@ char **lst_to_arr(t_env *g_env)
 	env[i] = NULL;
 	return (env);
 }
+int  env_search(t_env *env,char *name,char *value)
+{
+	while(env)
+	{
+		if (!ft_strncmp(env->name,name,ft_strlen(name)))
+		{
+			if (!value)
+				env->value = " ";
+			else
+				env->value = value; 
+			return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
 
 void	add_env(char *command,t_env *env)
 {
@@ -81,6 +97,8 @@ void	add_env(char *command,t_env *env)
 	
 	i = 0;
 	split = ft_split(command,'=');
+	if (env_search(env,split[0],split[1]))
+		return ;
 	node = malloc(sizeof(t_env) * 1);
 	node->env = env->env;
 	node->name = split[0];
