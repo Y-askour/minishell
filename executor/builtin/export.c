@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/17 14:23:13 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:12:58 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,32 @@ int valid(char *str)
 		}
 	}
 	return (0);
+}
+
+char **lst_to_arr(t_env *g_env)
+{
+	char **env;
+	t_env	*ptr;
+	int i;
+
+	i = 0;
+	ptr = g_env;
+	while(ptr)
+	{
+		i++;
+		ptr = ptr->next;
+	}
+	env = malloc(sizeof(char *) * i + 1);
+	ptr = g_env;
+	i = 0;
+	while(ptr)
+	{
+		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name),ft_strdup("=")),ft_strdup(ptr->value)); 
+		i++;
+		ptr = ptr->next;
+	}
+	env[i] = NULL;
+	return (env);
 }
 
 void	add_env(char *command,t_env *env)

@@ -6,13 +6,15 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/23 11:59:20 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:07:50 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-	rl_on_new_line();Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
-	rl_redisplay();Change what's displayed on the screen to reflect the current contents of rl_line_buffer
+	rl_on_new_line();Tell the update routines that we have 
+	moved onto a new (empty) line, usually after ouputting a newline.
+	rl_redisplay();Change what's displayed on 
+	the screen to reflect the current contents of rl_line_buffer
 	SIGINT;ctrl + c
 	SIGQUIT, ctrl + '\'
 	SIGTSTP,  ctrl + z

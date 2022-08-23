@@ -6,19 +6,20 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 20:49:43 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/22 17:42:20 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_at_end(t_env *my_env, char *name, char *value)
+void	add_at_end(t_env *my_env, char *name, char *value,char **env)
 {
 	t_env	*tmp;
 
 	tmp = malloc(sizeof(t_env));
 	tmp->name = name;
 	tmp->value = value;
+	tmp->env = env;
 	tmp->next = NULL;
 	while (my_env->next)
 		my_env = my_env->next;
@@ -30,11 +31,11 @@ t_env	*get_env(char **env)
 	int		i;
 	t_env	*my_env;
 	char	**splited;
+	char *tmp;
 	my_env = NULL;
 	i = 0;
 	if (!*env)
 	{
-		env = malloc(sizeof(char *) * 2);
 		env[0] = ft_strdup("SHLVL=1");
 		env[1] = NULL;
 	}
@@ -49,7 +50,13 @@ t_env	*get_env(char **env)
 	while (env[i])
 	{
 		splited = ft_split(env[i], '=');
-		add_at_end(my_env, splited[0], splited[1]);
+		if(!ft_strncmp(splited[0],"SHLVL",5))
+		{
+			tmp = ft_strdup(ft_itoa(ft_atoi(splited[1]) + 1));
+			free(splited[1]);
+			splited[1] = tmp;
+		}
+		add_at_end(my_env, splited[0], splited[1],env);
 		free(splited);
 		i++;
 	}
