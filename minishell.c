@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/23 18:13:12 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:14:49 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ char	**get_paths(void)
 			ret[i] = ft_strjoin(ft_strdup(paths[i]), ft_strdup("/"));
 			i++;
 		}
+		i = 0;
+		while(paths[i])
+			free(paths[i++]);
+		free(paths);
 		ret[i] = NULL;
 	}
 	return (ret);
@@ -46,20 +50,6 @@ void	setup_term(void)
 	tcgetattr(0, &t);
 	t.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &t);
-}
-
-void	shllvl(t_env *g_env)
-{
-	t_env	*temp;
-
-	temp = g_env;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->name, "SHLVL", 5))
-			break ;
-		temp = temp->next;
-	}
-	temp->value = ft_itoa(ft_atoi(temp->value) + 1);
 }
 
 int	loop_body(char **line, t_token_list **tokens,
@@ -79,6 +69,7 @@ int	loop_body(char **line, t_token_list **tokens,
 		is_heredoc(*tokens, status);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
+	// check leak from here
 		run_command(*cmd_line, *g_env);
 		free_cmd(*cmd_line);
 	}

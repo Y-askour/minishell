@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:44:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 21:24:25 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:53:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	path_search_helper(char **command, int **check, char **env)
 		path = malloc(sizeof(char) * PATH_MAX);
 		getcwd(path, PATH_MAX);
 		cmd = ft_strjoin(ft_strdup(path), ft_strdup(&command[0][1]));
+		free(path);
 		if (!check_dir(cmd, 0))
 		{
 			**check = 1;
