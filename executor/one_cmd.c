@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 21:24:47 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:26:58 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	exit(127);
 }
 
-int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
+int	child(t_cmd_elem *cmdline, char **command, t_env *env, char **paths)
 {
 	int		check;
 	int		i;
+	char **list = lst_to_arr(env);
 
 	check = 0;
 	i = 0;
@@ -77,9 +78,9 @@ int	child(t_cmd_elem *cmdline, char **command, char **env, char **paths)
 	{
 		if (!check_dir(command[0], 0))
 		{
-			execve(command[0], command, env);	
+			execve(command[0], command, list);	
 		}
 	}
-	path_search(paths, command, env, &check);
+	path_search(paths, command, list, &check);
 	return (0);
 }

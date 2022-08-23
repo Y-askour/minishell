@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/22 21:35:44 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:27:29 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ char	**get_paths(void)
 		ret[i] = NULL;
 	}
 	return (ret);
+}
+
+
+void	setup_term(void)
+{
+	struct termios	t;
+
+	tcgetattr(0, &t);
+	t.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
 }
 
 void	shllvl(t_env *g_env)
@@ -84,11 +94,11 @@ int	main(int ac, char **av, char **env)
 	cmd_line = NULL;
 	g_env = get_env(env);
 	(void) av;
-	//shllvl(g_env);
 	if (ac != 1)
 		return (1);
 	while (1)
 	{
+		setup_term();
 		if (loop_body(&line, &tokens, &cmd_line, &g_env))
 			continue ;
 		free_tokens(tokens);

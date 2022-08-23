@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/19 18:36:46 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:26:35 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+# include <termios.h>
 # define  PATH_MAX  50
 
 /******TOKENS*********/
@@ -153,7 +154,7 @@ void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
 // builtins
 
 int				builtins(char **command);
-int				run_builtins(char **command, t_env *env);
+int				run_builtins(t_cmd_elem *cmdline,char **command, t_env *env);
 void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
@@ -165,7 +166,7 @@ void			check_f(char *command, int *check);
 int				search_in_exp(t_env **env, char **split);
 void			add_env_node(char **split, t_env **env);
 int				child(t_cmd_elem *cmdline, char **command,
-					char **env, char **paths);
+					t_env *env, char **paths);
 void			path_search_helper(char **command, int **check, char **env);
 char			**simple_cmd_delete_spc(t_cmd_elem *cmdline);
 int				check_dir(char *cmd, int check);
@@ -176,5 +177,6 @@ char			***delete_spaces(t_cmd_elem *head, int n);
 void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
 void			echo(char **command);
+char			**lst_to_arr(t_env *g_env);
 int				g_exit_status;
 #endif
