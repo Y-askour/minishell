@@ -6,13 +6,14 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/22 21:50:51 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:49:13 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	signal_action(int exit_number, t_token_list *list, t_token_elem *node, int *fd)
+void	signal_action(int exit_number, t_token_list *list,
+		t_token_elem *node, int *fd)
 {
 	if (exit_number)
 	{
@@ -59,28 +60,27 @@ void	input_heredoc(int *fd, t_token_elem *node)
 
 static void	join_delimiter(t_token_elem *node, t_token_list *list)
 {
-	while (node->next && node->next->type != PIPE && node->next->type != WHSPACE)
+	while (node->next && node->next->type != \
+			PIPE && node->next->type != WHSPACE)
 	{
 		node->value = ft_strjoin(node->value, ft_strdup(node->next->value));
 		del_node(node->next, list);
 	}
 }
 
-void	is_heredoc(t_token_list *list)
+void	is_heredoc(t_token_list *list, int status)
 {
 	t_token_elem	*node;
 	int				fd[2];
 	int				pid;
-	int				status;
-	int				exit_number;
 
 	node = list->head;
 	while (node)
 	{
 		if (node->type == HEREDOC)
 		{
-			join_delimiter(node->next, list);
 			signal(SIGINT, SIG_IGN);
+			join_delimiter(node->next, list);
 			pipe(fd);
 			pid = fork();
 			if (pid == -1)
@@ -88,8 +88,8 @@ void	is_heredoc(t_token_list *list)
 			if (pid == 0)
 				input_heredoc(fd, node);
 			waitpid(pid, &status, 0);
-			exit_number = WEXITSTATUS(status);
-			signal_action(exit_number, list, node, fd);
+			status = WEXITSTATUS(status);
+			signal_action(status, list, node, fd);
 			if (!node->next)
 				break ;
 		}
