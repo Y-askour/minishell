@@ -21,3 +21,4 @@ segfault in env -i ./minishell   && export $test=t
 
 
 env -i ./minishell -> env -> export hey=hey -> en
+export -> you need to sort env
