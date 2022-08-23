@@ -17,3 +17,7 @@ cd
 unset
 segfault in env -i ./minishell   && export test=t
 add wexitstatus
+segfault in env -i ./minishell   && export $test=t
+
+
+env -i ./minishell -> env -> export hey=hey -> en

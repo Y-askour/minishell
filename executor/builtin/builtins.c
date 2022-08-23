@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 13:07:01 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/23 14:25:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	env_f(char **command, t_env *env)
 	(void)command;
 	while (env)
 	{
-		printf("%s=%s\n", env->name, env->value);
+			printf("%s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 }
