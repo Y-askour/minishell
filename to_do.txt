@@ -12,3 +12,8 @@ cmd | | cmd should print error
 i removed wspaces, test it
 >file, segfaults
 multiple redirections > t > s >  l
+
+cd 
+unset
+segfault in env -i ./minishell   && export test=t
+add wexitstatus
