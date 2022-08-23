@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 12:26:35 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/23 12:29:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_pipe
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
 int				error_handler(char *message, int status);
-void			is_heredoc(t_token_list *list);
+void			is_heredoc(t_token_list *list, int status);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
 t_cmd_list		*init_cmd_list(t_cmd_list *list);
