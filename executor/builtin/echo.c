@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:13:42 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 14:48:30 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 14:51:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	echo(char **command)
 		if (command[i])
 			printf(" ");
 	}
-	//printf("%d\n",check);
 	if (check)
 		printf("\n");
 	else

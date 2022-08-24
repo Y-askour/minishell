@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 14:05:46 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 14:57:04 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	run_builtins(t_cmd_elem *cmdline,char **command, t_env *env)
 	else if (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
 		export_f(command, env);
 	else if (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
-		cd(command, env);
+		unset(command, env);
 	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		env_f(command, env);
 	else if (!ft_strncmp(command[0], "exit", ft_strlen(command[0])))

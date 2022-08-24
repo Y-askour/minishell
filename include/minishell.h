@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 22:00:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:04:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,7 @@ void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
 void			echo(char **command);
 char			**lst_to_arr(t_env *g_env);
+void			unset(char **command,t_env *env);
+int				option(char *str);
 int				g_exit_status;
 #endif

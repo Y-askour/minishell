@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 12:22:08 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 16:43:31 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	add_env(char *command,t_env *g_env)
 		node->next = NULL;
 		tmp = g_env;
 		if (!split[1])
-			node->value = " ";
+			node->value = ft_strdup(" ");
 		else
 			node->value = split[1];
 		while(tmp->next)
@@ -164,7 +164,7 @@ void	add_env(char *command,t_env *g_env)
 	node->next = NULL;
 	if (!split[1])
 	{
-		node->value = " ";
+		node->value = ft_strdup(" ");
 		free(split[1]);
 	}
 	else
@@ -200,9 +200,10 @@ int	export_f(char **command, t_env *env)
 		i = 1;
 		while (command[i])
 		{
-			if (option(command[i]))
+			if (option(command[1]))
 			{
 				error_handler("minishell : export : invalid option", 1);
+				return -1;
 			}
 			else if (valid(command[i]))
 			{
