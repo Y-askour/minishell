@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:31:09 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:50:24 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,8 @@ void	cd(char **command, t_env *env)
 	{
 		while (tmp)
 		{
-<<<<<<< Updated upstream
 			if (!ft_strncmp(tmp->name,"HOME",max_len(tmp->name,"HOME")))
 				break;
-=======
-			if (!ft_strncmp(tmp->name, "HOME", 4))
-				break ;
->>>>>>> Stashed changes
 			tmp = tmp->next;
 		}
 		if (!tmp)
@@ -54,11 +49,7 @@ void	cd(char **command, t_env *env)
 			tmp = tmp->next;
 		}
 	}
-<<<<<<< Updated upstream
 	else if (!ft_strncmp(command[1],"-",max_len(command[1],"-")))
-=======
-	else if (!ft_strncmp(command[1], "-", 1))
->>>>>>> Stashed changes
 	{
 		old_pwd = malloc(sizeof(char) * PATH_MAX);
 		pwd = malloc(sizeof(char) * PATH_MAX);
@@ -66,13 +57,8 @@ void	cd(char **command, t_env *env)
 		tmp = env;
 		while (tmp)
 		{
-<<<<<<< Updated upstream
 			if (!ft_strncmp(tmp->name,"OLDPWD",max_len(tmp->name,"OLDPWD")))
 				break;
-=======
-			if (!ft_strncmp(tmp->name, "OLDPWD", 6))
-				break ;
->>>>>>> Stashed changes
 			tmp = tmp->next;
 		}
 		if (!tmp)
@@ -85,13 +71,8 @@ void	cd(char **command, t_env *env)
 		tmp = env;
 		while (tmp)
 		{
-<<<<<<< Updated upstream
 			if (!ft_strncmp(tmp->name,"PWD",max_len(tmp->name,"PWD")))
 				break;
-=======
-			if (!ft_strncmp(tmp->name, "PWD", 3))
-				break ;
->>>>>>> Stashed changes
 			tmp = tmp->next;
 		}
 		getcwd(pwd, PATH_MAX);

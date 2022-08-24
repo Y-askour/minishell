@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:55:14 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:33:57 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:50:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ void	delete_node(char *name, t_env *env)
 	i = 0;
 	while (tmp)
 	{
-<<<<<<< Updated upstream
 		if (!ft_strncmp(name,tmp->name,max_len(name,tmp->name)))
-=======
-		if (!ft_strncmp(name, tmp->name, ft_strlen(tmp->name)))
->>>>>>> Stashed changes
 		{
 			free(tmp->name);
 			free(tmp->value);
