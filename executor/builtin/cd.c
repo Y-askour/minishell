@@ -26,7 +26,7 @@ void	cd(char **command, t_env *env)
 	{
 		while (tmp)
 		{
-			if (!ft_strncmp(tmp->name,"HOME",max_len(tmp->name,"HOME")))
+			if (!ft_strncmp(tmp->name, "HOME", max_len(tmp->name, "HOME")))
 				break;
 			tmp = tmp->next;
 		}
@@ -49,7 +49,7 @@ void	cd(char **command, t_env *env)
 			tmp = tmp->next;
 		}
 	}
-	else if (!ft_strncmp(command[1],"-",max_len(command[1],"-")))
+	else if (!ft_strncmp(command[1], "-", max_len(command[1], "-")))
 	{
 		old_pwd = malloc(sizeof(char) * PATH_MAX);
 		pwd = malloc(sizeof(char) * PATH_MAX);
@@ -57,7 +57,7 @@ void	cd(char **command, t_env *env)
 		tmp = env;
 		while (tmp)
 		{
-			if (!ft_strncmp(tmp->name,"OLDPWD",max_len(tmp->name,"OLDPWD")))
+			if (!ft_strncmp(tmp->name, "OLDPWD", max_len(tmp->name, "OLDPWD")))
 				break;
 			tmp = tmp->next;
 		}
@@ -71,7 +71,7 @@ void	cd(char **command, t_env *env)
 		tmp = env;
 		while (tmp)
 		{
-			if (!ft_strncmp(tmp->name,"PWD",max_len(tmp->name,"PWD")))
+			if (!ft_strncmp(tmp->name, "PWD", max_len(tmp->name, "PWD")))
 				break;
 			tmp = tmp->next;
 		}
