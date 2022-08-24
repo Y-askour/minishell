@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 16:13:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:58:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 int	pipeline(int n,	t_cmd_elem *head,	t_env *g_env)
 {
 	char	**paths;
+	int		i;
 
-	paths = get_paths();
+	i = 0;
+	paths = get_paths(g_env);
 	return (pipes(n, head, paths, g_env));
 }
 

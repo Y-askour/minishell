@@ -6,20 +6,33 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/24 11:54:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 20:59:11 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-char	**get_paths(void)
+char *get_path(t_env *env)
+{
+	while (env)
+	{
+		if (!ft_strncmp(env->name,"PATH",max_len(env->name, "PATH")))
+			break ;
+		env = env->next;
+	}
+	if (!env)
+		return (NULL);
+	return (env->value);
+}
+
+char	**get_paths(t_env *env)
 {
 	char	**paths;
 	char	**ret;
 	int		i;
 
 	ret = 0;
-	char	*tmp = getenv("PATH");
+	char	*tmp = get_path(env);
 	if (tmp)
 	{
 		paths = ft_split(tmp, ':');

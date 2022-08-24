@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 20:14:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 20:47:07 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void			free_tokens(t_token_list *tokens);
 
 // execution functions 
 
-char			**get_paths(void);
+char			**get_paths(t_env *env);
 t_env			*get_env(char **env);
 
 int				run_command(t_cmd_list *cmdline, t_env *g_env);
