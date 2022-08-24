@@ -13,11 +13,12 @@
 #include "minishell.h"
 
 void	pwd(char **command, t_env *env)
-{
+{	
+	char	*pwd;
+
 	(void) command;
 	(void) env;
-	char	*pwd;
 	pwd = malloc(sizeof(char) * PATH_MAX);
-	getcwd(pwd,PATH_MAX);
+	getcwd(pwd, PATH_MAX);
 	printf("%s\n", pwd);
 }

@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-int check_option(char *command,int *check)
+int	check_option(char *command, int *check)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (command[0] == '-')
-			i++;
-	while(command[i])
+		i++;
+	while (command[i])
 	{
 		if (!(command[i] == 'n'))
 			return (1);
@@ -31,17 +31,21 @@ int check_option(char *command,int *check)
 
 void	echo(char **command)
 {
-	int i = 1;
-	int check=1;
-	while(command[i])
+	int	i;
+	int	check;
+	int	len;
+
+	i = 1;
+	check = 1;
+	while (command[i])
 	{
-		if (check_option(command[i],&check))
+		if (check_option(command[i], &check))
 			break ;
 		i++;
 	}
-	while(command[i])
+	while (command[i])
 	{
-		printf("%s",command[i++]);
+		printf("%s", command[i++]);
 		if (command[i])
 			printf(" ");
 	}
@@ -51,11 +55,11 @@ void	echo(char **command)
 	{
 		if (command[1])
 		{
-			int len = ft_strlen(command[1]);
+			len = ft_strlen(command[1]);
 			if (len == 0)
 				printf("\n");
 		}
-		return;
+		return ;
 	}
 	g_exit_status = 0;
 }

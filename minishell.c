@@ -42,7 +42,6 @@ char	**get_paths(void)
 	return (ret);
 }
 
-
 void	setup_term(void)
 {
 	struct termios	t;
@@ -69,7 +68,6 @@ int	loop_body(char **line, t_token_list **tokens,
 		is_heredoc(*tokens, status);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
-	// check leak from here
 		run_command(*cmd_line, *g_env);
 		free_cmd(*cmd_line);
 	}

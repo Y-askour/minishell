@@ -15,25 +15,29 @@
 void	cd(char **command, t_env *env)
 {
 	char	*pwd;
-	t_env *tmp;
+	t_env	*tmp;
 	char	*home;
 	char	*old_pwd;
 	t_env	*node;
 	struct stat	finfo;
 
-
 	tmp = env;
 	if (!command[1])
 	{
-		while(tmp)
+		while (tmp)
 		{
+<<<<<<< Updated upstream
 			if (!ft_strncmp(tmp->name,"HOME",max_len(tmp->name,"HOME")))
 				break;
+=======
+			if (!ft_strncmp(tmp->name, "HOME", 4))
+				break ;
+>>>>>>> Stashed changes
 			tmp = tmp->next;
 		}
 		if (!tmp)
 		{
-			error_handler("minishell : cd: HOME not set",1);
+			error_handler("minishell : cd: HOME not set", 1);
 			return;
 		}
 		home = tmp->value;
@@ -50,35 +54,48 @@ void	cd(char **command, t_env *env)
 			tmp = tmp->next;
 		}
 	}
+<<<<<<< Updated upstream
 	else if (!ft_strncmp(command[1],"-",max_len(command[1],"-")))
+=======
+	else if (!ft_strncmp(command[1], "-", 1))
+>>>>>>> Stashed changes
 	{
 		old_pwd = malloc(sizeof(char) * PATH_MAX);
 		pwd = malloc(sizeof(char) * PATH_MAX);
-		getcwd(old_pwd,PATH_MAX);
+		getcwd(old_pwd, PATH_MAX);
 		tmp = env;
-		while(tmp)
+		while (tmp)
 		{
+<<<<<<< Updated upstream
 			if (!ft_strncmp(tmp->name,"OLDPWD",max_len(tmp->name,"OLDPWD")))
 				break;
+=======
+			if (!ft_strncmp(tmp->name, "OLDPWD", 6))
+				break ;
+>>>>>>> Stashed changes
 			tmp = tmp->next;
 		}
 		if (!tmp)
 		{
-			error_handler("minishell : cd: not set",1);
-			return;
+			error_handler("minishell : cd: not set", 1);
+			return ;
 		}
 		chdir(tmp->value);
-		tmp->value = old_pwd; 
+		tmp->value = old_pwd;
 		tmp = env;
-		while(tmp)
+		while (tmp)
 		{
+<<<<<<< Updated upstream
 			if (!ft_strncmp(tmp->name,"PWD",max_len(tmp->name,"PWD")))
 				break;
+=======
+			if (!ft_strncmp(tmp->name, "PWD", 3))
+				break ;
+>>>>>>> Stashed changes
 			tmp = tmp->next;
 		}
-		getcwd(pwd,PATH_MAX);
+		getcwd(pwd, PATH_MAX);
 		tmp->value = pwd;
-
 	}
 	else
 	{
@@ -91,12 +108,12 @@ void	cd(char **command, t_env *env)
 			if (!S_ISDIR(finfo.st_mode))
 			{
 				error_handler("cd : path: is not directory", 126);
-				return;
+				return ;
 			}
 			if (access(command[1], X_OK))
 			{
 				error_handler("cd : path: Permission denied", 126);
-				return;
+				return ;
 			}
 			chdir(command[1]);
 			tmp = env;
@@ -128,7 +145,7 @@ void	cd(char **command, t_env *env)
 				node->value = old_pwd;
 				node->next = NULL;
 				tmp = env;
-				while(tmp->next)
+				while (tmp->next)
 					tmp = tmp->next;
 				tmp->next = node;
 			}

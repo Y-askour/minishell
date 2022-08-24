@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	run_builtins(t_cmd_elem *cmdline,char **command, t_env *env)
+int	run_builtins(t_cmd_elem *cmdline, char **command, t_env *env)
 {
 	if (redirections(cmdline, 0, 1) == -1)
 		return (-1);
@@ -35,10 +35,10 @@ int	run_builtins(t_cmd_elem *cmdline,char **command, t_env *env)
 
 void	str_lower(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[0][i])
+	while (str[0][i])
 	{
 		str[0][i] = ft_tolower(str[0][i]);
 		i++;
@@ -73,36 +73,36 @@ void	env_f(char **command, t_env *env)
 	(void)command;
 	while (env)
 	{
-			printf("%s=%s\n", env->name, env->value);
+		printf("%s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 }
 
 void	exit_f(char **command)
 {
-	int j;
-	int i;
+	int	j;
+	int	i;
 
 	j = 0;
 	if (!command[1])
 		exit(0);
-		
 	if (command[1][j] == '+' || command[1][j] == '-')
 		j++;
 	while (command[1][j])
 	{
 		if (!ft_isdigit(command[1][j]))
 		{
-			error_handler("exit\nminishell: exit : numeric argument required",255);
+			error_handler("exit\nminishell: exit : numeric \
+				argument required", 255);
 			exit(255);
 		}
 		j++;
 	}
 	i = 1;
-	while(command[i])
+	while (command[i])
 		i++;
 	if (i == 2)
 		exit(ft_atoi(command[1]));
 	else
-		error_handler("exit\nminishell : exit : too many arguments",1);
+		error_handler("exit\nminishell : exit : too many arguments", 1);
 }

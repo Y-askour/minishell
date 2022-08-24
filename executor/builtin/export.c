@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:15:21 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:45:05 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	count_and_declare(int *i, char **command, t_env *env)
 
 int	option(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] && str[i] == '-' && str[i + 1])
@@ -42,7 +42,7 @@ int	option(char *str)
 	return (0);
 }
 
-int valid(char *str)
+int	valid(char *str)
 {
 	int	i;
 
@@ -50,11 +50,12 @@ int valid(char *str)
 	if (ft_isalpha(str[i]) || str[i] == '_')
 	{
 		i++;
-		while(str[i])
+		while (str[i])
 		{
 			if (str[i] == '=')
 				break ;
-			else if (!ft_isalnum(str[i]) && !(str[i] == '=') && !(str[i] == '_'))
+			else if (!ft_isalnum(str[i]) && !(str[i] == \
+				'=') && !(str[i] == '_'))
 			{
 				if (str[i] == '+' && str[i + 1])
 				{
@@ -64,7 +65,7 @@ int valid(char *str)
 				else
 					return (0);
 			}
-			if (i == ((int)ft_strlen(str) - 1) )
+			if (i == ((int)ft_strlen(str) - 1))
 				return (1);
 			i++;
 		}
@@ -73,15 +74,15 @@ int valid(char *str)
 	return (0);
 }
 
-char **lst_to_arr(t_env *g_env)
+char	**lst_to_arr(t_env *g_env)
 {
-	char **env;
+	char	**env;
 	t_env	*ptr;
-	int i;
+	int		i;
 
 	i = 0;
 	ptr = g_env;
-	while(ptr)
+	while (ptr)
 	{
 		i++;
 		ptr = ptr->next;
@@ -89,9 +90,10 @@ char **lst_to_arr(t_env *g_env)
 	env = malloc(sizeof(char *) * i + 1);
 	ptr = g_env;
 	i = 0;
-	while(ptr)
+	while (ptr)
 	{
-		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name),ft_strdup("=")),ft_strdup(ptr->value)); 
+		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name),
+				ft_strdup("=")), ft_strdup(ptr->value));
 		i++;
 		ptr = ptr->next;
 	}
@@ -101,9 +103,8 @@ char **lst_to_arr(t_env *g_env)
 
 int  env_search(t_env *env,char *name,char *value)
 {
-	while(env)
-	{
-		
+	while (env)
+	{		
 		if (!ft_strncmp(env->name,name,max_len(env->name,name)))
 		{
 			free(name);
@@ -114,7 +115,7 @@ int  env_search(t_env *env,char *name,char *value)
 				env->value = ft_strdup(" ");
 			}
 			else
-				env->value = value; 
+				env->value = value;
 			return (1);
 		}
 		env = env->next;
@@ -124,25 +125,24 @@ int  env_search(t_env *env,char *name,char *value)
 
 void	add_env(char *command,t_env *g_env)
 {
-	int	i;
-	char **split;
+	int		i;
+	char	**split;
 	t_env	*node;
 	t_env	*tmp;
-	
 
 	tmp = g_env;
 	i = 0;
-	split = ft_split(command,'=');
-	if (split[0][ft_strlen(split[0]) -1] == '+')
+	split = ft_split(command, '=');
+	if (split[0][ft_strlen(split[0]) - 1] == '+')
 	{
-		while(tmp)
+		while (tmp)
 		{
 			if (!ft_strncmp(tmp->name,split[0],max_len(tmp->name,split[0]) - 1))
 			{
 				free(split[0]);
 				if (split[1])
 				{
-					tmp->value = ft_strjoin(tmp->value,split[1]);
+					tmp->value = ft_strjoin(tmp->value, split[1]);
 				}
 				else
 					free(split[1]);
@@ -153,7 +153,7 @@ void	add_env(char *command,t_env *g_env)
 		}
 		node = malloc(sizeof(t_env) * 1);
 		node->env = g_env->env;
-		node->name = ft_strndup(split[0],ft_strlen(split[0]));
+		node->name = ft_strndup(split[0], ft_strlen(split[0]));
 		free(split[0]);
 		node->next = NULL;
 		tmp = g_env;
@@ -161,11 +161,11 @@ void	add_env(char *command,t_env *g_env)
 			node->value = ft_strdup(" ");
 		else
 			node->value = split[1];
-		while(tmp->next)
+		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = node; 
+		tmp->next = node;
 		free(split);
-		return;
+		return ;
 	}
 	else if (env_search(g_env,split[0],split[1]))
 	{
@@ -184,17 +184,17 @@ void	add_env(char *command,t_env *g_env)
 	else
 		node->value = split[1];
 	free(split);
-	while(g_env->next)
+	while (g_env->next)
 		g_env = g_env->next;
-	g_env->next = node; 
+	g_env->next = node;
 }
 
-int check_to_add(char *command)
+int	check_to_add(char *command)
 {
 	int	i;
 
 	i = 0;
-	while(command[i])
+	while (command[i])
 	{
 		if (command[i] == '=')
 			return (1);
@@ -205,7 +205,7 @@ int check_to_add(char *command)
 
 int	export_f(char **command, t_env *env)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	count_and_declare(&i, command, env);
@@ -217,17 +217,16 @@ int	export_f(char **command, t_env *env)
 			if (option(command[1]))
 			{
 				error_handler("minishell : export : invalid option", 1);
-				return -1;
+				return (-1);
 			}
 			else if (valid(command[i]))
 			{
 				if (check_to_add(command[i]))
-				{
-					add_env(command[i],env);
-				}
+					add_env(command[i], env);
 			}
 			else
-				error_handler("minishell: export: `=` :not a valid indentifier", 1);
+				error_handler("minishell: export: `=` \
+					:not a valid indentifier", 1);
 			i++;
 		}
 	}

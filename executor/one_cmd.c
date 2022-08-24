@@ -68,18 +68,17 @@ int	child(t_cmd_elem *cmdline, char **command, t_env *env, char **paths)
 {
 	int		check;
 	int		i;
-	char **list = lst_to_arr(env);
+	char	**list;
 
 	check = 0;
 	i = 0;
+	list = lst_to_arr(env);
 	if (redirections(cmdline, 0, 1) == -1)
 		return (-1);
 	if (command[0][0] == '/')
 	{
 		if (!check_dir(command[0], 0))
-		{
-			execve(command[0], command, list);	
-		}
+			execve(command[0], command, list);
 	}
 	path_search(paths, command, list, &check);
 	return (0);

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include"minishell.h"
 
 void	path_search_helper(char **command, int **check, char **env)

@@ -152,7 +152,7 @@ void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
 // builtins
 
 int				builtins(char **command);
-int				run_builtins(t_cmd_elem *cmdline,char **command, t_env *env);
+int				run_builtins(t_cmd_elem *cmdline, char **command, t_env *env);
 void			cd(char **command, t_env *g_env);
 void			pwd(char **command, t_env *g_env);
 void			env_f(char **command, t_env *env);
@@ -176,7 +176,7 @@ void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
 void			echo(char **command);
 char			**lst_to_arr(t_env *g_env);
-void			unset(char **command,t_env *env);
+void			unset(char **command, t_env *env);
 int				option(char *str);
 int max_len(char *str,char *str1);
 int				g_exit_status;

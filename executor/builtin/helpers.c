@@ -30,10 +30,10 @@ void	check_f(char *command, int *check)
 	j = 0;
 	if (ft_isalpha(command[i]) || command[i++] == '_')
 	{
-		while(command[i])
+		while (command[i])
 		{
 			if (ft_isalnum(command[i]) || command[i] == '_')
-			i++;
+				i++;
 		}
 		*check = 1;
 	}

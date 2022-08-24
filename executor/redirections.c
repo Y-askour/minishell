@@ -12,10 +12,12 @@
 
 #include"minishell.h"
 
-int ft_is_number(char *str)
+int	ft_is_number(char *str)
 {
-	int i = 0;
-	while(str[i])
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
@@ -73,7 +75,6 @@ int	red_append(t_red_elem *red, int out)
 	close(f1);
 	return (0);
 }
-
 
 int	redirections(t_cmd_elem *cmd_line, int in, int out)
 {

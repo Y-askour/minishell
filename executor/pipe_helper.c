@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include"minishell.h"
 
 int	pipes_helper1(int pid, int in, int *fd, int *check)

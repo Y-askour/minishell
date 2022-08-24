@@ -6,13 +6,13 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:25:19 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:45:40 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_at_end(t_env *my_env, char *name, char *value,char **env)
+void	add_at_end(t_env *my_env, char *name, char *value, char **env)
 {
 	t_env	*tmp;
 
@@ -31,8 +31,8 @@ t_env	*get_env(char **env)
 	int		i;
 	t_env	*my_env;
 	char	**splited;
-	char *tmp;
-	char *pwd;
+	char	*tmp;
+	char	*pwd;
 
 	my_env = NULL;
 	i = 0;
@@ -40,9 +40,9 @@ t_env	*get_env(char **env)
 	if (!*env)
 	{
 		pwd = malloc(sizeof(char) * PATH_MAX);
-		getcwd(pwd,PATH_MAX);
+		getcwd(pwd, PATH_MAX);
 		env[0] = ft_strdup("SHLVL=1");
-		env[1] = ft_strjoin(ft_strjoin(ft_strdup("PWD"),ft_strdup("=")),pwd);
+		env[1] = ft_strjoin(ft_strjoin(ft_strdup("PWD"), ft_strdup("=")), pwd);
 		env[2] = NULL;
 	}
 	splited = ft_split(env[i], '=');
@@ -62,14 +62,10 @@ t_env	*get_env(char **env)
 			free(splited[1]);
 			splited[1] = tmp;
 		}
-		add_at_end(my_env, splited[0], splited[1],env);
+		add_at_end(my_env, splited[0], splited[1], env);
 		free(splited);
 		i++;
 	}
 	return (my_env);
 }
 
-//char **set_env(t_env **env)
-//{
-//	return (0);
-//}

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 12:55:42 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 16:13:40 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,32 @@ void	executer_helper(int in, int out, int d, int n)
 
 int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 {
-	int old_stdout = dup(STDOUT_FILENO);
-	int old_stdin = dup(STDIN_FILENO);
+	int	old_stdout;
+	int	old_stdin;
+	int	pid;
+
+	old_stdout = dup(STDOUT_FILENO);
+	old_stdin = dup(STDIN_FILENO);
 	if (builtins(commands) && n == 1)
 	{
-		run_builtins(cmdline,commands,var->g_env);
-		dup2(old_stdout,STDOUT_FILENO);
-		dup2(old_stdout,STDIN_FILENO);
+		run_builtins(cmdline, commands, var->g_env);
+		dup2(old_stdout, STDOUT_FILENO);
+		dup2(old_stdout, STDIN_FILENO);
 		close(old_stdout);
 		close(old_stdin);
 	}
 	else
 	{
-		int pid = fork();
+		pid = fork();
 		if (pid == -1)
-			error_handler("fork error\n",2);
+			error_handler("fork error\n", 2);
 		else if (pid == 0)
 		{
 			executer_helper(var->in, var->out, i, n);
 			if (builtins(commands))
-				exit(run_builtins(cmdline,commands,var->g_env));
+				exit(run_builtins(cmdline, commands, var->g_env));
 			else
-				child(cmdline,commands,var->g_env,var->paths);
+				child(cmdline, commands, var->g_env, var->paths);
 		}
 	}
 	return (0);
@@ -66,7 +70,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	pid_t	pid;
 	t_exec	var;
 	t_pipe	in_out;
-	
+
 	in_out.in = 0;
 	i = 0;
 	in_out.check = 0;
@@ -77,7 +81,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		var.paths = paths;
 		var.in = in_out.in;
 		var.out = in_out.fd[1];
-		pid = executer(head->args, n, i,head, &var);
+		pid = executer(head->args, n, i, head, &var);
 		if (pipes_helper1(pid, in_out.in, in_out.fd, &in_out.check))
 			break ;
 		pipes_helper2(&head, in_out.fd, &in_out.in);
@@ -87,7 +91,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	i = 0;
 	if (paths)
 	{
-		while(paths[i])
+		while (paths[i])
 			free(paths[i++]);
 	}
 	free(paths);
