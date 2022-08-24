@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 13:04:07 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 14:05:46 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	str_lower(char **str)
 	int i;
 
 	i = 0;
-	while(*str[i])
+	while(str[0][i])
 	{
-		*(str[i]) = ft_tolower(*(str[i]));
+		str[0][i] = ft_tolower(str[0][i]);
 		i++;
 	}
 }
@@ -51,7 +51,6 @@ int	builtins(char **command)
 	if (!command[0])
 		return (0);
 	str_lower(&command[0]);
-	printf("%s\n",command[0]);
 	if (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
 		return (1);
 	else if (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))

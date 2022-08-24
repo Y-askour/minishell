@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:13:42 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 12:47:18 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 14:48:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int check_option(char *command,int *check)
 			return (1);
 		i++;
 	}
-	*check = 1;
+	*check = 0;
 	return (0);
 }
 
 void	echo(char **command)
 {
 	int i = 1;
-	int check=0;
+	int check=1;
 	while(command[i])
 	{
 		if (check_option(command[i],&check))
@@ -45,7 +45,18 @@ void	echo(char **command)
 		if (command[i])
 			printf(" ");
 	}
-	if (!check || !command[i])
+	//printf("%d\n",check);
+	if (check)
 		printf("\n");
+	else
+	{
+		if (command[1])
+		{
+			int len = ft_strlen(command[1]);
+			if (len == 0)
+				printf("\n");
+		}
+		return;
+	}
 	g_exit_status = 0;
 }
