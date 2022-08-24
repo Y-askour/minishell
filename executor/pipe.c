@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 20:54:12 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 12:02:53 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	}
 	pipes_helper3(in_out.in, n);
 	i = 0;
-	while(paths[i])
-		free(paths[i++]);
 	free(paths);
 	return (0);
 }

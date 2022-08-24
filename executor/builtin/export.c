@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 17:04:55 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 12:22:08 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,13 @@ int  env_search(t_env *env,char *name,char *value)
 	{
 		if (!ft_strncmp(env->name,name,ft_strlen(name)))
 		{
+			free(name);
+			free(env->value);
 			if (!value)
-				env->value = " ";
+			{
+				free(value);
+				env->value = ft_strdup(" ");
+			}
 			else
 				env->value = value; 
 			return (1);
@@ -120,8 +125,14 @@ void	add_env(char *command,t_env *g_env)
 		{
 			if (!ft_strncmp(tmp->name,split[0],ft_strlen(split[0]) - 1))
 			{
+				free(split[0]);
 				if (split[1])
-					tmp->value = ft_strjoin(ft_strdup(tmp->value),ft_strdup(split[1]));
+				{
+					tmp->value = ft_strjoin(tmp->value,split[1]);
+				}
+				else
+					free(split[1]);
+				free(split);
 				return ;
 			}
 			tmp = tmp->next;
@@ -129,6 +140,7 @@ void	add_env(char *command,t_env *g_env)
 		node = malloc(sizeof(t_env) * 1);
 		node->env = g_env->env;
 		node->name = ft_strndup(split[0],ft_strlen(split[0]));
+		free(split[0]);
 		node->next = NULL;
 		tmp = g_env;
 		if (!split[1])
@@ -138,18 +150,26 @@ void	add_env(char *command,t_env *g_env)
 		while(tmp->next)
 			tmp = tmp->next;
 		tmp->next = node; 
+		free(split);
 		return;
 	}
 	if (env_search(g_env,split[0],split[1]))
+	{
+		free(split);
 		return ;
+	}
 	node = malloc(sizeof(t_env) * 1);
 	node->env = g_env->env;
 	node->name = split[0];
 	node->next = NULL;
 	if (!split[1])
+	{
 		node->value = " ";
+		free(split[1]);
+	}
 	else
 		node->value = split[1];
+	free(split);
 	while(g_env->next)
 		g_env = g_env->next;
 	g_env->next = node; 
