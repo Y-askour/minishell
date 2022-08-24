@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 16:04:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:17:28 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,6 @@ void			echo(char **command);
 char			**lst_to_arr(t_env *g_env);
 void			unset(char **command,t_env *env);
 int				option(char *str);
+int max_len(char *str,char *str1);
 int				g_exit_status;
 #endif

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 19:00:52 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:31:09 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	cd(char **command, t_env *env)
 	{
 		while(tmp)
 		{
-			if (!ft_strncmp(tmp->name,"HOME",4))
+			if (!ft_strncmp(tmp->name,"HOME",max_len(tmp->name,"HOME")))
 				break;
 			tmp = tmp->next;
 		}
@@ -50,7 +50,7 @@ void	cd(char **command, t_env *env)
 			tmp = tmp->next;
 		}
 	}
-	else if (!ft_strncmp(command[1],"-",1))
+	else if (!ft_strncmp(command[1],"-",max_len(command[1],"-")))
 	{
 		old_pwd = malloc(sizeof(char) * PATH_MAX);
 		pwd = malloc(sizeof(char) * PATH_MAX);
@@ -58,7 +58,7 @@ void	cd(char **command, t_env *env)
 		tmp = env;
 		while(tmp)
 		{
-			if (!ft_strncmp(tmp->name,"OLDPWD",6))
+			if (!ft_strncmp(tmp->name,"OLDPWD",max_len(tmp->name,"OLDPWD")))
 				break;
 			tmp = tmp->next;
 		}
@@ -72,7 +72,7 @@ void	cd(char **command, t_env *env)
 		tmp = env;
 		while(tmp)
 		{
-			if (!ft_strncmp(tmp->name,"PWD",3))
+			if (!ft_strncmp(tmp->name,"PWD",max_len(tmp->name,"PWD")))
 				break;
 			tmp = tmp->next;
 		}

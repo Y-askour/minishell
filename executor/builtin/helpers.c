@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 20:50:32 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:32:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	search_in_exp(t_env **env, char **split)
 	temp = *env;
 	while (temp)
 	{
-		if (!ft_strncmp(temp->name, split[0], ft_strlen(temp->name)))
+		if (!ft_strncmp(temp->name, split[0], max_len(temp->name, split[0])))
 		{
 			//free(temp->value);
 			if (!split[1])

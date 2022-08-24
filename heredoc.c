@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/24 10:42:04 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:19:13 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	input_heredoc(int *fd, t_token_elem *node)
 	if (!input)
 		exit(0);
 	while (ft_strncmp(input, node->next->value, \
-			ft_strlen(node->next->value) + 1))
+			max_len(input,node->next->value)))
 	{
 		ft_putstr_fd(input, fd[1]);
 		input = readline(">");

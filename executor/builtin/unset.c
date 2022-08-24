@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:55:14 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 16:47:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:33:57 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	delete_node(char *name,t_env *env)
 	i = 0;
 	while(tmp)
 	{
-		if (!ft_strncmp(name,tmp->name,ft_strlen(tmp->name)))
+		if (!ft_strncmp(name,tmp->name,max_len(name,tmp->name)))
 		{
 			free(tmp->name);
 			free(tmp->value);

@@ -6,11 +6,23 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 16:43:31 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 19:15:21 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int max_len(char *str,char *str1)
+{
+	int len1;
+	int len2;
+
+	len1 = ft_strlen(str);
+	len2 = ft_strlen(str1);
+	if (len1 > len2)
+		return (len1);
+	return (len2);
+}
 
 void	count_and_declare(int *i, char **command, t_env *env)
 {
@@ -86,11 +98,13 @@ char **lst_to_arr(t_env *g_env)
 	env[i] = NULL;
 	return (env);
 }
+
 int  env_search(t_env *env,char *name,char *value)
 {
 	while(env)
 	{
-		if (!ft_strncmp(env->name,name,ft_strlen(name)))
+		
+		if (!ft_strncmp(env->name,name,max_len(env->name,name)))
 		{
 			free(name);
 			free(env->value);
@@ -123,7 +137,7 @@ void	add_env(char *command,t_env *g_env)
 	{
 		while(tmp)
 		{
-			if (!ft_strncmp(tmp->name,split[0],ft_strlen(split[0]) - 1))
+			if (!ft_strncmp(tmp->name,split[0],max_len(tmp->name,split[0]) - 1))
 			{
 				free(split[0]);
 				if (split[1])
@@ -153,7 +167,7 @@ void	add_env(char *command,t_env *g_env)
 		free(split);
 		return;
 	}
-	if (env_search(g_env,split[0],split[1]))
+	else if (env_search(g_env,split[0],split[1]))
 	{
 		free(split);
 		return ;
@@ -208,7 +222,9 @@ int	export_f(char **command, t_env *env)
 			else if (valid(command[i]))
 			{
 				if (check_to_add(command[i]))
+				{
 					add_env(command[i],env);
+				}
 			}
 			else
 				error_handler("minishell: export: `=` :not a valid indentifier", 1);
