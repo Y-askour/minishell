@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/22 21:26:33 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:48:27 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*env_var(char *var, t_env *env)
 			return (ft_strndup((tmp->value), (int)ft_strlen(tmp->value) + 1));
 		tmp = tmp->next;
 	}
-	return (ft_strndup(" ", 1));
+	return (ft_strdup(""));
 }
 
 static void	expand_tilde(t_token_elem *temp, t_env *env)

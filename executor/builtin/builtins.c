@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 11:00:23 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:41:03 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ int	run_builtins(t_cmd_elem *cmdline,char **command, t_env *env)
 {
 	if (redirections(cmdline, 0, 1) == -1)
 		return (-1);
-	if (!ft_strncmp(command[0], "echo", 4))
+	if (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
 		echo(command);
-	else if (!ft_strncmp(command[0], "cd", 2))
+	else if (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
 		cd(command, env);
-	else if (!ft_strncmp(command[0], "pwd", 3))
+	else if (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
 		pwd(command, env);
-	else if (!ft_strncmp(command[0], "export", 6))
+	else if (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
 		export_f(command, env);
-	else if (!ft_strncmp(command[0], "unset", 5))
+	else if (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
 		cd(command, env);
-	else if (!ft_strncmp(command[0], "env", 3))
+	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		env_f(command, env);
-	else if (!ft_strncmp(command[0], "exit", 4))
+	else if (!ft_strncmp(command[0], "exit", ft_strlen(command[0])))
 		exit_f(command);
 	return (1);
 }
@@ -38,19 +38,19 @@ int	builtins(char **command)
 	// for redirections
 	if (!command[0])
 		return (0);
-	if (!ft_strncmp(command[0], "echo", 4))
+	if (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
 		return (1);
-	else if (!ft_strncmp(command[0], "cd", 2))
+	else if (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
 		return (1);
-	else if (!ft_strncmp(command[0], "pwd", 3))
+	else if (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
 		return (1);
-	else if (!ft_strncmp(command[0], "export", 6))
+	else if (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
 		return (1);
-	else if (!ft_strncmp(command[0], "unset", 5))
+	else if (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
 		return (1);
-	else if (!ft_strncmp(command[0], "env", 3))
+	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		return (1);
-	else if (!ft_strncmp(command[0], "exit", 4))
+	else if (!ft_strncmp(command[0], "exit", ft_strlen(command[0])))
 		return (1);
 	return (0);
 }

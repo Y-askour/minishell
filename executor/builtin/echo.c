@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:13:42 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 12:13:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 12:47:18 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	echo(char **command)
 		if (command[i])
 			printf(" ");
 	}
-	if (!check)
+	if (!check || !command[i])
 		printf("\n");
 	g_exit_status = 0;
 }
