@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:45:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:19:23 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_env	*get_env(char **env)
 	while (env[i])
 	{
 		splited = ft_split(env[i], '=');
-		if(!ft_strncmp(splited[0],"SHLVL",max_len(splited[0],"SHLVL")))
+		if (!ft_strncmp(splited[0], "SHLVL", max_len(splited[0], "SHLVL")))
 		{
 			tmp = ft_itoa(ft_atoi(splited[1]) + 1);
 			free(splited[1]);
@@ -68,4 +68,3 @@ t_env	*get_env(char **env)
 	}
 	return (my_env);
 }
-
