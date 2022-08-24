@@ -6,73 +6,11 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:45:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:13:20 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int max_len(char *str,char *str1)
-{
-	int len1;
-	int len2;
-
-	len1 = ft_strlen(str);
-	len2 = ft_strlen(str1);
-	if (len1 > len2)
-		return (len1);
-	return (len2);
-}
-
-void	count_and_declare(int *i, char **command, t_env *env)
-{
-	while (command[*i])
-		*i += 1;
-	if (*i == 1)
-		declare_export(env);
-}
-
-int	option(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] && str[i] == '-' && str[i + 1])
-		return (1);
-	return (0);
-}
-
-int	valid(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(str[i]) || str[i] == '_')
-	{
-		i++;
-		while (str[i])
-		{
-			if (str[i] == '=')
-				break ;
-			else if (!ft_isalnum(str[i]) && !(str[i] == \
-				'=') && !(str[i] == '_'))
-			{
-				if (str[i] == '+' && str[i + 1])
-				{
-					if (!(str[i + 1] == '='))
-						return (0);
-				}
-				else
-					return (0);
-			}
-			if (i == ((int)ft_strlen(str) - 1))
-				return (1);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
 
 char	**lst_to_arr(t_env *g_env)
 {
@@ -92,8 +30,8 @@ char	**lst_to_arr(t_env *g_env)
 	i = 0;
 	while (ptr)
 	{
-		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name),
-				ft_strdup("=")), ft_strdup(ptr->value));
+		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
+					ft_strdup("=")), ft_strdup(ptr->value));
 		i++;
 		ptr = ptr->next;
 	}
@@ -101,11 +39,11 @@ char	**lst_to_arr(t_env *g_env)
 	return (env);
 }
 
-int  env_search(t_env *env,char *name,char *value)
+int	env_search(t_env *env, char *name, char *value)
 {
 	while (env)
 	{		
-		if (!ft_strncmp(env->name,name,max_len(env->name,name)))
+		if (!ft_strncmp(env->name, name, max_len(env->name, name)))
 		{
 			free(name);
 			free(env->value);
@@ -123,7 +61,7 @@ int  env_search(t_env *env,char *name,char *value)
 	return (0);
 }
 
-void	add_env(char *command,t_env *g_env)
+void	add_env(char *command, t_env *g_env)
 {
 	int		i;
 	char	**split;
@@ -137,7 +75,8 @@ void	add_env(char *command,t_env *g_env)
 	{
 		while (tmp)
 		{
-			if (!ft_strncmp(tmp->name,split[0],max_len(tmp->name,split[0]) - 1))
+			if (!ft_strncmp(tmp->name, split[0], \
+					max_len(tmp->name, split[0]) - 1))
 			{
 				free(split[0]);
 				if (split[1])
@@ -167,7 +106,7 @@ void	add_env(char *command,t_env *g_env)
 		free(split);
 		return ;
 	}
-	else if (env_search(g_env,split[0],split[1]))
+	else if (env_search(g_env, split[0], split[1]))
 	{
 		free(split);
 		return ;

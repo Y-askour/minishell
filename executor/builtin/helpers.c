@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:32:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 20:10:09 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,59 +21,64 @@ void	declare_export(t_env *env)
 	}
 }
 
-void	check_f(char *command, int *check)
+int max_len(char *str,char *str1)
 {
-	int	i;
-	int	j;
+	int len1;
+	int len2;
 
-	i = 0;
-	j = 0;
-	if (ft_isalpha(command[i]) || command[i++] == '_')
-	{
-		while (command[i])
-		{
-			if (ft_isalnum(command[i]) || command[i] == '_')
-				i++;
-		}
-		*check = 1;
-	}
+	len1 = ft_strlen(str);
+	len2 = ft_strlen(str1);
+	if (len1 > len2)
+		return (len1);
+	return (len2);
 }
 
-int	search_in_exp(t_env **env, char **split)
+void	count_and_declare(int *i, char **command, t_env *env)
 {
-	t_env	*temp;
+	while (command[*i])
+		*i += 1;
+	if (*i == 1)
+		declare_export(env);
+}
 
-	temp = *env;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->name, split[0], max_len(temp->name, split[0])))
-		{
-			//free(temp->value);
-			if (!split[1])
-				temp->value = "";
-			else
-				temp->value = split[1];
-			return (1);
-		}
-		temp = temp->next;
-	}
+int	option(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] && str[i] == '-' && str[i + 1])
+		return (1);
 	return (0);
 }
 
-void	add_env_node(char **split, t_env **env)
+int	valid(char *str)
 {
-	t_env		*node;
-	t_env		*temp;
+	int	i;
 
-	node = malloc(sizeof(t_env) * 1);
-	node->name = split[0];
-	if (!split[1])
-		node->value = " ";
-	else
-		node->value = split[1];
-	node->next = NULL;
-	temp = *env;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = node;
+	i = 0;
+	if (ft_isalpha(str[i]) || str[i] == '_')
+	{
+		i++;
+		while (str[i])
+		{
+			if (str[i] == '=')
+				break ;
+			else if (!ft_isalnum(str[i]) && !(str[i] == \
+				'=') && !(str[i] == '_'))
+			{
+				if (str[i] == '+' && str[i + 1])
+				{
+					if (!(str[i + 1] == '='))
+						return (0);
+				}
+				else
+					return (0);
+			}
+			if (i == ((int)ft_strlen(str) - 1))
+				return (1);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
 }
