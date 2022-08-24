@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/23 11:49:13 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:46:31 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	signal_action(int exit_number, t_token_list *list,
 	{
 		close(fd[1]);
 		node->type = REDIN;
+		free(node->next->value);
 		node->next->value = ft_itoa(fd[0]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 19:07:02 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/23 22:00:05 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 
 /******TOKENS*********/
 # define WORD -1
-# define S_QUOTE -2
-# define D_QUOTE -3
 # define PIPE -4
 # define APPEND -5 // >>
 # define HEREDOC -6 // <<

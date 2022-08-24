@@ -13,12 +13,10 @@ i removed wspaces, test it
 >file, segfaults
 multiple redirections > t > s >  l
 
-<<<<<<< HEAD
 shell lvl
 i need to check builtins cases
 env segfaults
 malloc all the tokenz to free them all at the end
-=======
 cd 
 unset
 segfault in env -i ./minishell   && export test=t
@@ -28,4 +26,7 @@ segfault in env -i ./minishell   && export $test=t
 
 env -i ./minishell -> env -> export hey=hey -> en
 export -> you need to sort env
->>>>>>> execution
+echo space after expand prints new cmd_line
+export without = should add to export
+exit with -1 and +1
+exit with (exit word) should exit and update exit status
