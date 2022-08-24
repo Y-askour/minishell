@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 18:19:29 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/23 20:54:12 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	executer_helper(int in, int out, int d, int n)
 
 int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 {
-	// khassni nhandli hadi redirections f builtins 
 	int old_stdout = dup(STDOUT_FILENO);
 	int old_stdin = dup(STDIN_FILENO);
 	if (builtins(commands) && n == 1)
@@ -85,6 +84,10 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		i++;
 	}
 	pipes_helper3(in_out.in, n);
+	i = 0;
+	while(paths[i])
+		free(paths[i++]);
+	free(paths);
 	return (0);
 }
 
@@ -100,7 +103,6 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 {
 	int			i;
 	t_cmd_elem	*ptr;
-	(void)g_env;
 
 	i = 0;
 	ptr = cmdline->head;
@@ -110,7 +112,6 @@ int	run_command(t_cmd_list *cmdline, t_env *g_env)
 		ptr = ptr->next;
 	}
 	ptr = cmdline->head;
-	//print_cmdline(cmdline);
 	pipeline(i, ptr, g_env);
 	return (0);
 }
