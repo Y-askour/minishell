@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 14:57:04 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 20:02:33 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	str_lower(char **str)
 
 int	builtins(char **command)
 {
-	// for redirections
 	if (!command[0])
 		return (0);
 	str_lower(&command[0]);

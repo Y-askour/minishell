@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 19:50:24 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:01:08 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	cd(char **command, t_env *env)
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->name, "HOME", max_len(tmp->name, "HOME")))
-				break;
+				break ;
 			tmp = tmp->next;
 		}
 		if (!tmp)
 		{
 			error_handler("minishell : cd: HOME not set", 1);
-			return;
+			return ;
 		}
 		home = tmp->value;
 		chdir(tmp->value);
@@ -58,7 +58,7 @@ void	cd(char **command, t_env *env)
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->name, "OLDPWD", max_len(tmp->name, "OLDPWD")))
-				break;
+				break ;
 			tmp = tmp->next;
 		}
 		if (!tmp)
@@ -72,7 +72,7 @@ void	cd(char **command, t_env *env)
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->name, "PWD", max_len(tmp->name, "PWD")))
-				break;
+				break ;
 			tmp = tmp->next;
 		}
 		getcwd(pwd, PATH_MAX);
