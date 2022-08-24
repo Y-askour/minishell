@@ -16,7 +16,7 @@ void	delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg)
 {
 	while (head->args[*i])
 	{
-		if (ft_strncmp(head->args[*i], " ", max_len(head->args[*i]," ")))
+		if (ft_strncmp(head->args[*i], " ", max_len(head->args[*i], " ")))
 			*n_of_arg += 1;
 		*i += 1;
 	}

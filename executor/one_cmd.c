@@ -54,7 +54,6 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		cmd = ft_strjoin(ft_strdup(paths[i]), ft_strdup(command[0]));
 		if (!check_dir(cmd, 1))
 		{
-			//*check = 1;
 			execve(cmd, command, env);
 		}
 		free(cmd);

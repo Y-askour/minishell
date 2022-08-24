@@ -43,7 +43,7 @@ void	delete_spc_helper(t_cmd_elem *cmdline, int *arg_n)
 	i = 0;
 	while (cmdline->args[i])
 	{
-		if (ft_strncmp(cmdline->args[i], " ", max_len(cmdline->args[i]," ")))
+		if (ft_strncmp(cmdline->args[i], " ", max_len(cmdline->args[i], " ")))
 			*arg_n += 1;
 		i++;
 	}
@@ -63,7 +63,7 @@ char	**simple_cmd_delete_spc(t_cmd_elem *cmdline)
 	arg_n = 0;
 	while (cmdline->args[i])
 	{
-		if (ft_strncmp(cmdline->args[i], " ", max_len(cmdline->args[i]," ")))
+		if (ft_strncmp(cmdline->args[i], " ", max_len(cmdline->args[i], " ")))
 		{
 			command[arg_n] = ft_strdup(cmdline->args[i]);
 			arg_n++;
