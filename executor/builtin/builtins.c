@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/23 14:25:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/24 11:00:23 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,14 @@ void	exit_f(char **command)
 	j = 0;
 	if (!command[1])
 		exit(0);
+		
+	if (command[1][j] == '+' || command[1][j] == '-')
+		j++;
 	while (command[1][j])
 	{
 		if (!ft_isdigit(command[1][j]))
 		{
-			error_handler("bash: exit : numeric argument required",255);
+			error_handler("exit\nminishell: exit : numeric argument required",255);
 			exit(255);
 		}
 		j++;
@@ -88,5 +91,5 @@ void	exit_f(char **command)
 	if (i == 2)
 		exit(ft_atoi(command[1]));
 	else
-		error_handler("bash : exit : too many arguments",1);
+		error_handler("exit\nminishell : exit : too many arguments",1);
 }
