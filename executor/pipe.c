@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 11:19:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 12:30:28 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	pid_t	pid;
 	t_exec	var;
 	t_pipe	in_out;
+	int status;
 
 	in_out.in = 0;
 	i = 0;
@@ -90,6 +91,11 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 			break ;
 		pipes_helper2(&head, in_out.fd, &in_out.in);
 		i++;
+	}
+	if (i == n)
+	{
+		waitpid(pid,&status,0);
+		g_exit_status = WEXITSTATUS(status);
 	}
 	pipes_helper3(in_out.in, n);
 	i = 0;

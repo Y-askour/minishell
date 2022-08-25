@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:29 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 10:04:05 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 11:59:17 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	pipes_helper2(t_cmd_elem **head, int *fd, int *in)
 
 void	pipes_helper3(int in, int n)
 {
-	int status;
 	int	i;
 
 	if (in != 0)
 		close(in);
 	i = 0;
-	while (i++ < n)
-		wait(&status);
-	g_exit_status = WEXITSTATUS(status);
+	while (i++ < n - 1)
+	{
+		wait(NULL);
+	}
 }
 
 char	***delete_spaces(t_cmd_elem *head, int n)

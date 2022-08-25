@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 20:30:10 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:44:39 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	export_f(char **command, t_env *env)
 			}
 			else
 				error_handler("minishell: export: `=` \
-					:not a valid indentifier", 1);
+						:not a valid indentifier", 1);
 			i++;
 		}
 	}
