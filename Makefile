@@ -4,57 +4,38 @@ PURPLE=$'\x1b[35m
 
 NAME = minishell
 
-HEADER = ./include/minishell.h \
+INCLUDE = ./include
+HEADER = $(INCLUDE)/minishell.h
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror -g 
+CC = cc
+FLAGS = -Wall -Wextra -Werror
 
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
+OFILES = ofiles
 
-FILES = minishell.c\
-		prompt.c\
-		heredoc.c\
-		./tokenizer/tokens_list_utils.c\
-		./tokenizer/tokenizer.c\
-		./tokenizer/lexer1.c\
-		./tokenizer/lexer2.c\
-		./print/print_tokens.c\
-		./syntax_/check_syntax.c\
-		./syntax_/expand.c\
-		./error_handler/error_handler.c\
-		./parser/parse_cmd.c\
-		./parser/parse_cmd_utils.c\
-		./parser/parse_cmd_utils2.c\
-		./print/print_cmd.c\
-		./free/free_cmd.c\
-		./free/free_tokens.c\
-		./executor/get_paths.c\
-		./executor/pipe.c\
-		./executor/one_cmd.c\
-		./executor/builtin/builtins.c\
-		./executor/builtin/cd.c\
-		./executor/builtin/pwd.c\
-		./executor/builtin/export.c\
-		./executor/builtin/helpers.c\
-		./executor/builtin/echo.c\
-		./executor/redirections.c\
-		./executor/one_cmd_helper.c\
-		./executor/pipe_helper.c\
-		./executor/helper_pipe.c\
-		./executor/builtin/unset.c
-	
-OBJ = $(FILES:%.c=%.o)
 
+PARSER = $(addprefix parser/, parse_cmd_utils2 parse_cmd_utils parse_cmd)
+FREE = $(addprefix free/, free_cmd free_tokens)
+SYNTAX = $(addprefix syntax_/, check_syntax expand)
+TOKENIZER = $(addprefix tokenizer/, lexer1 lexer2 tokenizer tokens_list_utils)
+ERROR = $(addprefix error_handler,/ error_handler)
+BUILTIN = $(addprefix builtin/, builtins cd echo export helpers pwd unset)
+EXECUTION = $(addprefix executor/, get_paths helper_pipe one_cmd one_cmd_helper pipe pipe_helper redirections $(BUILTIN))
+FILES =  $(addprefix src/, minishell prompt.c heredoc.c $(FREE) $(PARSER) $(SYNTAX) $(TOKENIZER) $(ERROR) $(EXECUTION))
+
+OBJ = $(addprefix $(OFILES)/, $(FILES:=.o))
 
 all : $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
-	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline1/lib -lreadline -g
-
-%.o : %.c $(HEADER)
-	@$(CC) -I ./readline1/include -I./include $(FLAGS) -o $@ -c $< -g
+$(OFILES)/src/%.o: src/%.c $(HEADER)
+	mkdir $(@D)
+	@$(CC) -I ./readline1/include -I$(INCLUDE) $(FLAGS) -o $@ -c $<
 	@echo "$(GREEN)" "compiling $<"
+
+$(NAME): $(OBJ) $(LIBFT_LIB) $(HEADER)
+	@$(CC) $(FLAGS) $(LIBFT_LIB) $(OBJ) -o $(NAME) -L ./readline1/lib -lreadline
+
 
 $(LIBFT_LIB):
 	@$(MAKE) -C $(LIBFT_DIR)

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 20:47:07 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 13:01:13 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,7 @@ void			cmd_back(t_cmd_list *list, char **args, t_red_list *red);
 t_token_elem	*one_cmd(t_cmd_list *cmd_line, \
 		t_token_elem *tmp, t_token_list *list);
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
-void			print_cmdline(t_cmd_list *cmdline);
 /**** token_list functions ***/
-void			print_list(t_token_list *list);
 void			add_back(t_token_list *list, char *val, int type);
 t_token_list	*init_token_list(t_token_list *list);
 void			del_node(t_token_elem *node, t_token_list *list);
