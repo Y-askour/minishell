@@ -46,32 +46,3 @@ void	pipes_helper3(int in, int n)
 		wait(NULL);
 	}
 }
-
-char	***delete_spaces(t_cmd_elem *head, int n)
-{
-	int		i;
-	char	***commands;
-	int		n_of_arg;
-	int		s;
-	int		j;
-
-	commands = malloc(sizeof(char **) * n + 1);
-	s = 0;
-	while (head)
-	{
-		n_of_arg = 0;
-		i = 0;
-		delete_spaces_helper1(head, &i, &n_of_arg);
-		commands[s] = malloc(sizeof(char *) * n_of_arg + 1);
-		i = -1;
-		j = 0;
-		while (head->args[++i])
-		{
-			if (ft_strncmp(head->args[i], " ", max_len(head->args[i], " ")))
-				commands[s][j++] = ft_strdup(head->args[i]);
-		}
-		helper(commands, &head, &s, j);
-	}
-	commands[s] = NULL;
-	return (commands);
-}
