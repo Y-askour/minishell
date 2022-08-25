@@ -1,5 +1,0 @@
-export
-export hey = hey
-export hey=hey
-export hey= hey
-export hey= "hey"
