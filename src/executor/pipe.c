@@ -99,8 +99,10 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	t_exec	var;
 	t_pipe	in_out;
 	int		status;
+	t_cmd_elem *ptr;
 
 	init_out_check(&in_out, &i);
+	ptr = head;
 	while (i < n)
 	{
 		pipe(in_out.fd);
@@ -108,14 +110,17 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		var.paths = paths;
 		var.in = in_out.in;
 		var.out = in_out.fd[1];
-		pid = executer(head->args, n, i, head, &var);
+		pid = executer(ptr->args, n, i, ptr, &var);
 		if (pipes_helper1(pid, in_out.in, in_out.fd, &in_out.check))
 			break ;
-		pipes_helper2(&head, in_out.fd, &in_out.in);
+		pipes_helper2(&ptr, in_out.fd, &in_out.in);
 		i++;
 	}
-	waitpid(pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
+	if (!builtins(head->args) && n > 1)
+	{
+		waitpid(pid, &status, 0);
+		g_exit_status = WEXITSTATUS(status);
+	}
 	pipes_helper3(in_out.in, n);
 	end_pipes(paths);
 	return (0);
