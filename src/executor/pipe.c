@@ -95,7 +95,6 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	}
 	waitpid(pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
-	//printf("%d\n",g_exit_status);
 	pipes_helper3(in_out.in, n);
 	i = 0;
 	if (paths)
