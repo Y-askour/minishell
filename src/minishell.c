@@ -12,11 +12,11 @@
 
 #include"minishell.h"
 
-char *get_path(t_env *env)
+char	*get_path(t_env *env)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->name,"PATH",max_len(env->name, "PATH")))
+		if (!ft_strncmp(env->name, "PATH", max_len(env->name, "PATH")))
 			break ;
 		env = env->next;
 	}
@@ -30,9 +30,10 @@ char	**get_paths(t_env *env)
 	char	**paths;
 	char	**ret;
 	int		i;
+	char	*tmp;
 
 	ret = 0;
-	char	*tmp = get_path(env);
+	tmp = get_path(env);
 	if (tmp)
 	{
 		paths = ft_split(tmp, ':');
@@ -47,7 +48,7 @@ char	**get_paths(t_env *env)
 			i++;
 		}
 		i = 0;
-		while(paths[i])
+		while (paths[i])
 			free(paths[i++]);
 		free(paths);
 		ret[i] = NULL;
