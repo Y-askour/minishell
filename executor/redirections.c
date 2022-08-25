@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/22 14:50:27 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 11:28:50 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	red_in(t_red_elem *red, int in)
 		if (f1 < 0)
 		{
 			error_handler("minishell: path : No such  file or directory", 1);
+			g_exit_status = 1;
 			return (-1);
 		}
 	}
@@ -88,7 +89,10 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 		if (red->type == REDOUT)
 			red_out(red, out);
 		else if (red->type == REDIN)
-			red_in(red, in);
+		{
+			if (red_in(red, in) == -1)
+				break ;
+		}
 		else if (red->type == APPEND)
 			red_append(red, out);
 		red = red->next;

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 11:18:23 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 11:19:45 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 	int	old_stdin;
 	int	pid;
 
+	// exit status in builtins
 	if (builtins(commands) && n == 1)
 	{
 		old_stdout = dup(STDOUT_FILENO);
