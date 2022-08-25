@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 20:35:46 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 12:39:59 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	cd(char **command, t_env *env)
 			tmp = tmp->next;
 		}
 		getcwd(pwd, PATH_MAX);
-		printf("%s\n",pwd);
+		printf("%s\n", pwd);
 		tmp->value = pwd;
 	}
 	else

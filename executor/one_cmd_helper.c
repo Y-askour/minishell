@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:44:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 11:24:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 12:37:05 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ void	path_search_helper(char **command, int **check, char **env)
 		}
 	}
 }
-

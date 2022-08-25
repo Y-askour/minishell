@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:29 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 11:59:17 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 12:39:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	***delete_spaces(t_cmd_elem *head, int n)
 		j = 0;
 		while (head->args[++i])
 		{
-			if (ft_strncmp(head->args[i], " ",max_len(head->args[i]," ")))
+			if (ft_strncmp(head->args[i], " ", max_len(head->args[i], " ")))
 				commands[s][j++] = ft_strdup(head->args[i]);
 		}
 		helper(commands, &head, &s, j);

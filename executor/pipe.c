@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 12:30:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 12:56:12 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 	int	pid;
 
 	// exit status in builtins
+	pid = 0;
 	if (builtins(commands) && n == 1)
 	{
 		old_stdout = dup(STDOUT_FILENO);
@@ -54,7 +55,7 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 		if (pid == -1)
 		{
 			error_handler("fork error\n", 2);
-			return -1;
+			return (-1);
 		}
 		else if (pid == 0)
 		{
@@ -65,16 +66,16 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 				child(cmdline, commands, var->g_env, var->paths);
 		}
 	}
-	return (0);
+	return (pid);
 }
 
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
-	int		i;
-	pid_t	pid;
+	int			i;
+	pid_t		pid;
 	t_exec	var;
 	t_pipe	in_out;
-	int status;
+	int			status;
 
 	in_out.in = 0;
 	i = 0;
@@ -92,11 +93,9 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		pipes_helper2(&head, in_out.fd, &in_out.in);
 		i++;
 	}
-	if (i == n)
-	{
-		waitpid(pid,&status,0);
-		g_exit_status = WEXITSTATUS(status);
-	}
+	waitpid(pid, &status, 0);
+	g_exit_status = WEXITSTATUS(status);
+	//printf("%d\n",g_exit_status);
 	pipes_helper3(in_out.in, n);
 	i = 0;
 	if (paths)
