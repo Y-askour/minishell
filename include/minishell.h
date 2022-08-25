@@ -104,6 +104,16 @@ typedef struct s_pipe
 	int				check;
 }	t_pipe;
 
+typedef	struct s_norm_var
+{
+	pid_t		pid;
+	t_exec		var;
+	t_pipe		in_out;
+	int			status;
+	t_cmd_elem	*ptr;
+
+} t_norm;
+
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
@@ -140,16 +150,18 @@ void			free_cmd(t_cmd_list *cmdline);
 void			free_tokens(t_token_list *tokens);
 
 // execution functions 
-char	***delete_spaces(t_cmd_elem *head, int n);
-void	pipes_helper2(t_cmd_elem **head, int *fd, int *in);
-int	pipes_helper1(int pid, int in, int *fd, int *check);
-void	executer_helper(int in, int out, int d, int n);
-int				executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var);
+char			***delete_spaces(t_cmd_elem *head, int n);
+void			pipes_helper2(t_cmd_elem **head, int *fd, int *in);
+int				pipes_helper1(int pid, int in, int *fd, int *check);
+void			executer_helper(int in, int out, int d, int n);
+int				executer(char **commands, int n, int i, \
+t_cmd_elem *cmdline, t_exec *var);
 char			**get_paths(t_env *env);
 t_env			*get_env(char **env);
 
 int				run_command(t_cmd_list *cmdline, t_env *g_env);
 void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
+void			end_pipes(char **paths);
 
 // builtins
 

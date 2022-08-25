@@ -46,3 +46,16 @@ void	pipes_helper3(int in, int n)
 		wait(NULL);
 	}
 }
+
+void	end_pipes(char **paths)
+{
+	int	i;
+
+	i = 0;
+	if (paths)
+	{
+		while (paths[i])
+			free(paths[i++]);
+	}
+	free(paths);
+}
