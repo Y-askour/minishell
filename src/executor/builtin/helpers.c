@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 15:37:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:04:48 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	declare_export(t_env *env)
 {
-	int		i;
-	t_env	*tmp;
+	int i;
+	t_env *tmp;
 
 	i = 0;
-	while (i < 256)
+	while(i < 256)
 	{
 		tmp = env;
 		while (tmp)
@@ -29,18 +29,6 @@ void	declare_export(t_env *env)
 		}
 		i++;
 	}
-}
-
-int	max_len(char *str, char *str1)
-{
-	int	len1;
-	int	len2;
-
-	len1 = ft_strlen(str);
-	len2 = ft_strlen(str1);
-	if (len1 > len2)
-		return (len1);
-	return (len2);
 }
 
 void	count_and_declare(int *i, char **command, t_env *env)
@@ -61,39 +49,34 @@ int	option(char *str)
 	return (0);
 }
 
-int	valid_helper(char *str)
-{
-	int	i;
-
-	i = 1;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			break ;
-		else if (!ft_isalnum(str[i]) && !(str[i] == \
-			'=') && !(str[i] == '_'))
-		{
-			if (str[i] == '+' && str[i + 1])
-			{
-				if (!(str[i + 1] == '='))
-					return (0);
-			}
-			else
-				return (0);
-		}
-		if (i == ((int)ft_strlen(str) - 1))
-			return (1);
-		i++;
-	}
-	return (1);
-}
-
 int	valid(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isalpha(str[i]) || str[i] == '_')
-		return (valid_helper(str));
+	{
+		i++;
+		while (str[i])
+		{
+			if (str[i] == '=')
+				break ;
+			else if (!ft_isalnum(str[i]) && !(str[i] == \
+				'=') && !(str[i] == '_'))
+			{
+				if (str[i] == '+' && str[i + 1])
+				{
+					if (!(str[i + 1] == '='))
+						return (0);
+				}
+				else
+					return (0);
+			}
+			if (i == ((int)ft_strlen(str) - 1))
+				return (1);
+			i++;
+		}
+		return (1);
+	}
 	return (0);
 }

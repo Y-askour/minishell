@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/25 15:54:39 by aboudoun          #+#    #+#              #
+#    Updated: 2022/08/25 16:05:52 by aboudoun         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 RED=$'\x1b[31m
 GREEN=$'\x1b[32m
 PURPLE=$'\x1b[35m
@@ -18,11 +30,11 @@ READLINE = $(shell brew --prefix  readline)
 
 PARSER = $(addprefix parser/, parse_cmd_utils2 parse_cmd_utils parse_cmd)
 FREE = $(addprefix free/, free_cmd free_tokens)
-SYNTAX = $(addprefix syntax_/, check_syntax expand)
+SYNTAX = $(addprefix syntax_/, check_syntax expand get_path)
 TOKENIZER = $(addprefix tokenizer/, lexer1 lexer2 tokenizer tokens_list_utils)
 ERROR = $(addprefix error_handler/, error_handler)
 BUILTIN = $(addprefix builtin/, builtins cd echo export helpers pwd unset)
-EXECUTION = $(addprefix executor/, get_paths helper_pipe one_cmd one_cmd_helper pipe pipe_helper redirections $(BUILTIN))
+EXECUTION = $(addprefix executor/, get_env one_cmd one_cmd_helper pipe pipe_helper pipe_helper2 redirections $(BUILTIN))
 FILES =  $(addprefix src/, minishell prompt heredoc $(FREE) $(PARSER) $(SYNTAX) $(TOKENIZER) $(ERROR) $(EXECUTION))
 
 OBJ = $(addprefix $(OFILES)/, $(FILES:=.o))

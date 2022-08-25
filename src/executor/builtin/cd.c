@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 12:39:59 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:04:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ void	cd(char **command, t_env *env)
 		else
 		{
 			error_handler("cd : path: No such file or directory", 127);
+			printf("%d\n", g_exit_status);
 			return ;
 		}
-		g_exit_status = 0;
 	}
 }

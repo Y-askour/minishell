@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 13:01:13 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:09:51 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,11 @@ void			free_cmd(t_cmd_list *cmdline);
 void			free_tokens(t_token_list *tokens);
 
 // execution functions 
-
+char	***delete_spaces(t_cmd_elem *head, int n);
+void	pipes_helper2(t_cmd_elem **head, int *fd, int *in);
+int	pipes_helper1(int pid, int in, int *fd, int *check);
+void	executer_helper(int in, int out, int d, int n);
+int				executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var);
 char			**get_paths(t_env *env);
 t_env			*get_env(char **env);
 
@@ -176,8 +180,8 @@ void			echo(char **command);
 char			**lst_to_arr(t_env *g_env);
 void			unset(char **command, t_env *env);
 int				option(char *str);
-int				max_len(char *str,char *str1);
-int	valid(char *str);
-void	count_and_declare(int *i, char **command, t_env *env);
+int				max_len(char *str, char *str1);
+int				valid(char *str);
+void			count_and_declare(int *i, char **command, t_env *env);
 int				g_exit_status;
 #endif
