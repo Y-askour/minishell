@@ -116,12 +116,14 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		pipes_helper2(&ptr, in_out.fd, &in_out.in);
 		i++;
 	}
-	if (!builtins(head->args) && n > 1)
+	if (builtins(head->args) && n == 1)
+		pipes_helper3(in_out.in, n);
+	else
 	{
 		waitpid(pid, &status, 0);
 		g_exit_status = WEXITSTATUS(status);
+		pipes_helper3(in_out.in, n);
 	}
-	pipes_helper3(in_out.in, n);
 	end_pipes(paths);
 	return (0);
 }
