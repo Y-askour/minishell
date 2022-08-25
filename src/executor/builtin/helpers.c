@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 16:04:48 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:55:59 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	declare_export(t_env *env)
 	t_env *tmp;
 
 	i = 0;
-	while(i < 256)
+	while (i < 256)
 	{
 		tmp = env;
 		while (tmp)

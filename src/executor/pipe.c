@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 20:43:20 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:05:00 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	change_exitstatus(int n)
 		g_exit_status = 131;
 		write(1, "Quit: 3\n", 8);
 	}
+	else
+		g_exit_status = WEXITSTATUS(n);
 }
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {

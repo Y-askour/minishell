@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 16:09:51 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:16:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,13 @@ typedef	struct s_norm_var
 
 } t_norm;
 
+int	main(int ac, char **av, char **env);
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
 int				error_handler(char *message, int status);
-void			is_heredoc(t_token_list *list, int status);
+void			is_heredoc(t_token_list *list, int status, t_env *env);
+
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
 t_cmd_list		*init_cmd_list(t_cmd_list *list);

@@ -6,23 +6,23 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/25 20:47:15 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:19:47 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
 void	signal_action(int exit_number, t_token_list *list,
-		t_token_elem *node, int *fd)
-{
+		t_token_elem *node, int *fd,t_env *env)
+{	
 	if (exit_number)
 	{
 		g_exit_status = exit_number;
-		del_node(node->next, list);
-		del_node(node, list);
-		del_cmd(node, lise);
+		free_tokens(list);
 		close(fd[1]);
 		close(fd[0]);
+		write(1, "\n", 1);
+		main(1,NULL,lst_to_arr(env));
 	}
 	else
 	{
@@ -70,7 +70,7 @@ static void	join_delimiter(t_token_elem *node, t_token_list *list)
 	}
 }
 
-void	is_heredoc(t_token_list *list, int status)
+void	is_heredoc(t_token_list *list, int status, t_env *env)
 {
 	t_token_elem	*node;
 	int				fd[2];
@@ -90,7 +90,7 @@ void	is_heredoc(t_token_list *list, int status)
 			if (pid == 0)
 				input_heredoc(fd, node);
 			waitpid(pid, &status, 0);
-			signal_action(status, list, node, fd);
+			signal_action(status, list, node, fd,env);
 			if (!node->next)
 				break ;
 		}
