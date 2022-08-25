@@ -25,6 +25,16 @@ char	*get_path(t_env *env)
 	return (env->value);
 }
 
+void	free_path(char **paths)
+{
+	int	i;
+
+	i = 0;
+	while (paths[i])
+		free(paths[i++]);
+	free(paths);
+}
+
 char	**get_paths(t_env *env)
 {
 	char	**paths;
@@ -47,10 +57,7 @@ char	**get_paths(t_env *env)
 			ret[i] = ft_strjoin(ft_strdup(paths[i]), ft_strdup("/"));
 			i++;
 		}
-		i = 0;
-		while (paths[i])
-			free(paths[i++]);
-		free(paths);
+		free_path(paths);
 		ret[i] = NULL;
 	}
 	return (ret);
