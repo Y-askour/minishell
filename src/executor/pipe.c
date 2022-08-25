@@ -38,6 +38,8 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	while (i < n)
 	{
 		init_var(&norm.in_out, &norm.var, g_env, paths);
+		if (i == 0)
+			close(norm.in_out.fd[0]);
 		norm.pid = executer(norm.ptr->args, n, i, norm.ptr, &norm.var);
 		if (pipes_helper1(norm.pid, norm.in_out.in, norm.in_out.fd, \
 		&norm.in_out.check))

@@ -12,14 +12,14 @@
 
 #include"minishell.h"
 
-void	setup_term(void)
-{
-	struct termios	t;
+// void	setup_term(void)
+// {
+// 	struct termios	t;
 
-	tcgetattr(0, &t);
-	t.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &t);
-}
+// 	tcgetattr(0, &t);
+// 	t.c_lflag &= ~ECHOCTL;
+// 	tcsetattr(0, TCSANOW, &t);
+// }
 
 int	loop_body(char **line, t_token_list **tokens,
 		t_cmd_list **cmd_line, t_env **g_env)
@@ -58,7 +58,7 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	while (1)
 	{
-		setup_term();
+		// setup_term();
 		if (loop_body(&line, &tokens, &cmd_line, &g_env))
 			continue ;
 		free_tokens(tokens);

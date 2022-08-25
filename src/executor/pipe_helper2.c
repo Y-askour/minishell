@@ -69,6 +69,10 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 		pid = fork();
 		if (pid == -1)
 		{
+			if (var->out != 1)
+				close(var->out);
+			if (var->in != 0)
+				close(var->in);
 			error_handler("fork error\n", 2);
 			return (-1);
 		}

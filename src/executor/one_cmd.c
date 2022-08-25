@@ -72,6 +72,8 @@ int	child(t_cmd_elem *cmdline, char **command, t_env *env, char **paths)
 	int		i;
 	char	**list;
 
+	// signal(SIGINT, SIG_IGN);
+	//signal(SIGQUIT, SIG_IGN);
 	check = 0;
 	i = 0;
 	list = lst_to_arr(env);
