@@ -22,10 +22,11 @@ char	*env_var(char *var, t_env *env)
 		if (ft_isdigit(var[0]))
 		{
 			if (var[0] == '0')
-            	return(ft_strjoin(ft_strdup("minishell"), ft_strdup((var + 1))));
+				return (ft_strjoin(ft_strdup("minishell"), \
+						ft_strdup((var + 1))));
 			return (ft_strndup(var + 1, (int)ft_strlen(var + 1) + 1));
 		}
-		if (!ft_strncmp(var, tmp->name, max_len(var,tmp->name)))
+		if (!ft_strncmp(var, tmp->name, max_len(var, tmp->name)))
 			return (ft_strndup((tmp->value), (int)ft_strlen(tmp->value) + 1));
 		tmp = tmp->next;
 	}

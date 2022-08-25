@@ -48,7 +48,7 @@ void	input_heredoc(int *fd, t_token_elem *node)
 	if (!input)
 		exit(0);
 	while (ft_strncmp(input, node->next->value, \
-			max_len(input,node->next->value)))
+				max_len(input, node->next->value)))
 	{
 		ft_putstr_fd(input, fd[1]);
 		input = readline(">");

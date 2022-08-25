@@ -21,7 +21,7 @@ static char	*tokenizer_help(t_token_list *tokens, char *line)
 		if (*line == ';')
 		{
 			add_back(tokens, ft_strndup("syntax error near unexpected token \
-				`;;'", 40), ERROR);
+						`;;'", 40), ERROR);
 			line++;
 		}
 		else
