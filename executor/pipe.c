@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 20:58:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 11:18:23 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 	int	old_stdin;
 	int	pid;
 
-	old_stdout = dup(STDOUT_FILENO);
-	old_stdin = dup(STDIN_FILENO);
 	if (builtins(commands) && n == 1)
 	{
+		old_stdout = dup(STDOUT_FILENO);
+		old_stdin = dup(STDIN_FILENO);
 		run_builtins(cmdline, commands, var->g_env);
 		dup2(old_stdout, STDOUT_FILENO);
 		dup2(old_stdout, STDIN_FILENO);
@@ -51,7 +51,10 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 	{
 		pid = fork();
 		if (pid == -1)
+		{
 			error_handler("fork error\n", 2);
+			return -1;
+		}
 		else if (pid == 0)
 		{
 			executer_helper(var->in, var->out, i, n);
