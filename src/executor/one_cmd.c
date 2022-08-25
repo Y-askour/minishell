@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 12:24:00 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 20:34:37 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	child(t_cmd_elem *cmdline, char **command, t_env *env, char **paths)
 	int		i;
 	char	**list;
 
-	// signal(SIGINT, SIG_IGN);
-	//signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	check = 0;
 	i = 0;
 	list = lst_to_arr(env);

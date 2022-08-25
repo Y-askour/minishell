@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 16:52:59 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:43:20 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,25 @@ void	init_var(t_pipe *in_out, t_exec *var, t_env	*g_env, char **paths)
 	var->out = in_out->fd[1];
 }
 
+void	change_exitstatus(int n)
+{
+	if (n == 2)
+	{
+		g_exit_status = 130;
+		write(1, "\n", 1);
+	}
+	else if (n == 3)
+	{
+		g_exit_status = 131;
+		write(1, "Quit: 3\n", 8);
+	}
+}
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
 	int			i;
 	t_norm		norm;
-
+	
+	signal(SIGINT, SIG_IGN);
 	init_out_check(&norm.in_out, &i);
 	norm.ptr = head;
 	while (i < n)
@@ -52,7 +66,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	else
 	{
 		waitpid(norm.pid, &norm.status, 0);
-		g_exit_status = WEXITSTATUS(norm.status);
+		change_exitstatus(norm.status);
 		pipes_helper3(norm.in_out.in, n);
 	}
 	end_pipes(paths);

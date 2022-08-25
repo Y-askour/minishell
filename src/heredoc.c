@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/24 19:19:13 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 20:47:15 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	signal_action(int exit_number, t_token_list *list,
 		g_exit_status = exit_number;
 		del_node(node->next, list);
 		del_node(node, list);
+		del_cmd(node, lise);
 		close(fd[1]);
 		close(fd[0]);
 	}
@@ -89,7 +90,6 @@ void	is_heredoc(t_token_list *list, int status)
 			if (pid == 0)
 				input_heredoc(fd, node);
 			waitpid(pid, &status, 0);
-			status = WEXITSTATUS(status);
 			signal_action(status, list, node, fd);
 			if (!node->next)
 				break ;
