@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 15:04:55 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:29:27 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,29 @@ void	init_out_check(t_pipe *in_out, int *i)
 	in_out->check = 0;
 }
 
+void	init_var(t_pipe *in_out, t_exec *var, t_env	*g_env, char **paths)
+{
+	pipe(in_out->fd);
+	var->g_env = g_env;
+	var->paths = paths;
+	var->in = in_out->in;
+	var->out = in_out->fd[1];
+}
+
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
-	int		i;
-	pid_t	pid;
-	t_exec	var;
-	t_pipe	in_out;
-	int		status;
-	t_cmd_elem *ptr;
+	int			i;
+	pid_t		pid;
+	t_exec		var;
+	t_pipe		in_out;
+	int			status;
+	t_cmd_elem	*ptr;
 
 	init_out_check(&in_out, &i);
 	ptr = head;
 	while (i < n)
 	{
-		pipe(in_out.fd);
-		var.g_env = g_env;
-		var.paths = paths;
-		var.in = in_out.in;
-		var.out = in_out.fd[1];
+		init_var(&in_out, &var, g_env, paths);
 		pid = executer(ptr->args, n, i, ptr, &var);
 		if (pipes_helper1(pid, in_out.in, in_out.fd, &in_out.check))
 			break ;
