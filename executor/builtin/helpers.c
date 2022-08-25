@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 20:30:52 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/25 12:34:42 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 void	declare_export(t_env *env)
 {
-	while (env)
+	int i;
+	t_env *tmp;
+
+	i = 0;
+	while(i < 256)
 	{
-		printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		env = env->next;
+		tmp = env;
+		while (tmp)
+		{
+			if (i == tmp->name[0])
+				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+			tmp = tmp->next;
+		}
+		i++;
 	}
 }
 
