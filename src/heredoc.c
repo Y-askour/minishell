@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/26 18:41:10 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 20:09:09 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	signal_action(int exit_number, t_token_list *list, int *fd, t_env *env)
 	node = list->head;
 	if (exit_number)
 	{
-		g_exit_status = exit_number;
+		g_exit_status = 1;
 		free_tokens(list);
 		close(fd[1]);
 		close(fd[0]);
