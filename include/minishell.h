@@ -197,8 +197,9 @@ int				option(char *str);
 int				max_len(char *str, char *str1);
 int				valid(char *str);
 void			count_and_declare(int *i, char **command, t_env *env);
-void	change_exitstatus(int n);
+void			change_exitstatus(int n);
 int				g_exit_status;
-void	init_out_check(t_pipe *in_out, int *i);
-void	init_var(t_pipe *in_out, t_exec *var, t_env	*g_env, char **paths);
+void			init_out_check(t_pipe *in_out, int *i);
+void			init_var(t_pipe *in_out, t_exec *var, \
+t_env	*g_env, char **paths);
 #endif
