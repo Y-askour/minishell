@@ -51,10 +51,7 @@ char	*is_redpip(t_token_list *tokens, char *line)
 		if (*(line + 1) == '<')
 		{
 			add_back(tokens, "<<", HEREDOC);
-			while (*(line + 2) == ' ')
-				line++;
-			line = is_word(tokens, line + 2, " |\'\"\t\v\f\r");
-			return (line);
+			return (line + 2);
 		}
 		add_back(tokens, "<", REDIN);
 		return (line + 1);

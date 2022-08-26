@@ -61,6 +61,46 @@ int	env_search(t_env *env, char *name, char *value)
 	return (0);
 }
 
+void	add_env_1(char **split,t_env *g_env)
+{
+	t_env	*tmp;
+	t_env	*node;
+
+	tmp = g_env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->name, split[0], \
+				max_len(tmp->name, split[0]) - 1))
+		{
+			free(split[0]);
+			if (split[1])
+			{
+				tmp->value = ft_strjoin(tmp->value, split[1]);
+			}
+			else
+				free(split[1]);
+			free(split);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	node = malloc(sizeof(t_env) * 1);
+	node->env = g_env->env;
+	node->name = ft_strndup(split[0], ft_strlen(split[0]));
+	free(split[0]);
+	node->next = NULL;
+	tmp = g_env;
+	if (!split[1])
+		node->value = ft_strdup(" ");
+	else
+		node->value = split[1];
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = node;
+	free(split);
+	return ;
+}
+
 void	add_env(char *command, t_env *g_env)
 {
 	int		i;
@@ -72,45 +112,9 @@ void	add_env(char *command, t_env *g_env)
 	i = 0;
 	split = ft_split(command, '=');
 	if (split[0][ft_strlen(split[0]) - 1] == '+')
-	{
-		while (tmp)
-		{
-			if (!ft_strncmp(tmp->name, split[0], \
-					max_len(tmp->name, split[0]) - 1))
-			{
-				free(split[0]);
-				if (split[1])
-				{
-					tmp->value = ft_strjoin(tmp->value, split[1]);
-				}
-				else
-					free(split[1]);
-				free(split);
-				return ;
-			}
-			tmp = tmp->next;
-		}
-		node = malloc(sizeof(t_env) * 1);
-		node->env = g_env->env;
-		node->name = ft_strndup(split[0], ft_strlen(split[0]));
-		free(split[0]);
-		node->next = NULL;
-		tmp = g_env;
-		if (!split[1])
-			node->value = ft_strdup(" ");
-		else
-			node->value = split[1];
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = node;
-		free(split);
-		return ;
-	}
+		return (add_env_1(split,g_env));
 	else if (env_search(g_env, split[0], split[1]))
-	{
-		free(split);
-		return ;
-	}
+		return free(split);
 	node = malloc(sizeof(t_env) * 1);
 	node->env = g_env->env;
 	node->name = split[0];

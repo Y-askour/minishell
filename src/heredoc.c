@@ -67,7 +67,8 @@ void	input_heredoc(int *fd, t_token_elem *node)
 static void	join_delimiter(t_token_elem *node, t_token_list *list)
 {
 	while (node->next && node->next->type != \
-			PIPE && node->next->type != WHSPACE)
+			PIPE && node->next->type != WHSPACE && \
+			node->next->type != HEREDOC)
 	{
 		node->value = ft_strjoin(node->value, ft_strdup(node->next->value));
 		del_node(node->next, list);
