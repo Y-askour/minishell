@@ -29,11 +29,28 @@ int	check_option(char *command, int *check)
 	return (0);
 }
 
+void	echo_helper(char **command, int check)
+{
+	int	len;
+
+	if (check)
+		printf("\n");
+	else
+	{
+		if (command[1])
+		{
+			len = ft_strlen(command[1]);
+			if (len == 0)
+				printf("\n");
+		}
+		return ;
+	}
+}
+
 void	echo(char **command)
 {
 	int	i;
 	int	check;
-	int	len;
 
 	i = 1;
 	check = 1;
@@ -49,17 +66,6 @@ void	echo(char **command)
 		if (command[i])
 			printf(" ");
 	}
-	if (check)
-		printf("\n");
-	else
-	{
-		if (command[1])
-		{
-			len = ft_strlen(command[1]);
-			if (len == 0)
-				printf("\n");
-		}
-		return ;
-	}
+	echo_helper(command, check);
 	g_exit_status = 0;
 }
