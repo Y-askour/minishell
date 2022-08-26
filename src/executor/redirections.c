@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 17:47:36 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 18:36:31 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 	red = cmd_line->redir->head;
 	while (red)
 	{
+		//  i need to check herdoc
 		if ((red->type == REDIN && access(red->file,F_OK)))
 		{
 			error_handler("minishell: path : No such  file or directory", 1);

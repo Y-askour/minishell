@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 11:44:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 18:31:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,6 @@ int	export_f(char **command, t_env *env)
 			}
 			else if (valid(command[i]))
 			{
-				if (check_to_add(command[i]))
 					add_env(command[i], env);
 			}
 			else
