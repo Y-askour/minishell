@@ -13,7 +13,7 @@
 #include"minishell.h"
 
 void	signal_action(int exit_number, t_token_list *list,
-		t_token_elem *node, int *fd,t_env *env)
+		t_token_elem *node, int *fd, t_env *env)
 {	
 	if (exit_number)
 	{
@@ -22,7 +22,7 @@ void	signal_action(int exit_number, t_token_list *list,
 		close(fd[1]);
 		close(fd[0]);
 		write(1, "\n", 1);
-		main(1,NULL,lst_to_arr(env));
+		main(1, NULL, lst_to_arr(env));
 	}
 	else
 	{
@@ -90,7 +90,7 @@ void	is_heredoc(t_token_list *list, int status, t_env *env)
 			if (pid == 0)
 				input_heredoc(fd, node);
 			waitpid(pid, &status, 0);
-			signal_action(status, list, node, fd,env);
+			signal_action(status, list, node, fd, env);
 			if (!node->next)
 				break ;
 		}
