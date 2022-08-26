@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 18:31:30 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 18:45:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	env_search(t_env *env, char *name, char *value)
 			if (!value)
 			{
 				free(value);
-				env->value = ft_strdup(" ");
+				env->value = ft_strdup("");
 			}
 			else
 				env->value = value;
@@ -91,7 +91,7 @@ void	add_env_1(char **split,t_env *g_env)
 	node->next = NULL;
 	tmp = g_env;
 	if (!split[1])
-		node->value = ft_strdup(" ");
+		node->value = ft_strdup("");
 	else
 		node->value = split[1];
 	while (tmp->next)
@@ -121,7 +121,7 @@ void	add_env(char *command, t_env *g_env)
 	node->next = NULL;
 	if (!split[1])
 	{
-		node->value = ft_strdup(" ");
+		node->value = ft_strdup("");
 		free(split[1]);
 	}
 	else

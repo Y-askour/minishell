@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 20:55:59 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:49:44 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ void	declare_export(t_env *env)
 		while (tmp)
 		{
 			if (i == tmp->name[0])
-				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+			{
+				printf("declare -x %s", tmp->name);
+				if (ft_strncmp(tmp->value,"",max_len(tmp->value,"")))
+					printf("=\"%s\"", tmp->value);
+				printf("\n");
+			}
 			tmp = tmp->next;
 		}
 		i++;
