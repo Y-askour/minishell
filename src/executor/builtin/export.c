@@ -6,12 +6,11 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 19:28:50 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 19:47:51 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	add_env_1(char **split, t_env *g_env)
 {
