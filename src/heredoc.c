@@ -6,15 +6,17 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/25 21:19:47 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:16:55 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	signal_action(int exit_number, t_token_list *list,
-		t_token_elem *node, int *fd, t_env *env)
+void	signal_action(int exit_number, t_token_list *list, int *fd, t_env *env)
 {	
+	t_token_elem	*node;
+
+	node = list->head;
 	if (exit_number)
 	{
 		g_exit_status = exit_number;
@@ -26,6 +28,8 @@ void	signal_action(int exit_number, t_token_list *list,
 	}
 	else
 	{
+		while (node->type != HEREDOC)
+			node = node->next;
 		close(fd[1]);
 		node->type = REDIN;
 		free(node->next->value);
@@ -90,7 +94,7 @@ void	is_heredoc(t_token_list *list, int status, t_env *env)
 			if (pid == 0)
 				input_heredoc(fd, node);
 			waitpid(pid, &status, 0);
-			signal_action(status, list, node, fd, env);
+			signal_action(status, list, fd, env);
 			if (!node->next)
 				break ;
 		}
