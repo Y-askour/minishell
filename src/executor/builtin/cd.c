@@ -134,8 +134,7 @@ void	cd(char **command, t_env *env)
 		}
 		else
 		{
-			error_handler("cd : path: No such file or directory", 127);
-			printf("%d\n", g_exit_status);
+			error_handler("cd : path: No such file or directory", 1);
 			return ;
 		}
 	}

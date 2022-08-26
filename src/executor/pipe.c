@@ -12,37 +12,16 @@
 
 #include "minishell.h"
 
-void	init_out_check(t_pipe *in_out, int *i)
+void	waiting_processes(t_cmd_elem *head, int n, t_norm *norm)
 {
-	in_out->in = 0;
-	*i = 0;
-	in_out->check = 0;
-}
-
-void	init_var(t_pipe *in_out, t_exec *var, t_env	*g_env, char **paths)
-{
-	pipe(in_out->fd);
-	var->g_env = g_env;
-	var->paths = paths;
-	var->in = in_out->in;
-	var->out = in_out->fd[1];
-	var->close_first = in_out->fd[0];
-}
-
-void	change_exitstatus(int n)
-{
-	if (n == 2)
-	{
-		g_exit_status = 130;
-		write(1, "\n", 1);
-	}
-	else if (n == 3)
-	{
-		g_exit_status = 131;
-		write(1, "Quit: 3\n", 8);
-	}
+	if (builtins(head->args) && n == 1)
+		pipes_helper3(norm->in_out.in, n);
 	else
-		g_exit_status = WEXITSTATUS(n);
+	{
+		waitpid(norm->pid, &norm->status, 0);
+		change_exitstatus(norm->status);
+		pipes_helper3(norm->in_out.in, n);
+	}
 }
 
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
@@ -63,14 +42,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 		pipes_helper2(&norm.ptr, norm.in_out.fd, &norm.in_out.in);
 		i++;
 	}
-	if (builtins(head->args) && n == 1)
-		pipes_helper3(norm.in_out.in, n);
-	else
-	{
-		waitpid(norm.pid, &norm.status, 0);
-		change_exitstatus(norm.status);
-		pipes_helper3(norm.in_out.in, n);
-	}
+	waiting_processes(head, n, &norm);
 	end_pipes(paths);
 	return (0);
 }
