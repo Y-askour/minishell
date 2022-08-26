@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 20:34:37 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:57:06 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	child(t_cmd_elem *cmdline, char **command, t_env *env, char **paths)
 	i = 0;
 	list = lst_to_arr(env);
 	if (redirections(cmdline, 0, 1) == -1)
-		return (-1);
+		exit(1);
 	if (command[0][0] == '/')
 	{
 		if (!check_dir(command[0], 0))
