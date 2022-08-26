@@ -61,7 +61,7 @@ int	env_search(t_env *env, char *name, char *value)
 	return (0);
 }
 
-void	add_env_1(char **split,t_env *g_env)
+void	add_env_1(char **split, t_env *g_env)
 {
 	t_env	*tmp;
 	t_env	*node;
@@ -112,9 +112,9 @@ void	add_env(char *command, t_env *g_env)
 	i = 0;
 	split = ft_split(command, '=');
 	if (split[0][ft_strlen(split[0]) - 1] == '+')
-		return (add_env_1(split,g_env));
+		return (add_env_1(split, g_env));
 	else if (env_search(g_env, split[0], split[1]))
-		return free(split);
+		return (free(split));
 	node = malloc(sizeof(t_env) * 1);
 	node->env = g_env->env;
 	node->name = split[0];
@@ -164,7 +164,7 @@ int	export_f(char **command, t_env *env)
 			}
 			else if (valid(command[i]))
 			{
-					add_env(command[i], env);
+				add_env(command[i], env);
 			}
 			else
 				error_handler("minishell: export: `=` \
