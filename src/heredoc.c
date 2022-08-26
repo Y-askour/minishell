@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/26 12:16:55 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:41:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	signal_action(int exit_number, t_token_list *list, int *fd, t_env *env)
 		while (node->type != HEREDOC)
 			node = node->next;
 		close(fd[1]);
-		node->type = REDIN;
 		free(node->next->value);
 		node->next->value = ft_itoa(fd[0]);
 	}

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 18:36:31 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 18:42:24 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	run_redirections(t_cmd_elem *cmd_line, int in, int out)
 	{
 		if (red->type == REDOUT)
 			red_out(red, out);
-		else if (red->type == REDIN)
+		else if (red->type == REDIN || red->type == HEREDOC)
 		{
 			if (red_in(red, in) == -1)
 				break ;
