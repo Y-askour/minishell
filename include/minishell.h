@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 21:16:33 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 11:06:46 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_exec_var
 	char			**paths;
 	int				in;
 	int				out;
+	int				close_first;
 }	t_exec;
 
 typedef struct s_pipe
@@ -155,7 +156,7 @@ void			free_tokens(t_token_list *tokens);
 char			***delete_spaces(t_cmd_elem *head, int n);
 void			pipes_helper2(t_cmd_elem **head, int *fd, int *in);
 int				pipes_helper1(int pid, int in, int *fd, int *check);
-void			executer_helper(int in, int out, int d, int n);
+void			executer_helper(t_exec *var, int d, int n);
 int				executer(char **commands, int n, int i, \
 t_cmd_elem *cmdline, t_exec *var);
 char			**get_paths(t_env *env);

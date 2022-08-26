@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 21:56:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 11:08:47 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_var(t_pipe *in_out, t_exec *var, t_env	*g_env, char **paths)
 	var->paths = paths;
 	var->in = in_out->in;
 	var->out = in_out->fd[1];
+	var->close_first = in_out->fd[0];
 }
 
 void	change_exitstatus(int n)
@@ -43,6 +44,7 @@ void	change_exitstatus(int n)
 	else
 		g_exit_status = WEXITSTATUS(n);
 }
+
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
 	int			i;
@@ -54,8 +56,6 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	while (i < n)
 	{
 		init_var(&norm.in_out, &norm.var, g_env, paths);
-		if (i == 0)
-			close(norm.in_out.fd[0]);
 		norm.pid = executer(norm.ptr->args, n, i, norm.ptr, &norm.var);
 		if (pipes_helper1(norm.pid, norm.in_out.in, norm.in_out.fd, \
 		&norm.in_out.check))

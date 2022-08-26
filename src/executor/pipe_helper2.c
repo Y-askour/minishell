@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:59:14 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/25 16:04:58 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 11:35:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,27 @@ int max_len(char *str,char *str1)
 	return (len2);
 }
 
-void	executer_helper(int in, int out, int d, int n)
+void	executer_helper(t_exec *var, int d, int n)
 {
-	if (in != 0)
+	if (var->in == 0)
+		close(var->close_first);
+	if (var->in != 0)
 	{
-		dup2(in, 0);
-		close(in);
+		dup2(var->in, 0);
+		close(var->in);
 	}
-	if (out != 1)
+	if (var->out != 1)
 	{
 		if (d == n - 1)
-			close(out);
+		{	
+			close(var->close_first);
+			close(var->out);
+		}
 		else
 		{
-			dup2(out, 1);
-			close(out);
+			close(var->close_first);
+			dup2(var->out, 1);
+			close(var->out);
 		}
 	}
 }
@@ -78,7 +84,7 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 		}
 		else if (pid == 0)
 		{
-			executer_helper(var->in, var->out, i, n);
+			executer_helper(var,i, n);
 			if (builtins(commands))
 				exit(run_builtins(cmdline, commands, var->g_env));
 			else
