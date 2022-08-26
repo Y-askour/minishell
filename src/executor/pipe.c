@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 11:08:47 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 11:46:03 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	change_exitstatus(int n)
 int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 {
 	int			i;
-	t_norm		norm;
-	
+	t_norm		norm;	
+
 	signal(SIGINT, SIG_IGN);
 	init_out_check(&norm.in_out, &i);
 	norm.ptr = head;

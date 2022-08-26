@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 11:06:46 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 11:47:39 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_pipe
 	int				check;
 }	t_pipe;
 
-typedef	struct s_norm_var
+typedef struct s_norm_var
 {
 	pid_t		pid;
 	t_exec		var;
@@ -113,9 +113,9 @@ typedef	struct s_norm_var
 	int			status;
 	t_cmd_elem	*ptr;
 
-} t_norm;
+}	t_norm;
 
-int	main(int ac, char **av, char **env);
+int				main(int ac, char **av, char **env);
 /** main functions **/
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);

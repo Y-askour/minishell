@@ -12,10 +12,10 @@
 
 #include"minishell.h"
 
-int max_len(char *str,char *str1)
+int	max_len(char *str, char *str1)
 {
-	int len1;
-	int len2;
+	int	len1;
+	int	len2;
 
 	len1 = ft_strlen(str);
 	len2 = ft_strlen(str1);
@@ -84,7 +84,7 @@ int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
 		}
 		else if (pid == 0)
 		{
-			executer_helper(var,i, n);
+			executer_helper(var, i, n);
 			if (builtins(commands))
 				exit(run_builtins(cmdline, commands, var->g_env));
 			else
