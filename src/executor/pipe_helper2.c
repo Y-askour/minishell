@@ -63,10 +63,12 @@ void	builtins_body(char **commands, t_cmd_elem *cmdline, t_exec *var)
 	close(old_stdin);
 }
 
-int	executer(char **commands, int n, int i, t_cmd_elem *cmdline, t_exec *var)
+int	executer(int n, int i, t_cmd_elem *cmdline, t_exec *var)
 {
-	int	pid;
+	int		pid;
+	char	**commands;
 
+	commands = cmdline->args;
 	pid = 0;
 	if (builtins(commands) && n == 1)
 		builtins_body(commands, cmdline, var);

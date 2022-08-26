@@ -157,8 +157,7 @@ char			***delete_spaces(t_cmd_elem *head, int n);
 void			pipes_helper2(t_cmd_elem **head, int *fd, int *in);
 int				pipes_helper1(int pid, int in, int *fd, int *check);
 void			executer_helper(t_exec *var, int d, int n);
-int				executer(char **commands, int n, int i, \
-t_cmd_elem *cmdline, t_exec *var);
+int				executer(int n, int i, t_cmd_elem *cmdline, t_exec *var);
 char			**get_paths(t_env *env);
 t_env			*get_env(char **env);
 

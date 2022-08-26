@@ -14,8 +14,8 @@
 
 void	declare_export(t_env *env)
 {
-	int i;
-	t_env *tmp;
+	int		i;
+	t_env	*tmp;
 
 	i = 0;
 	while (i < 256)
@@ -49,34 +49,39 @@ int	option(char *str)
 	return (0);
 }
 
+int	valid_loop(char *str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			break ;
+		else if (!ft_isalnum(str[i]) && !(str[i] == \
+			'=') && !(str[i] == '_'))
+		{
+			if (str[i] == '+' && str[i + 1])
+			{
+				if (!(str[i + 1] == '='))
+					return (0);
+			}
+			else
+				return (0);
+		}
+		if (i == ((int)ft_strlen(str) - 1))
+			return (1);
+		i++;
+	}
+	return (1);
+}
+
 int	valid(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isalpha(str[i]) || str[i] == '_')
-	{
-		i++;
-		while (str[i])
-		{
-			if (str[i] == '=')
-				break ;
-			else if (!ft_isalnum(str[i]) && !(str[i] == \
-				'=') && !(str[i] == '_'))
-			{
-				if (str[i] == '+' && str[i + 1])
-				{
-					if (!(str[i + 1] == '='))
-						return (0);
-				}
-				else
-					return (0);
-			}
-			if (i == ((int)ft_strlen(str) - 1))
-				return (1);
-			i++;
-		}
-		return (1);
-	}
+		return (valid_loop(str));
 	return (0);
 }
