@@ -101,6 +101,20 @@ void	add_env_1(char **split, t_env *g_env)
 	return ;
 }
 
+void	add_env2(char **split, t_env *node, t_env **g_env)
+{
+	if (!split[1])
+	{
+		node->value = ft_strdup("");
+		free(split[1]);
+	}
+	else
+		node->value = split[1];
+	free(split);
+	while ((*g_env)->next)
+		*g_env = (*g_env)->next;
+}
+
 void	add_env(char *command, t_env *g_env)
 {
 	int		i;
@@ -119,16 +133,7 @@ void	add_env(char *command, t_env *g_env)
 	node->env = g_env->env;
 	node->name = split[0];
 	node->next = NULL;
-	if (!split[1])
-	{
-		node->value = ft_strdup("");
-		free(split[1]);
-	}
-	else
-		node->value = split[1];
-	free(split);
-	while (g_env->next)
-		g_env = g_env->next;
+	add_env2(split, node, &g_env);
 	g_env->next = node;
 }
 
