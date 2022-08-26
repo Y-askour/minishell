@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 12:15:45 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:30:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,4 +202,7 @@ int				g_exit_status;
 void			init_out_check(t_pipe *in_out, int *i);
 void			init_var(t_pipe *in_out, t_exec *var, \
 t_env	*g_env, char **paths);
+int				ft_is_number(char *str);
+void			add_env_helper(t_env *g_env, char **split);
+int				env_search(t_env *env, char *name, char *value);
 #endif
