@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 18:42:24 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/26 18:53:29 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	ft_is_number(char *str)
 
 int	red_in(t_red_elem *red, int in)
 {	
-		int	f1;
+	int	f1;
 
 	if (ft_is_number(red->file))
 		f1 = ft_atoi(red->file);
 	else
 	{
-		if (access(red->file,F_OK))
+		if (access(red->file, F_OK))
 		{
 			error_handler("minishell: path : No such  file or directory", 1);
 			g_exit_status = 1;
@@ -51,7 +51,7 @@ int	red_out(t_red_elem *red, int out)
 {
 	int	f1;
 
-	if (!access(red->file,F_OK))
+	if (!access(red->file, F_OK))
 		unlink(red->file);
 	f1 = open(red->file, O_CREAT | O_WRONLY, 0666);
 	if (f1 < 0)
@@ -111,14 +111,13 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 	red = cmd_line->redir->head;
 	while (red)
 	{
-		//  i need to check herdoc
-		if ((red->type == REDIN && access(red->file,F_OK)))
+		if ((red->type == REDIN && access(red->file, F_OK)))
 		{
 			error_handler("minishell: path : No such  file or directory", 1);
 			return (-1);
 		}
 		red = red->next;
 	}
-	run_redirections(cmd_line,in,out);
+	run_redirections(cmd_line, in, out);
 	return (0);
 }

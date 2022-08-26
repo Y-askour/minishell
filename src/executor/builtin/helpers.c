@@ -26,7 +26,7 @@ void	declare_export(t_env *env)
 			if (i == tmp->name[0])
 			{
 				printf("declare -x %s", tmp->name);
-				if (ft_strncmp(tmp->value,"",max_len(tmp->value,"")))
+				if (ft_strncmp(tmp->value, "", max_len(tmp->value, "")))
 					printf("=\"%s\"", tmp->value);
 				printf("\n");
 			}
