@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:00:50 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/16 20:50:39 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:35:58 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ void	pwd(char **command, t_env *env)
 	pwd = malloc(sizeof(char) * PATH_MAX);
 	getcwd(pwd, PATH_MAX);
 	printf("%s\n", pwd);
+	free(pwd);
 }

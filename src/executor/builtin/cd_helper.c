@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 18:47:24 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 19:31:57 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	cd_to_check(char **command)
 		error_handler("cd : path: Permission denied", 126);
 		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 void	cd_only_helper(t_env *tmp, t_env *tmp1, t_env *node, char *home)
@@ -76,11 +76,10 @@ void	cd_only_helper(t_env *tmp, t_env *tmp1, t_env *node, char *home)
 	}
 	if (!tmp1->next)
 	{
-		printf("%s\n", tmp1->name);
 		node = malloc(sizeof(t_env) * 1);
 		tmp1->next = node;
 		node->name = ft_strdup("PWD");
-		node->value = ft_strdup(home);
+		node->value = home;
 		node->next = NULL;
 	}
 }

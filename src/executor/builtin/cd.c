@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 19:03:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 19:33:39 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ void	cd_only(t_env	*env)
 
 void	cd_switch(t_env *env)
 {
-	char	*pwd;
 	char	*old_pwd;
 	t_env	*tmp;
 
 	old_pwd = malloc(sizeof(char) * PATH_MAX);
-	pwd = malloc(sizeof(char) * PATH_MAX);
 	getcwd(old_pwd, PATH_MAX);
 	tmp = env;
 	while (tmp)
@@ -62,6 +60,7 @@ void	cd_switch(t_env *env)
 	}
 	chdir(tmp->value);
 	printf("%s\n", tmp->value);
+	free(tmp->value);
 	tmp->value = old_pwd;
 	tmp = env;
 }
@@ -72,20 +71,29 @@ void	cd_to(char **pwd, char **old_pwd, char **command, t_env *env)
 	t_env		*node;
 
 	node = NULL;
-	cd_to_check(command);
+	if (cd_to_check(command) && ft_strncmp(command[1],"..",max_len(command[1],"..")))
+	{
+		free(*pwd);
+		free(*old_pwd);
+		return ;
+	}
 	chdir(command[1]);
 	tmp = env;
 	while (tmp)
 	{
 		if (!strncmp(tmp->name, "PWD", 3))
 		{
+			free(*pwd);
+			free(*old_pwd);
+			*pwd = malloc(sizeof(char) * 255);
 			getcwd(*pwd, PATH_MAX);
+			free(tmp->value);
 			tmp->value = *pwd;
 			break ;
 		}
 		tmp = tmp->next;
 	}
-	cd_to_helper(env, node, tmp, *old_pwd);
+	//cd_to_helper(env, node, tmp, *old_pwd);
 }
 
 void	cd(char **command, t_env *env)
@@ -105,7 +113,11 @@ void	cd(char **command, t_env *env)
 		if (!access(command[1], F_OK))
 			cd_to(&pwd, &old_pwd, command, env);
 		else
-			return ((void)error_handler(
-					"cd : path: No such file or directory", 1));
+		{
+			free(pwd);
+			free(old_pwd);
+			error_handler("cd : path: No such file or directory", 1);
+			return;
+		}
 	}
 }
