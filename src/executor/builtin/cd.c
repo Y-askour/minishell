@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 13:37:42 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 14:18:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ void	cd_only(t_env	*env)
 {
 	char	*home;
 	t_env	*tmp;
+	t_env	*tmp1;
+	t_env	*node;
+	int i;
 
 	tmp = env;
+	node = NULL;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "HOME", max_len(tmp->name, "HOME")))
@@ -57,15 +61,30 @@ void	cd_only(t_env	*env)
 	home = tmp->value;
 	chdir(tmp->value);
 	tmp = env;
+	tmp1 = env;
+	i = 0;
 	while (tmp)
 	{
-		if (!strncmp(tmp->name, "PWD", 3))
+		if (i > 0)
+			tmp1 = tmp1->next;
+		if (!strncmp(tmp->name, "PWD", max_len(tmp->name,"PWD")))
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(home);
-			break ;
+			return ;
 		}
+		i++;
 		tmp = tmp->next;
+	}
+	if (!tmp1->next)
+	{
+		printf("%s\n",tmp1->name);
+		printf("test\n");
+		node = malloc(sizeof(t_env) * 1);
+		tmp1->next = node;
+		node->name = ft_strdup("PWD");
+		node->value = ft_strdup(home);
+		node->next = NULL;
 	}
 }
 
