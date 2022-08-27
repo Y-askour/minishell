@@ -1,9 +1,0 @@
-cd : path: No such file or directory shoud $?=1 not 0
-minishell : cd: not set should $?=1 not 0
-test export and unset
-erro handler add an argument bach tprinti error b comman li dkhlna
-$?
-""
-''
-cd env pwd o old pwd tzidhom
-echo minishell: path : No such  file or directory prints the arg inputed (if 'file');
