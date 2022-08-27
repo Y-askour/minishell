@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 16:29:53 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 17:35:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	child(t_cmd_elem *cmdline, char **command, t_env *env, char **paths)
 	signal(SIGQUIT, SIG_DFL);
 	check = 0;
 	i = 0;
-	if (!ft_strncmp(command[0],"",max_len(command[0],"")))
+	if (!ft_strncmp(command[0], "", max_len(command[0], "")))
 	{
 		error_handler("minishell: path : command not found", 127);
 		exit(127);

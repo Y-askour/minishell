@@ -6,79 +6,12 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/27 15:18:24 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/27 17:36:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-// void    print_args(char **args)
-// {
-//     int i;  
-//     i = 0;
-//     printf("agrs are:");
-//     while (args[i])
-//     {
-//         printf("%s", args[i]);
-//         i++;
-//     }
-//     printf("\n");
-// }
-
-
-// void    print_red(t_red_list *redir)
-// {
-//     t_red_elem  *red;
-
-//     red  = redir->head;
-//     printf("reds:");
-//     while (red)
-//     {
-//         printf("  redir value:%d", red->type);
-//         printf("  filename:%s", red->file);
-//         if (!red->next)
-//             break;
-//         red = red->next;
-//     }
-// }
-
-// void    print_cmdline(t_cmd_list *cmdline)
-// {
-//     t_cmd_elem  *cmd;
-
-//     cmd = cmdline->head;
-//     while (cmd)
-//     {
-//         printf("\n============================================\n");
-//         print_red(cmd->redir);
-//         printf("\n");
-//         print_args(cmd->args);
-//         printf("============================================\n");
-//         cmd = cmd->next;
-//     }
-//     printf("\n");
-// }
-// static void	print_node(t_token_elem *node)
-// {
-// 	printf("--------------------------------------------------------------------------\n");
-// 	printf("node:");
-// 	printf("%s", node->value);
-// 	printf(", type: %i\n", node->type);
-// 	write(1, "\n", 1);
-// }
-
-// void	print_list(t_token_list *list)
-// {
-// 	t_token_elem	*node;
-
-// 	node = list->head;
-// 	while (node)
-// 	{
-// 		print_node(node);
-// 		node = node->next;
-// 	}
-// 	printf("\n");
-// }
 void	setup_term(void)
 {
 	struct termios	t;
@@ -103,8 +36,6 @@ int	loop_body(char **line, t_token_list **tokens,
 		is_heredoc(*tokens, status, *g_env);
 		expand(*tokens, g_env);
 		*cmd_line = parse_cmd(*tokens, *cmd_line);
-		//print_list(*tokens);
-		//print_cmdline(*cmd_line);
 		run_command(*cmd_line, *g_env);
 		free_cmd(*cmd_line);
 	}
