@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/24 19:26:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 15:41:30 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,6 @@ char	*env_var(char *var, t_env *env)
 	return (ft_strdup(""));
 }
 
-static void	expand_tilde(t_token_elem *temp, t_env *env)
-{
-	if ((!temp->next && temp->prev->type == WHSPACE) \
-			|| (!temp->prev && temp->next->type == WHSPACE) \
-			|| (temp->next->type == WHSPACE && temp->prev->type == WHSPACE))
-		temp->value = env_var("HOME", env);
-}
-
 void	expand(t_token_list *list, t_env **g_env)
 {
 	t_token_elem	*temp;
@@ -64,7 +56,7 @@ void	expand(t_token_list *list, t_env **g_env)
 		else if (temp->type == EXITS)
 			temp->value = ft_itoa(g_exit_status);
 		else if (temp->type == TILDE)
-			expand_tilde(temp, env);
+			temp->value = env_var("HOME", env);
 		temp = temp->next;
 	}
 }
