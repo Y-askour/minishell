@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/27 17:36:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 22:07:48 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	main(int ac, char **av, char **env)
 	cmd_line = NULL;
 	g_env = get_env(env);
 	(void) av;
-	if (ac != 1)
-		return (1);
+	(void) ac;
 	while (1)
 	{
 		setup_term();
@@ -61,5 +60,6 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		free_tokens(tokens);
 		free(line);
+		//system("leaks minishell");
 	}
 }
