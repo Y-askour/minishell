@@ -6,3 +6,4 @@ $?
 ""
 ''
 cd env pwd o old pwd tzidhom
+echo minishell: path : No such  file or directory prints the arg inputed (if 'file');

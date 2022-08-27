@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:43 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/19 18:35:21 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/27 15:17:27 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_token_list	*tokenizer(char *line)
 		else if (ft_strchr("$~", *line))
 			line = is_sign(tokens, line);
 		else if (*line == '\'')
-			line = is_squout(tokens, line);
+			line = is_squout(tokens, line + 1);
 		else if (*line == '\"')
 			line = is_dquout(tokens, line + 1);
 		else
