@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 16:14:54 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 16:45:26 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	run_builtins(t_cmd_elem *cmdline, char **command, t_env *env)
 {
 	if (redirections(cmdline, 0, 1) == -1)
-		return (-1);
+		return (1);
+	if (!command[0])
+		return (0);
 	if (!ft_strncmp(command[0], "echo", max_len(command[0], "echo")))
 		echo(command);
 	else if (!ft_strncmp(command[0], "cd", max_len(command[0], "cd")))
@@ -48,7 +50,7 @@ void	str_lower(char **str)
 int	builtins(char **command)
 {
 	if (!command[0])
-		return (0);
+		return (1);
 	str_lower(&command[0]);
 	if (!ft_strncmp(command[0], "echo", max_len(command[0], "echo")))
 		return (1);
