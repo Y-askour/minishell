@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 19:30:16 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 18:21:22 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,4 +205,6 @@ t_env	*g_env, char **paths);
 int				ft_is_number(char *str);
 void			add_env_helper(t_env *g_env, char **split);
 int				env_search(t_env *env, char *name, char *value);
+void			cd_to_helper(t_env *env, t_env *node, t_env *tmp, char *old_pwd);
+int				cd_to_check(char **command);
 #endif
