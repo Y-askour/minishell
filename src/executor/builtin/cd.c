@@ -6,12 +6,11 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 19:02:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 19:03:28 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	cd_only(t_env	*env)
 {
