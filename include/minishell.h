@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 18:21:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 18:32:36 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,4 +207,5 @@ void			add_env_helper(t_env *g_env, char **split);
 int				env_search(t_env *env, char *name, char *value);
 void			cd_to_helper(t_env *env, t_env *node, t_env *tmp, char *old_pwd);
 int				cd_to_check(char **command);
+void			cd_only_helper(t_env *tmp, t_env *tmp1, t_env *node, char *home);
 #endif
