@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:44:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 12:37:05 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 17:47:40 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	path_search_helper(char **command, int **check, char **env)
 
 	if (command[0][1] != '/')
 	{
-		error_handler("minishell: path : command not found", 1);
-		exit(1);
+		error_handler("minishell: path : command not found", 127);
+		exit(127);
 	}
 	else
 	{
