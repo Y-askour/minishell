@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 18:32:36 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 18:56:40 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define REDOUT -8
 # define WHSPACE -9
 # define DOLLAR -10
-# define TILDE -11 // ~
 # define ERROR -12
 # define AFDOLLAR -13
 # define EXITS -14

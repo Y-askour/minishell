@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 16:45:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 19:45:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,10 @@ int	run_builtins(t_cmd_elem *cmdline, char **command, t_env *env)
 	return (1);
 }
 
-void	str_lower(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[0][i])
-	{
-		str[0][i] = ft_tolower(str[0][i]);
-		i++;
-	}
-}
-
 int	builtins(char **command)
 {
 	if (!command[0])
 		return (1);
-	str_lower(&command[0]);
 	if (!ft_strncmp(command[0], "echo", max_len(command[0], "echo")))
 		return (1);
 	else if (!ft_strncmp(command[0], "cd", max_len(command[0], "cd")))
