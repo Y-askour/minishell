@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 14:18:30 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 17:38:06 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	cd_only(t_env	*env)
 	t_env	*tmp;
 	t_env	*tmp1;
 	t_env	*node;
-	int i;
+	int		i;
 
 	tmp = env;
 	node = NULL;
@@ -67,7 +67,7 @@ void	cd_only(t_env	*env)
 	{
 		if (i > 0)
 			tmp1 = tmp1->next;
-		if (!strncmp(tmp->name, "PWD", max_len(tmp->name,"PWD")))
+		if (!strncmp(tmp->name, "PWD", max_len(tmp->name, "PWD")))
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(home);
@@ -78,7 +78,7 @@ void	cd_only(t_env	*env)
 	}
 	if (!tmp1->next)
 	{
-		printf("%s\n",tmp1->name);
+		printf("%s\n", tmp1->name);
 		printf("test\n");
 		node = malloc(sizeof(t_env) * 1);
 		tmp1->next = node;
