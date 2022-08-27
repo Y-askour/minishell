@@ -6,36 +6,36 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 18:34:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 18:59:50 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_path(t_env *env)
-{
-	t_env		*node;
-	t_env		*tmp;
-	char		*pwd;
-
-	node = env;
-	while (node)
-	{
-		if (!ft_strncmp(node->name, "PWD", max_len(node->name, "PWD")))
-			break ;
-		node = node->next;
-	}
-	if (!node)
-	{
-		tmp = malloc(sizeof(t_env));
-		pwd = malloc(PATH_MAX);
-		getcwd(pwd, PATH_MAX);
-		env->next = tmp;
-		tmp->name = "PWD";
-		tmp->value = pwd;
-		tmp->next = NULL;
-	}
-}
+//void	cd_path(t_env *env)
+//{
+//	t_env		*node;
+//	t_env		*tmp;
+//	char		*pwd;
+//
+//	node = env;
+//	while (node)
+//	{
+//		if (!ft_strncmp(node->name, "PWD", max_len(node->name, "PWD")))
+//			break ;
+//		node = node->next;
+//	}
+//	if (!node)
+//	{
+//		tmp = malloc(sizeof(t_env));
+//		pwd = malloc(PATH_MAX);
+//		getcwd(pwd, PATH_MAX);
+//		node->next = tmp;
+//		tmp->name = "PWD";
+//		tmp->value = pwd;
+//		tmp->next = NULL;
+//	}
+//}
 
 void	cd_only(t_env	*env)
 {
@@ -89,7 +89,7 @@ void	cd_switch(t_env *env)
 	printf("%s\n", tmp->value);
 	tmp->value = old_pwd;
 	tmp = env;
-	cd_path(env);
+	//cd_path(env);
 }
 
 void	cd_to(char **pwd, char **old_pwd, char **command, t_env *env)

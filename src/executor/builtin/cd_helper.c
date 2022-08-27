@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 18:35:08 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 18:47:24 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	cd_to_helper(t_env *env, t_env *node, t_env *tmp, char *old_pwd)
 	if (!tmp)
 	{
 		node = malloc(sizeof(t_env) * 1);
-		node->name = "OLDPWD";
-		node->value = old_pwd;
+		node->name = ft_strdup("OLDPWD");
+		node->value = ft_strdup(old_pwd);
 		node->next = NULL;
 		tmp = env;
 		while (tmp->next)
