@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 19:14:20 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/27 16:06:42 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,20 @@ int	run_redirections(t_cmd_elem *cmd_line, int in, int out)
 	while (red)
 	{
 		if (red->type == REDOUT)
-			red_out(red, out);
+		{
+			if (red_out(red, out) == -1)
+				return (-1);
+		}
 		else if (red->type == REDIN || red->type == HEREDOC)
 		{
 			if (red_in(red, in) == -1)
 				break ;
 		}
 		else if (red->type == APPEND)
-			red_append(red, out);
+		{
+			if (red_append(red, out))
+				return (-1);
+		}
 		red = red->next;
 	}
 	return (0);
@@ -104,6 +110,5 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 		}
 		red = red->next;
 	}
-	run_redirections(cmd_line, in, out);
-	return (0);
+	return (run_redirections(cmd_line, in, out));
 }

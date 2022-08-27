@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/27 15:17:44 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/27 16:12:59 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*is_word(t_token_list *tokens, char *line, char *stop)
 
 char	*is_squout(t_token_list *tokens, char *line)
 {
-	if (!ft_strchr(line + 1, '\''))
+	if (!ft_strchr(line, '\''))
 	{
 		add_back(tokens, ft_strdup("error unclosed single quout"), ERROR);
 		return (line + 1);
