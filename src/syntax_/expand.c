@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/27 18:08:15 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:54:06 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	expand(t_token_list *list, t_env **g_env)
 		}
 		else if (temp->type == EXITS)
 			temp->value = ft_itoa(g_exit_status);
+		else if (!ft_strncmp("~", temp->value, max_len("~", temp->value)) || !ft_strncmp("~/", temp->value, max_len("~/", temp->value)))
+			temp->value = env_var("HOME", env);
 		temp = temp->next;
 	}
 }
