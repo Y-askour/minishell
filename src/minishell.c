@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 16:11:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 17:31:21 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		free_tokens(tokens);
 		free(line);
-		//system("leaks minishell");
 	}
 }
