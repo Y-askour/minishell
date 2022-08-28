@@ -6,18 +6,15 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 15:39:46 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:48:24 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	signal_action(int exit_number, t_token_list *list, int *fd, t_env *env)
+void	signal_action(t_norm var, t_token_list *list, int *fd, t_env *env)
 {	
-	t_token_elem	*node;
-
-	node = list->head;
-	if (exit_number)
+	if (var.heredoc)
 	{
 		g_exit_status = 1;
 		free_tokens(list);
@@ -28,11 +25,9 @@ void	signal_action(int exit_number, t_token_list *list, int *fd, t_env *env)
 	}
 	else
 	{
-		while (node->type != HEREDOC)
-			node = node->next;
 		close(fd[1]);
-		free(node->next->value);
-		node->next->value = ft_itoa(fd[0]);
+		free(var.node->next->value);
+		var.node->next->value = ft_itoa(fd[0]);
 	}
 }
 
@@ -66,8 +61,9 @@ void	input_heredoc(int *fd, t_token_elem *node)
 
 int	is_heredoc2(t_token_elem *node, t_token_list *list, int *fd, t_env *env)
 {
-	int	status;
-	int	pid;
+	int		status;
+	int		pid;
+	t_norm	var;
 
 	if (node->type == HEREDOC)
 	{
@@ -82,7 +78,9 @@ int	is_heredoc2(t_token_elem *node, t_token_list *list, int *fd, t_env *env)
 		if (pid == 0)
 			input_heredoc(fd, node);
 		waitpid(pid, &status, 0);
-		signal_action(status, list, fd, env);
+		var.heredoc = status;
+		var.node = node;
+		signal_action(var, list, fd, env);
 	}
 	return (0);
 }

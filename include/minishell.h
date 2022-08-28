@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 17:28:40 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 18:35:49 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ typedef struct s_pipe
 
 typedef struct s_norm_var
 {
-	pid_t		pid;
-	t_exec		var;
-	t_pipe		in_out;
-	int			status;
-	t_cmd_elem	*ptr;
-
+	pid_t			pid;
+	t_exec			var;
+	t_pipe			in_out;
+	int				status;
+	t_cmd_elem		*ptr;
+	t_token_elem	*node;
+	int				heredoc;
 }	t_norm;
 
 int				main(int ac, char **av, char **env);
