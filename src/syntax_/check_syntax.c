@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 14:21:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:36:26 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	check_red(t_token_elem *node, t_token_list *list)
 		if (node->next && node->next->type == WHSPACE)
 			del_node(node->next, list);
 		if (!node->next || (node->next->type != WORD && \
-			node->next->type != DOLLAR && node->next->type != TILDE))
+			node->next->type != DOLLAR && node->next->type != \
+			TILDE && node->next->type != EXITS))
 		{
 			error_handler("syntax error near unexpected token `newline'", 258);
 			return (1);

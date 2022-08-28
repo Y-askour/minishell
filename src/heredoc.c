@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 15:11:49 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:39:46 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	input_heredoc(int *fd, t_token_elem *node)
 
 int	is_heredoc2(t_token_elem *node, t_token_list *list, int *fd, t_env *env)
 {
-	int status;
+	int	status;
 	int	pid;
 
 	if (node->type == HEREDOC)
@@ -83,7 +83,6 @@ int	is_heredoc2(t_token_elem *node, t_token_list *list, int *fd, t_env *env)
 			input_heredoc(fd, node);
 		waitpid(pid, &status, 0);
 		signal_action(status, list, fd, env);
-
 	}
 	return (0);
 }
@@ -94,7 +93,6 @@ int	is_heredoc(t_token_list *list, t_env *env)
 	int				fd[2];
 
 	node = list->head;
-
 	while (node)
 	{
 		if (is_heredoc2(node, list, fd, env))

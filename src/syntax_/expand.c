@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 12:41:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:40:08 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ static void	expand_tild(t_token_elem *temp, t_env *env, t_token_list *list)
 	}
 }
 
+void	expand_exit(t_token_elem *temp)
+{
+	char	*tofree;
+
+	tofree = temp->value;
+	temp->value = ft_itoa(g_exit_status);
+	free(tofree);
+}
+
 void	expand(t_token_list *list, t_env **g_env)
 {
 	t_token_elem	*temp;
@@ -86,7 +95,7 @@ void	expand(t_token_list *list, t_env **g_env)
 			}
 		}
 		else if (temp->type == EXITS)
-			temp->value = ft_itoa(g_exit_status);
+			expand_exit(temp);
 		else
 			expand_tild(temp, env, list);
 		temp = temp->next;
