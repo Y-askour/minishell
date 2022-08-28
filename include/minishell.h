@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 21:25:47 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 12:26:43 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,5 +208,4 @@ void			cd_to_helper(t_env *env, t_env *node, t_env *tmp, char *old_pwd);
 int				cd_to_check(char **command);
 void			cd_only_helper(t_env *tmp, t_env *tmp1, t_env *node, char *home);
 
-void check_leaks();
 #endif

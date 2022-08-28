@@ -6,37 +6,12 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 20:35:59 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 15:10:54 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_to_helper(t_env *env, t_env *node, t_env *tmp, char *old_pwd)
-{
-	tmp = env;
-	while (tmp)
-	{
-		if (!strncmp(tmp->name, "OLDPWD", 6))
-		{
-			free(tmp->value);
-			tmp->value = old_pwd;
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	if (!tmp)
-	{
-		node = malloc(sizeof(t_env) * 1);
-		node->name = ft_strdup("OLDPWD");
-		node->value = ft_strdup(old_pwd);
-		node->next = NULL;
-		tmp = env;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = node;
-	}
-}
 
 int	cd_to_check(char **command)
 {
