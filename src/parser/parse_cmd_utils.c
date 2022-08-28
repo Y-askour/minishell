@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 21:38:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/18 11:55:22 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 23:03:28 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 t_cmd_list	*init_cmd_list(t_cmd_list *list)
 {
 	list = malloc(sizeof(t_cmd_list));
-	list->head = NULL;
-	list->taile = NULL;
 	if (!list)
 		return (NULL);
+	list->head = NULL;
+	list->taile = NULL;
 	return (list);
 }
 
 t_red_list	*init_red_list(t_red_list *list)
 {
 	list = malloc(sizeof(t_red_list));
-	list->head = NULL;
-	list->taile = NULL;
 	if (!list)
 		return (NULL);
+	list->head = NULL;
+	list->taile = NULL;
 	return (list);
 }
 
@@ -37,6 +37,8 @@ t_red_elem	*new_red(int type, char *filename)
 	t_red_elem	*new;
 
 	new = malloc (sizeof(t_red_elem));
+	if (!new)
+		return (NULL);
 	new->file = filename;
 	new->type = type;
 	new->next = NULL;
@@ -49,6 +51,8 @@ t_cmd_elem	*new_cmd(char **args, t_red_list *red)
 	t_cmd_elem	*new;
 
 	new = malloc(sizeof (t_cmd_elem));
+	if (!new)
+		return (NULL);
 	new->next = NULL;
 	new->prev = NULL;
 	new->args = args;

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 16:56:16 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 21:09:35 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ t_env	*get_env_helper(char **env)
 	my_env->value = splited[1];
 	my_env->next = NULL;
 	free(splited);
-	i++;
 	get_env_loop(env, splited, &my_env);
 	return (my_env);
 }

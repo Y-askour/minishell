@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:49 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/22 21:49:28 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:19:12 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	add_back(t_token_list *list, char *val, int type)
 t_token_list	*init_token_list(t_token_list *list)
 {
 	list = malloc(sizeof(t_token_list));
-	list->head = NULL;
-	list->taile = NULL;
 	if (!list)
 		return (NULL);
+	list->head = NULL;
+	list->taile = NULL;
 	return (list);
 }
 
