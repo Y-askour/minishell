@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 12:26:43 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 15:49:09 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define REDOUT -8
 # define WHSPACE -9
 # define DOLLAR -10
+# define TILDE -11 // ~
 # define ERROR -12
 # define AFDOLLAR -13
 # define EXITS -14
@@ -116,10 +117,12 @@ typedef struct s_norm_var
 
 int				main(int ac, char **av, char **env);
 /** main functions **/
+int				heredoc_error(t_token_elem *node, t_token_list *list);
+void			join_delimiter(t_token_elem *node, t_token_list *list);
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list);
 int				error_handler(char *message, int status);
-void			is_heredoc(t_token_list *list, int status, t_env *env);
+int				is_heredoc(t_token_list *list, t_env *env);
 
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
@@ -197,15 +200,14 @@ int				max_len(char *str, char *str1);
 int				valid(char *str);
 void			count_and_declare(int *i, char **command, t_env *env);
 void			change_exitstatus(int n);
-int				g_exit_status;
 void			init_out_check(t_pipe *in_out, int *i);
 void			init_var(t_pipe *in_out, t_exec *var, \
-t_env	*g_env, char **paths);
+				t_env *g_env, char **paths);
 int				ft_is_number(char *str);
 void			add_env_helper(t_env *g_env, char **split);
 int				env_search(t_env *env, char *name, char *value);
-void			cd_to_helper(t_env *env, t_env *node, t_env *tmp, char *old_pwd);
+void			cd_to_helper(t_env *env, t_env *node, t_env *tmp, \
+				char *old_pwd);
 int				cd_to_check(char **command);
-void			cd_only_helper(t_env *tmp, t_env *tmp1, t_env *node, char *home);
-
+int				g_exit_status;
 #endif

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:21 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/27 18:51:51 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:33:41 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,17 @@ static char	*after_dollar(t_token_list *tokens, char *line)
 
 char	*is_sign(t_token_list *tokens, char *line)
 {
- 	if (*line == '$')
+	if (*line == '~')
+	{
+		add_back(tokens, "~", TILDE);
+		line++;
+	}
+	else if (*line == '$')
 	{
 		line++;
 		if (*line == '?')
 		{
-			add_back(tokens, "$?", EXITS);
+			add_back(tokens, ft_strdup("$?"), EXITS);
 			return (line + 1);
 		}
 		if (*line != '"' && *line != '\'')

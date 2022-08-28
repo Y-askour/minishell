@@ -6,7 +6,7 @@
 #    By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/25 15:54:39 by aboudoun          #+#    #+#              #
-#    Updated: 2022/08/28 14:55:15 by yaskour          ###   ########.fr        #
+#    Updated: 2022/08/28 15:49:23 by yaskour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ TOKENIZER = $(addprefix tokenizer/, lexer1 lexer2 tokenizer tokens_list_utils)
 ERROR = $(addprefix error_handler/, error_handler)
 BUILTIN = $(addprefix builtin/, builtins  echo export helpers pwd unset export_helper cd cd_helper)
 EXECUTION = $(addprefix executor/, get_env one_cmd one_cmd_helper pipe pipe_helper pipe_helper2 redirections pipe_helper3 redirections_helper $(BUILTIN))
-FILES =  $(addprefix src/, minishell prompt heredoc $(FREE) $(PARSER) $(SYNTAX) $(TOKENIZER) $(ERROR) $(EXECUTION))
+FILES =  $(addprefix src/, minishell prompt heredoc heredoc_utils $(FREE) $(PARSER) $(SYNTAX) $(TOKENIZER) $(ERROR) $(EXECUTION))
 
 OBJ = $(addprefix $(OFILES)/, $(FILES:=.o))
 

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:18 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/27 18:52:19 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 11:30:00 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ char	*is_squout(t_token_list *tokens, char *line)
 	}
 	if (*(line) == '\'')
 		add_back(tokens, ft_strdup(""), WORD);
+	if (*line == '~')
+	{
+		add_back(tokens, "~", TILDE);
+		line++;
+	}
 	line = is_word(tokens, line, "\'");
 	return (line + 1);
 }
@@ -46,10 +51,10 @@ char	*is_dquout(t_token_list *tokens, char *line)
 	}
 	if (*(line) == '\"')
 		add_back(tokens, ft_strdup(""), WORD);
-	line = is_word(tokens, line, "$\"");
+	line = is_word(tokens, line, "~$\"");
 	if (*line == '\"')
 		line ++;
-	else if (*line == '$')
+	else if (*line == '$' || *line == '~')
 	{
 		line = is_sign(tokens, line);
 		if (*line == '\"')
