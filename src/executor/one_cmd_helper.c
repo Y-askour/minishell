@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:44:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 17:30:17 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 17:37:38 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_path(char **command, char **pwd, char **old_pwd)
 		free(*old_pwd);
 		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 void	path_search_helper(char **command, int **check, char **env)
