@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_paths.c                                        :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/25 14:35:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 16:56:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ t_env	*get_env(char **env)
 	{
 		pwd = malloc(sizeof(char) * PATH_MAX);
 		getcwd(pwd, PATH_MAX);
-		env[0] = ft_strdup("SHLVL=1");
-		env[1] = ft_strjoin(ft_strjoin(ft_strdup("PWD"), ft_strdup("=")), pwd);
+		env[0] = ft_strjoin(ft_strjoin(ft_strdup("PWD"), ft_strdup("=")), pwd);
+		env[1] = ft_strdup("SHLVL=0");
 		env[2] = NULL;
 	}
 	return (get_env_helper(env));
