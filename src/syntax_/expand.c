@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 00:54:06 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 12:41:40 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,38 @@ char	*env_var(char *var, t_env *env)
 	return (ft_strdup(""));
 }
 
+static void	join_tild(t_token_elem *temp, t_token_list *list)
+{
+	while (temp->next && temp->next->type == WORD)
+	{
+		temp->value = ft_strjoin(ft_strdup(temp->value), \
+			ft_strdup(temp->next->value));
+		del_node(temp->next, list);
+	}
+}
+
+static void	expand_tild(t_token_elem *temp, t_env *env, t_token_list *list)
+{
+	char	*tofree;
+
+	if (temp->type == TILDE)
+		join_tild(temp, list);
+	if ((!ft_strncmp("~", temp->value, max_len("~", temp->value)) && \
+		temp->type != TILDE))
+	{
+		tofree = temp->value;
+		temp->value = env_var("HOME", env);
+		free(tofree);
+	}
+	else if (!ft_strncmp("~/", temp->value, 2))
+	{
+		tofree = temp->value;
+		temp->value = ft_strjoin(env_var("HOME", env), \
+			ft_strdup((temp->value + 1)));
+		free(tofree);
+	}
+}
+
 void	expand(t_token_list *list, t_env **g_env)
 {
 	t_token_elem	*temp;
@@ -55,8 +87,8 @@ void	expand(t_token_list *list, t_env **g_env)
 		}
 		else if (temp->type == EXITS)
 			temp->value = ft_itoa(g_exit_status);
-		else if (!ft_strncmp("~", temp->value, max_len("~", temp->value)) || !ft_strncmp("~/", temp->value, max_len("~/", temp->value)))
-			temp->value = env_var("HOME", env);
+		else
+			expand_tild(temp, env, list);
 		temp = temp->next;
 	}
 }
