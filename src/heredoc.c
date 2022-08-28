@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 00:42:24 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:11:49 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,41 +64,42 @@ void	input_heredoc(int *fd, t_token_elem *node)
 	exit(0);
 }
 
-static void	join_delimiter(t_token_elem *node, t_token_list *list)
+int	is_heredoc2(t_token_elem *node, t_token_list *list, int *fd, t_env *env)
 {
-	while (node->next && node->next->type != \
-			PIPE && node->next->type != WHSPACE && \
-			node->next->type != HEREDOC)
+	int status;
+	int	pid;
+
+	if (node->type == HEREDOC)
 	{
-		node->value = ft_strjoin(node->value, ft_strdup(node->next->value));
-		del_node(node->next, list);
+		signal(SIGINT, SIG_IGN);
+		if (heredoc_error(node, list))
+			return (1);
+		join_delimiter(node->next, list);
+		pipe(fd);
+		pid = fork();
+		if (pid == -1)
+			return (1);
+		if (pid == 0)
+			input_heredoc(fd, node);
+		waitpid(pid, &status, 0);
+		signal_action(status, list, fd, env);
+
 	}
+	return (0);
 }
 
-void	is_heredoc(t_token_list *list, int status, t_env *env)
+int	is_heredoc(t_token_list *list, t_env *env)
 {
 	t_token_elem	*node;
 	int				fd[2];
-	int				pid;
 
 	node = list->head;
+
 	while (node)
 	{
-		if (node->type == HEREDOC)
-		{
-			signal(SIGINT, SIG_IGN);
-			join_delimiter(node->next, list);
-			pipe(fd);
-			pid = fork();
-			if (pid == -1)
-				return ;
-			if (pid == 0)
-				input_heredoc(fd, node);
-			waitpid(pid, &status, 0);
-			signal_action(status, list, fd, env);
-			if (!node->next)
-				break ;
-		}
+		if (is_heredoc2(node, list, fd, env))
+			return (1);
 		node = node->next;
 	}
+	return (0);
 }

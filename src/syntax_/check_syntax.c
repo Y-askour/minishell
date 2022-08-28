@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:25:30 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 11:11:30 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:21:40 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_pipe(t_token_elem *node)
 int	check_red(t_token_elem *node, t_token_list *list)
 {
 	if (node->type == REDIN || node->type == REDOUT
-		|| node->type == APPEND || node->type == HEREDOC)
+		|| node->type == APPEND)
 	{
 		if (node->next && node->next->type == WHSPACE)
 			del_node(node->next, list);

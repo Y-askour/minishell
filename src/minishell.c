@@ -6,45 +6,21 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 14:12:07 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:51:50 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-int	heredoc_error(t_token_list *list)
-{
-	t_token_elem	*node;
-
-	node = list->head;
-	while (node && node->type != HEREDOC)
-		node = node->next;
-	if (node && node->type == HEREDOC)
-	{
-		if (node->next && node->next->type == WHSPACE)
-			del_node(node->next, list);
-		if (!node->next || (node->next->type != WORD && \
-			node->next->type != DOLLAR && node->next->type != TILDE))
-		{
-			error_handler("syntax error near unexpected token `newline'", 258);
-			return (1);
-		}
-	}
-	return (0);
-}
-
 int	loop_body(char **line, t_token_list **tokens,
 		t_cmd_list **cmd_line, t_env **g_env)
 {
-	int	status;
-
-	status = 0;
 	*line = display_prompt();
 	if (!ft_strlen(*line))
 		return (1);
 	*tokens = tokenizer(*line);
-	if (!heredoc_error(*tokens))
-		is_heredoc(*tokens, status, *g_env);
+	if (is_heredoc(*tokens, *g_env))
+		return (0);
 	if (!check_syntax(*tokens))
 	{
 		expand(*tokens, g_env);
