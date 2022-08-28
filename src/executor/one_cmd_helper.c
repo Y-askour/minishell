@@ -6,11 +6,23 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:44:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 17:47:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:30:17 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+int	check_path(char **command, char **pwd, char **old_pwd)
+{
+	if (cd_to_check(command) && ft_strncmp(command[1], "..",
+			max_len(command[1], "..")))
+	{
+		free(*pwd);
+		free(*old_pwd);
+		return (1);
+	}
+	return (1);
+}
 
 void	path_search_helper(char **command, int **check, char **env)
 {

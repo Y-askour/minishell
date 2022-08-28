@@ -6,12 +6,11 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 15:10:54 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/28 17:30:35 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	cd_to_check(char **command)
 {
@@ -29,4 +28,82 @@ int	cd_to_check(char **command)
 		return (1);
 	}
 	return (0);
+}
+
+int	cd_to_free(t_env *tmp, char **pwd, char **old_pwd)
+{
+	if (!tmp)
+	{
+		free(*pwd);
+		free(*old_pwd);
+		return (1);
+	}
+	return (0);
+}
+
+void	cd_to(char **pwd, char **old_pwd, char **command, t_env *env)
+{
+	t_env		*tmp;
+	t_env		*node;
+
+	node = NULL;
+	if (check_path(command, pwd, old_pwd))
+		return ;
+	chdir(command[1]);
+	tmp = env;
+	while (tmp)
+	{
+		if (!strncmp(tmp->name, "PWD", 3))
+		{
+			free(*pwd);
+			free(*old_pwd);
+			*pwd = malloc(sizeof(char) * 255);
+			getcwd(*pwd, PATH_MAX);
+			free(tmp->value);
+			tmp->value = *pwd;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	cd_to_free(tmp, pwd, old_pwd);
+}
+
+void	cd_only_change_pwd(t_env *env)
+{
+	t_env	*tmp;
+	char	*pwd;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->name, "PWD", max_len(tmp->name, "PWD")))
+			break ;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+		return ;
+	free(tmp->value);
+	pwd = malloc(sizeof(char) * PATH_MAX);
+	getcwd(pwd, PATH_MAX);
+	tmp->value = pwd;
+}
+
+void	cd_only(t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->name, "HOME", max_len(tmp->name, "HOME")))
+			break ;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+	{
+		error_handler("minishell : cd: HOME not set", 1);
+		return ;
+	}
+	chdir(tmp->value);
+	cd_only_change_pwd(env);
 }
