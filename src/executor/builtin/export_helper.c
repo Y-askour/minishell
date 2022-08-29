@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 19:28:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/29 15:08:33 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -72,7 +72,10 @@ void	add_env_helper(t_env *g_env, char **split)
 	node->next = NULL;
 	tmp = g_env;
 	if (!split[1])
+	{
+		free(split[1]);
 		node->value = ft_strdup("");
+	}
 	else
 		node->value = split[1];
 	while (tmp->next)
