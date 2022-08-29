@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 18:46:39 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:36:16 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ int	run_redirections(t_cmd_elem *cmd_line, int in, int out)
 		}
 		else if (red->type == REDIN || red->type == HEREDOC)
 		{
+			if ((red->type == REDIN && access(red->file, F_OK)))
+			{
+				error_handler("minishell: path : No such  file or directory", 1);
+				return (-1);
+			}
 			if (red_in(red, in) == -1)
 				break ;
 		}
@@ -101,14 +106,5 @@ int	redirections(t_cmd_elem *cmd_line, int in, int out)
 
 	temp = cmd_line;
 	red = cmd_line->redir->head;
-	while (red)
-	{
-		if ((red->type == REDIN && access(red->file, F_OK)))
-		{
-			error_handler("minishell: path : No such  file or directory", 1);
-			return (-1);
-		}
-		red = red->next;
-	}
 	return (run_redirections(cmd_line, in, out));
 }
