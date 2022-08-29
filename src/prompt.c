@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 16:59:07 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/29 19:17:33 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*display_prompt(void)
 		printf("%s\n", "exit");
 		exit(1);
 	}
-	if (line)
+	if (*line)
 		add_history(line);
 	rl_on_new_line();
 	return (line);
