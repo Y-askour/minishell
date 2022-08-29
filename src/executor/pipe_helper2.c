@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:59:14 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/29 12:50:36 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/29 12:52:11 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	builtins_body(char **commands, t_cmd_elem *cmdline, t_exec *var)
 
 	close(var->close_first);
 	close(var->out);
-// i need to check this part
 	old_stdout = dup(STDOUT_FILENO);
 	old_stdin = dup(STDIN_FILENO);
 	run_builtins(cmdline, commands, var->g_env);

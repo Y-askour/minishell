@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/29 12:36:16 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/29 13:01:04 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,18 @@ int	red_append(t_red_elem *red, int out)
 	return (0);
 }
 
+//int break_redirections()
+//{
+//	if ((red->type == REDIN && access(red->file, F_OK)))
+//	{
+//		error_handler("minishell: path : No such  file or directory", 1);
+//		return (-1);
+//	}
+//	if (red_in(red, in) == -1)
+//		return (-1);
+//	return (0);
+//}
+
 int	run_redirections(t_cmd_elem *cmd_line, int in, int out)
 {
 	t_cmd_elem	*temp;
@@ -81,13 +93,8 @@ int	run_redirections(t_cmd_elem *cmd_line, int in, int out)
 		}
 		else if (red->type == REDIN || red->type == HEREDOC)
 		{
-			if ((red->type == REDIN && access(red->file, F_OK)))
-			{
-				error_handler("minishell: path : No such  file or directory", 1);
-				return (-1);
-			}
 			if (red_in(red, in) == -1)
-				break ;
+				return (-1);
 		}
 		else if (red->type == APPEND)
 		{
