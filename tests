@@ -7,7 +7,7 @@ check leaks
 
 echo hey  > $jfjfjfjjf  -> run and check the redirects
 when to delete ft_split in the project
-when i run ./bash it doesn't work
+when i run ./test.sh it doesn't work
 check all exit status
 oldpwd doesn't change
 check old and pwd 
