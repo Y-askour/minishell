@@ -5,6 +5,7 @@ when you enter "ENTER" you don't need to add it to history
 
 check leaks
 
+echo hey  > $jfjfjfjjf  -> run and check the redirects
 when to delete ft_split in the project
 when i run ./bash it doesn't work
 check all exit status
