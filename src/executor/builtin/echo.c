@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:13:42 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/24 14:51:26 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/29 14:09:26 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_option(char *command, int *check)
 	int	i;
 
 	i = 0;
-	if (command[0] == '-')
+	if (command[0] == '-' && command[1])
 		i++;
 	while (command[i])
 	{

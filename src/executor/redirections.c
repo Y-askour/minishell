@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/29 13:01:04 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/29 14:06:34 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	red_in(t_red_elem *red, int in)
 {	
 	int	f1;
 
-	if (ft_is_number(red->file))
+	if (ft_is_number(red->file) && red->type == HEREDOC)
 		f1 = ft_atoi(red->file);
 	else
 	{
@@ -64,18 +64,6 @@ int	red_append(t_red_elem *red, int out)
 	close(f1);
 	return (0);
 }
-
-//int break_redirections()
-//{
-//	if ((red->type == REDIN && access(red->file, F_OK)))
-//	{
-//		error_handler("minishell: path : No such  file or directory", 1);
-//		return (-1);
-//	}
-//	if (red_in(red, in) == -1)
-//		return (-1);
-//	return (0);
-//}
 
 int	run_redirections(t_cmd_elem *cmd_line, int in, int out)
 {
