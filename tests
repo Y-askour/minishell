@@ -2,7 +2,9 @@ export
 unset 
 cd when i delete the current path i need to throw an error
 when you enter "ENTER" you don't need to add it to history
-
+when entering dir/dir1/dir2, then delleting dir: if cd .. or cd../.. you should print
+"cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
+maybe check for getcwd return
 check leaks
 
 echo hey  > $jfjfjfjjf  -> run and check the redirects
