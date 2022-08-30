@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 23:51:23 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:43:20 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,9 @@ typedef struct s_norm_var
 
 int				main(int ac, char **av, char **env);
 /** main functions **/
-int				heredoc_error(t_token_elem *node, t_token_list *list);
 void			join_delimiter(t_token_elem *node, t_token_list *list);
 char			*display_prompt(void);
-int				check_syntax(t_token_list	*list);
+int				check_syntax(t_token_list	*list, t_token_elem *node);
 int				error_handler(char *message, int status);
 int				is_heredoc(t_token_list *list, t_env *env);
 
