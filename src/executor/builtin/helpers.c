@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:29:50 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 14:32:29 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	declare_export(t_g_env *env)
 			if (i == tmp->name[0])
 			{
 				printf("declare -x %s", tmp->name);
-				if (ft_strncmp(tmp->value, "", max_len(tmp->value, "")))
+				if (tmp->value)
 					printf("=\"%s\"", tmp->value);
 				printf("\n");
 			}

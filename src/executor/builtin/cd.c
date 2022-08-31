@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:18:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 19:24:57 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	cd_switch(t_g_env *env)
 		error_handler("minishell: cd: OLDPWD not set", 1);
 		return ;
 	}
-	chdir(tmp->value);
+	if (chdir(tmp->value) == -1)
+		return;
 	printf("%s \n", tmp->value);
 	old = tmp;
 	cd_switch_change(env, old);

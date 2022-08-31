@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:41:14 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 15:52:41 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	add_env(char *command, t_g_env *g_env)
 	t_env	*node;
 	t_env	*tmp;
 
-	tmp = g_env->head;
+	tmp = g_env->head;	
 	i = 0;
 	split = ft_split(command, '=');
 	if (split[0][ft_strlen(split[0]) - 1] == '+')
@@ -70,6 +70,11 @@ void	add_env(char *command, t_g_env *g_env)
 	node->next = NULL;
 	add_env2(split, node);
 	tmp = g_env->head;
+	if (!tmp)
+	{
+		g_env->head = node;
+		return;
+	}
 	while(tmp->next)
 		tmp = tmp->next;
 	tmp->next = node;
@@ -89,11 +94,38 @@ int	check_to_add(char *command)
 	return (0);
 }
 
+void	add_null_value(char *command, t_g_env *env)
+{
+	t_env	*head;
+	t_env	*node;
+	t_env	*prev;
+	int		i;
+
+	head = env->head;
+	prev = env->head;
+	i = 0;
+	while (head)
+	{
+		if (!ft_strncmp(command,head->name,max_len(command,head->name)))
+			return ;
+		if (i > 0)
+			prev = prev->next;
+		head = head->next;
+		i++;
+	}
+	node = malloc(sizeof(t_env)* 1);
+	node->name = command;
+	node->value = NULL;
+	node->next = NULL;
+	prev->next = node;
+}
+
 int	export_f(char **command, t_g_env *env)
 {
 	int	i;
 
 	i = 0;
+	printf("head -> %p\n",env->head);
 	count_and_declare(&i, command, env);
 	if (i >= 2)
 	{
@@ -107,7 +139,10 @@ int	export_f(char **command, t_g_env *env)
 			}
 			else if (valid(command[i]))
 			{
-				add_env(command[i], env);
+				if (check_to_add(command[i]))
+					add_env(command[i], env);
+				else
+					add_null_value(command[i],env);
 			}
 			else
 				error_handler("minishell: export: `=` \

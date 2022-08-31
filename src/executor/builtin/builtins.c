@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:23:00 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 15:17:57 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	env_f(char **command, t_g_env *g_env)
 {
 	t_env *env;
 
-	env = g_env->head;
 	(void)command;
+	env = g_env->head;
 	while (env)
 	{
 		if (ft_strncmp(env->value, "", max_len(env->value, "")))

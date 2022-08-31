@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:55:14 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:38:51 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 13:56:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,30 @@ int	unset_valid(char *command)
 	return (0);
 }
 
-void	delete_node(char *name, t_env *env)
+void	delete_node(char *name, t_g_env *env)
 {
 	t_env	*tmp;
 	t_env	*prev;
-	t_env	*to_free;
 	int		i;
 
-	tmp = env;
-	prev = env;
-	to_free = env;
+	tmp = env->head;
+	prev = env->head;
 	i = 0;
 	while (tmp)
 	{
-		if (!ft_strncmp(name, tmp->name, max_len(name, tmp->name)))
+		if (!ft_strncmp(tmp->name,name,max_len(name,tmp->name)))
 		{
+			if (i == 0)
+				env->head = env->head->next;
+			else
+				prev->next = tmp->next;
 			free(tmp->name);
 			free(tmp->value);
-			prev->next = tmp->next;
-			free(to_free);
-			break ;
+			free(tmp);
 		}
-		if (i >= 1)
+		if (i > 0)
 			prev = prev->next;
 		tmp = tmp->next;
-		to_free = to_free->next;
 		i++;
 	}
 }
@@ -64,9 +63,7 @@ void	unset(char **command, t_g_env *g_env)
 {
 	int	i;
 
-	t_env *env;
 
-	env = g_env->head;
 	i = 0;
 	while (command[i])
 		i++;
@@ -81,7 +78,7 @@ void	unset(char **command, t_g_env *g_env)
 				return ;
 			}
 			else if (unset_valid(command[i]))
-				delete_node(command[i], env);
+				delete_node(command[i], g_env);
 			else
 				error_handler("minishell: unset: `=` \
 					:not a valid indentifier", 1);

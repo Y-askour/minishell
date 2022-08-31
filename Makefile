@@ -6,7 +6,7 @@
 #    By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/25 15:54:39 by aboudoun          #+#    #+#              #
-#    Updated: 2022/08/31 12:44:01 by yaskour          ###   ########.fr        #
+#    Updated: 2022/08/31 15:35:48 by yaskour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INCLUDE = ./include
 HEADER = $(INCLUDE)/minishell.h
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
