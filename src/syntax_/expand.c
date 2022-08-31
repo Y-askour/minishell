@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/28 15:40:08 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:59:59 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	expand_exit(t_token_elem *temp)
 	free(tofree);
 }
 
-void	expand(t_token_list *list, t_env **g_env)
+void	expand(t_token_list *list, t_g_env *g_env)
 {
 	t_token_elem	*temp;
 	t_env			*env;
 	char			*tofree;
 
-	env = *g_env;
+	env = g_env->head;
 	temp = list->head;
 	while (temp)
 	{

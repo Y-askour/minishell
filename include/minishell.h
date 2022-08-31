@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/30 14:43:20 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:42:51 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,19 @@ typedef struct s_red_list
 
 typedef struct s_env
 {
-	char			**env;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
 }	t_env;
 
+typedef struct head_env
+{
+	t_env	*head;
+}	t_g_env;
+
 typedef struct s_exec_var
 {
-	t_env			*g_env;
+	t_g_env			*g_env;
 	char			**paths;
 	int				in;
 	int				out;
@@ -122,7 +126,7 @@ void			join_delimiter(t_token_elem *node, t_token_list *list);
 char			*display_prompt(void);
 int				check_syntax(t_token_list	*list, t_token_elem *node);
 int				error_handler(char *message, int status);
-int				is_heredoc(t_token_list *list, t_env *env);
+int				is_heredoc(t_token_list *list, t_g_env *env);
 
 t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 /** cmd functions and utils**/
@@ -140,7 +144,7 @@ t_cmd_list		*parse_cmd(t_token_list *tokens, t_cmd_list *cmd_line);
 void			add_back(t_token_list *list, char *val, int type);
 t_token_list	*init_token_list(t_token_list *list);
 void			del_node(t_token_elem *node, t_token_list *list);
-void			expand(t_token_list *list, t_env **env);
+void			expand(t_token_list *list, t_g_env *env);
 /******TOKENIZER FUNCTIONS*******/
 t_token_list	*tokenizer(char *line);
 char			*is_word(t_token_list *tokens, char *line, char *stop);
@@ -160,29 +164,29 @@ void			pipes_helper2(t_cmd_elem **head, int *fd, int *in);
 int				pipes_helper1(int pid, int in, int *fd, int *check);
 void			executer_helper(t_exec *var, int d, int n);
 int				executer(int n, int i, t_cmd_elem *cmdline, t_exec *var);
-char			**get_paths(t_env *env);
-t_env			*get_env(char **env);
+char			**get_paths(t_g_env *env);
+t_g_env		*get_env(char **env);
 
-int				run_command(t_cmd_list *cmdline, t_env *g_env);
+int				run_command(t_cmd_list *cmdline, t_g_env *g_env);
 void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
 void			end_pipes(char **paths);
 
 // builtins
 
 int				builtins(char **command);
-int				run_builtins(t_cmd_elem *cmdline, char **command, t_env *env);
-void			cd(char **command, t_env *g_env);
-void			pwd(char **command, t_env *g_env);
-void			env_f(char **command, t_env *env);
+int				run_builtins(t_cmd_elem *cmdline, char **command, t_g_env *env);
+void			cd(char **command, t_g_env *g_env);
+void			pwd();
+void			env_f(char **command, t_g_env *env);
 void			exit_f(char **command);
 int				redirections(t_cmd_elem *cmd_line, int in, int out);
-int				export_f(char **command, t_env *env);
-void			declare_export(t_env *env);
+int				export_f(char **command, t_g_env *env);
+void			declare_export(t_g_env *env);
 void			check_f(char *command, int *check);
 int				search_in_exp(t_env **env, char **split);
 void			add_env_node(char **split, t_env **env);
 int				child(t_cmd_elem *cmdline, char **command,
-					t_env *env, char **paths);
+					t_g_env *env, char **paths);
 void			path_search_helper(char **command, int **check, char **env);
 char			**simple_cmd_delete_spc(t_cmd_elem *cmdline);
 int				check_dir(char *cmd, int check);
@@ -194,23 +198,23 @@ void			delete_spaces_helper1(t_cmd_elem *head, int *i, int *n_of_arg);
 void			helper(char ***commands, t_cmd_elem **head, int *s, int j);
 void			echo(char **command);
 char			**lst_to_arr(t_env *g_env);
-void			unset(char **command, t_env *env);
+void			unset(char **command, t_g_env *env);
 int				option(char *str);
 int				max_len(char *str, char *str1);
 int				valid(char *str);
-void			count_and_declare(int *i, char **command, t_env *env);
+void			count_and_declare(int *i, char **command, t_g_env *env);
 void			change_exitstatus(int n);
 void			init_out_check(t_pipe *in_out, int *i);
 void			init_var(t_pipe *in_out, t_exec *var, \
-				t_env *g_env, char **paths);
+				t_g_env *g_env, char **paths);
 int				ft_is_number(char *str);
-void			add_env_helper(t_env *g_env, char **split);
-int				env_search(t_env *env, char *name, char *value);
+void			add_env_helper(t_g_env *g_env, char **split);
+int				env_search(t_g_env *env, char *name, char *value);
 void			cd_to_helper(t_env *env, t_env *node, t_env *tmp, \
 				char *old_pwd);
 int				cd_to_check(char **command);
-void			cd_only(t_env *env);
-void			cd_to(char **pwd, char **old_pwd, char **command, t_env *env);
+void			cd_only(t_g_env *env);
+void			cd_to(char **pwd, char **old_pwd, char **command, t_g_env *env);
 int				check_path(char **command, char **pwd, char **old_pwd);
 int				g_exit_status;
 #endif

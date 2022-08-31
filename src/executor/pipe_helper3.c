@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:29:37 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 23:52:15 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:11:59 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_out_check(t_pipe *in_out, int *i)
 	in_out->check = 0;
 }
 
-void	init_var(t_pipe *in_out, t_exec *var, t_env	*g_env, char **paths)
+void	init_var(t_pipe *in_out, t_exec *var, t_g_env	*g_env, char **paths)
 {
 	pipe(in_out->fd);
 	var->g_env = g_env;

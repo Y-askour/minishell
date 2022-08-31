@@ -6,14 +6,17 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:54:29 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/25 15:54:30 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:07:17 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-char	*get_path(t_env *env)
+char	*get_path(t_g_env *g_env)
 {
+	t_env	*env;
+
+	env = g_env->head;
 	while (env)
 	{
 		if (!ft_strncmp(env->name, "PATH", max_len(env->name, "PATH")))
@@ -35,7 +38,7 @@ void	free_path(char **paths)
 	free(paths);
 }
 
-char	**get_paths(t_env *env)
+char	**get_paths(t_g_env *env)
 {
 	char	**paths;
 	char	**ret;

@@ -6,13 +6,13 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/29 12:44:38 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:23:00 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_builtins(t_cmd_elem *cmdline, char **command, t_env *env)
+int	run_builtins(t_cmd_elem *cmdline, char **command, t_g_env *env)
 {
 	if (redirections(cmdline, 0, 1) == -1)
 		return (1);
@@ -23,7 +23,7 @@ int	run_builtins(t_cmd_elem *cmdline, char **command, t_env *env)
 	else if (!ft_strncmp(command[0], "cd", max_len(command[0], "cd")))
 		cd(command, env);
 	else if (!ft_strncmp(command[0], "pwd", max_len(command[0], "pwd")))
-		pwd(command, env);
+		pwd();
 	else if (!ft_strncmp(command[0], "export", max_len(command[0], "export")))
 		export_f(command, env);
 	else if (!ft_strncmp(command[0], "unset", max_len(command[0], "unset")))
@@ -56,8 +56,11 @@ int	builtins(char **command)
 	return (0);
 }
 
-void	env_f(char **command, t_env *env)
+void	env_f(char **command, t_g_env *g_env)
 {
+	t_env *env;
+
+	env = g_env->head;
 	(void)command;
 	while (env)
 	{

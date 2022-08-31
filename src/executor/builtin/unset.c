@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:55:14 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/27 21:31:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:38:51 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ void	delete_node(char *name, t_env *env)
 	}
 }
 
-void	unset(char **command, t_env *env)
+void	unset(char **command, t_g_env *g_env)
 {
 	int	i;
 
-	(void)env;
+	t_env *env;
+
+	env = g_env->head;
 	i = 0;
 	while (command[i])
 		i++;

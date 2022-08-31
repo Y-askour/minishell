@@ -6,13 +6,13 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:05:03 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 18:49:44 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:29:50 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	declare_export(t_env *env)
+void	declare_export(t_g_env *env)
 {
 	int		i;
 	t_env	*tmp;
@@ -20,7 +20,7 @@ void	declare_export(t_env *env)
 	i = 0;
 	while (i < 256)
 	{
-		tmp = env;
+		tmp = env->head;
 		while (tmp)
 		{
 			if (i == tmp->name[0])
@@ -36,7 +36,7 @@ void	declare_export(t_env *env)
 	}
 }
 
-void	count_and_declare(int *i, char **command, t_env *env)
+void	count_and_declare(int *i, char **command, t_g_env *env)
 {
 	while (command[*i])
 		*i += 1;

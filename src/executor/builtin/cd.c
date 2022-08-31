@@ -6,20 +6,20 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/29 14:12:49 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:18:58 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	delete_oldpwd(t_env *env)
+void	delete_oldpwd(t_g_env *g_env)
 {
 	t_env	*tmp;
 	t_env	*prev;
 	int		i;
 
-	tmp = env;
-	prev = env;
+	tmp = g_env->head;
+	prev = g_env->head;
 	i = 0;
 	while (tmp)
 	{
@@ -36,12 +36,12 @@ void	delete_oldpwd(t_env *env)
 	free(tmp);
 }
 
-void	cd_switch_change(t_env *env, t_env *old)
+void	cd_switch_change(t_g_env *env, t_env *old)
 {
 	t_env	*tmp;
 	char	*swap;
 
-	tmp = env;
+	tmp = env->head;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "PWD", max_len(tmp->name, "PWD")))
@@ -58,12 +58,12 @@ void	cd_switch_change(t_env *env, t_env *old)
 	old->value = swap;
 }
 
-void	cd_switch(t_env *env)
+void	cd_switch(t_g_env *env)
 {
 	t_env	*tmp;
 	t_env	*old;
 
-	tmp = env;
+	tmp = env->head;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "OLDPWD", max_len(tmp->name, "OLDPWD")))
@@ -81,7 +81,7 @@ void	cd_switch(t_env *env)
 	cd_switch_change(env, old);
 }
 
-void	cd(char **command, t_env *env)
+void	cd(char **command, t_g_env *env)
 {
 	char	*pwd;
 	char	*old_pwd;

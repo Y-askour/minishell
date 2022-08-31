@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/30 16:00:44 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:57:45 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,19 @@ int	is_heredoc2(t_token_elem *node, t_token_list *list, int *fd, t_env *env)
 	return (0);
 }
 
-int	is_heredoc(t_token_list *list, t_env *env)
+int	is_heredoc(t_token_list *list, t_g_env *env)
 {
 	t_token_elem	*node;
 	int				fd[2];
+	t_env					*head;
 
 	node = list->head;
+	head = env->head;
 	while (node)
 	{
 		if (check_syntax(list, node))
 			return (1);
-		if (is_heredoc2(node, list, fd, env))
+		if (is_heredoc2(node, list, fd, head))
 			return (1);
 		node = node->next;
 	}

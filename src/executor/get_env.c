@@ -6,32 +6,39 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 21:09:35 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:52:01 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_at_end(t_env *my_env, char *name, char *value, char **env)
+void	add_at_end(t_g_env *my_env, char *name, char *value)
 {
+	t_env	*ptr;
 	t_env	*tmp;
 
+	ptr = my_env->head;
 	tmp = malloc(sizeof(t_env));
 	tmp->name = name;
 	tmp->value = value;
-	tmp->env = env;
 	tmp->next = NULL;
-	while (my_env->next)
-		my_env = my_env->next;
-	my_env->next = tmp;
+	if (!my_env->head)
+	{
+		my_env->head = tmp;
+		return;
+	}
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = tmp;
 }
 
-void	get_env_loop(char **env, char **splited, t_env **my_env)
+void	get_env_loop(char **env,	t_g_env *my_env)
 {
 	char	*tmp;
 	int		i;
+	char	**splited;
 
-	i = 1;
+	i = 0;
 	while (env[i])
 	{
 		splited = ft_split(env[i], '=');
@@ -41,32 +48,23 @@ void	get_env_loop(char **env, char **splited, t_env **my_env)
 			free(splited[1]);
 			splited[1] = tmp;
 		}
-		add_at_end(*my_env, splited[0], splited[1], env);
+		add_at_end(my_env, splited[0], splited[1]);
 		free(splited);
 		i++;
 	}
 }
 
-t_env	*get_env_helper(char **env)
+t_g_env	*get_env_helper(char **env)
 {
-	char	**splited;
-	int		i;
-	t_env	*my_env;
+	t_g_env	*my_env;
 
-	my_env = NULL;
-	i = 0;
-	splited = ft_split(env[i], '=');
-	my_env = malloc(sizeof(t_env) * 1);
-	my_env->env = env;
-	my_env->name = splited[0];
-	my_env->value = splited[1];
-	my_env->next = NULL;
-	free(splited);
-	get_env_loop(env, splited, &my_env);
+	my_env = malloc(sizeof(t_g_env) * 1);
+	my_env->head = NULL;
+	get_env_loop(env, my_env);
 	return (my_env);
 }
 
-t_env	*get_env(char **env)
+t_g_env	*get_env(char **env)
 {
 	char	*pwd;
 

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:23 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 19:58:23 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:08:21 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	waiting_processes(t_cmd_elem *head, int n, t_norm *norm)
 	}
 }
 
-int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
+int	pipes(int n, t_cmd_elem *head, char **paths, t_g_env *g_env)
 {
 	int			i;
 	t_norm		norm;	
@@ -47,7 +47,7 @@ int	pipes(int n, t_cmd_elem *head, char **paths, t_env *g_env)
 	return (0);
 }
 
-int	pipeline(int n,	t_cmd_elem *head,	t_env *g_env)
+int	pipeline(int n,	t_cmd_elem *head,	t_g_env *g_env)
 {
 	char	**paths;
 	int		i;
@@ -57,7 +57,7 @@ int	pipeline(int n,	t_cmd_elem *head,	t_env *g_env)
 	return (pipes(n, head, paths, g_env));
 }
 
-int	run_command(t_cmd_list *cmdline, t_env *g_env)
+int	run_command(t_cmd_list *cmdline, t_g_env *g_env)
 {
 	int			i;
 	t_cmd_elem	*ptr;

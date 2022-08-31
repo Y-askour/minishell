@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/28 17:40:15 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:43:03 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	cd_to_free(t_env *tmp, char **pwd, char **old_pwd)
 	return (0);
 }
 
-void	cd_to(char **pwd, char **old_pwd, char **command, t_env *env)
+void	cd_to(char **pwd, char **old_pwd, char **command, t_g_env *env)
 {
 	t_env		*tmp;
 	t_env		*node;
@@ -50,7 +50,7 @@ void	cd_to(char **pwd, char **old_pwd, char **command, t_env *env)
 	if (check_path(command, pwd, old_pwd))
 		return ;
 	chdir(command[1]);
-	tmp = env;
+	tmp = env->head;
 	while (tmp)
 	{
 		if (!strncmp(tmp->name, "PWD", 3))
@@ -68,12 +68,12 @@ void	cd_to(char **pwd, char **old_pwd, char **command, t_env *env)
 	cd_to_free(tmp, pwd, old_pwd);
 }
 
-void	cd_only_change_pwd(t_env *env)
+void	cd_only_change_pwd(t_g_env *env)
 {
 	t_env	*tmp;
 	char	*pwd;
 
-	tmp = env;
+	tmp = env->head;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "PWD", max_len(tmp->name, "PWD")))
@@ -88,11 +88,11 @@ void	cd_only_change_pwd(t_env *env)
 	tmp->value = pwd;
 }
 
-void	cd_only(t_env *env)
+void	cd_only(t_g_env *env)
 {
 	t_env	*tmp;
 
-	tmp = env;
+	tmp = env->head;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "HOME", max_len(tmp->name, "HOME")))

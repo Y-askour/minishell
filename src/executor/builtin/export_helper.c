@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/29 15:08:33 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:33:53 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -38,8 +38,11 @@ char	**lst_to_arr(t_env *g_env)
 	return (env);
 }
 
-int	env_search(t_env *env, char *name, char *value)
+int	env_search(t_g_env *g_env, char *name, char *value)
 {
+	t_env	*env;
+
+	env = g_env->head;
 	while (env)
 	{		
 		if (!ft_strncmp(env->name, name, max_len(env->name, name)))
@@ -60,17 +63,16 @@ int	env_search(t_env *env, char *name, char *value)
 	return (0);
 }
 
-void	add_env_helper(t_env *g_env, char **split)
+void	add_env_helper(t_g_env *g_env, char **split)
 {
 	t_env	*node;
 	t_env	*tmp;
 
 	node = malloc(sizeof(t_env) * 1);
-	node->env = g_env->env;
 	node->name = ft_strndup(split[0], ft_strlen(split[0]));
 	free(split[0]);
 	node->next = NULL;
-	tmp = g_env;
+	tmp = g_env->head;
 	if (!split[1])
 	{
 		free(split[1]);

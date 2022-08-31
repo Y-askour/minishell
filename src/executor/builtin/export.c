@@ -6,17 +6,17 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/26 19:47:51 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/08/31 12:41:14 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_env_1(char **split, t_env *g_env)
+void	add_env_1(char **split, t_g_env *g_env)
 {
 	t_env	*tmp;
 
-	tmp = g_env;
+	tmp = g_env->head;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, split[0], \
@@ -39,7 +39,7 @@ void	add_env_1(char **split, t_env *g_env)
 	return ;
 }
 
-void	add_env2(char **split, t_env *node, t_env **g_env)
+void	add_env2(char **split, t_env *node)
 {
 	if (!split[1])
 	{
@@ -49,18 +49,16 @@ void	add_env2(char **split, t_env *node, t_env **g_env)
 	else
 		node->value = split[1];
 	free(split);
-	while ((*g_env)->next)
-		*g_env = (*g_env)->next;
 }
 
-void	add_env(char *command, t_env *g_env)
+void	add_env(char *command, t_g_env *g_env)
 {
 	int		i;
 	char	**split;
 	t_env	*node;
 	t_env	*tmp;
 
-	tmp = g_env;
+	tmp = g_env->head;
 	i = 0;
 	split = ft_split(command, '=');
 	if (split[0][ft_strlen(split[0]) - 1] == '+')
@@ -68,11 +66,13 @@ void	add_env(char *command, t_env *g_env)
 	else if (env_search(g_env, split[0], split[1]))
 		return (free(split));
 	node = malloc(sizeof(t_env) * 1);
-	node->env = g_env->env;
 	node->name = split[0];
 	node->next = NULL;
-	add_env2(split, node, &g_env);
-	g_env->next = node;
+	add_env2(split, node);
+	tmp = g_env->head;
+	while(tmp->next)
+		tmp = tmp->next;
+	tmp->next = node;
 }
 
 int	check_to_add(char *command)
@@ -89,7 +89,7 @@ int	check_to_add(char *command)
 	return (0);
 }
 
-int	export_f(char **command, t_env *env)
+int	export_f(char **command, t_g_env *env)
 {
 	int	i;
 
