@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:40:13 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:26:38 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	check_dir(char *cmd, int check)
 		if (S_ISDIR(finfo.st_mode))
 		{
 			error_handler("minishell : path: is a directory", 126);
-			exit(1);
+			exit(126);
 		}
 		if (access(cmd, X_OK))
 		{
 			error_handler("minishell : path: Permission denied", 126);
-			exit(1);
+			exit(126);
 		}
 	}
 	else if (check == 0)

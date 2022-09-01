@@ -14,3 +14,7 @@ when i run ./test.sh it doesn't work
 check all exit status
 oldpwd doesn't change
 check old and pwd 
+exit(exit_status)
+check errors printed 
+lowercase the bash lower commands
+./src : $? 126 and permission denied 126

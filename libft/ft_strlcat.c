@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 14:28:48 by aboudoun          #+#    #+#             */
-/*   Updated: 2021/11/18 14:32:40 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:30:19 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	size_dest;
-	size_t	size_src;	
+	size_t	size_src;
 
 	size_dest = ft_strlen(dst);
 	size_src = ft_strlen(src);

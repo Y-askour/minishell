@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 15:17:57 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/01 11:28:32 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	exit_f(char **command)
 
 	j = 0;
 	if (!command[1])
-		exit(0);
+	{
+		write(1, "exit\n", 5);
+		exit(g_exit_status);
+	}
 	if (command[1][j] == '+' || command[1][j] == '-')
 		j++;
 	while (command[1][j])
