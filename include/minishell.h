@@ -165,7 +165,7 @@ int				pipes_helper1(int pid, int in, int *fd, int *check);
 void			executer_helper(t_exec *var, int d, int n);
 int				executer(int n, int i, t_cmd_elem *cmdline, t_exec *var);
 char			**get_paths(t_g_env *env);
-t_g_env		*get_env(char **env);
+t_g_env			*get_env(char **env);
 
 int				run_command(t_cmd_list *cmdline, t_g_env *g_env);
 void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
@@ -176,7 +176,7 @@ void			end_pipes(char **paths);
 int				builtins(char **command);
 int				run_builtins(t_cmd_elem *cmdline, char **command, t_g_env *env);
 void			cd(char **command, t_g_env *g_env);
-void			pwd();
+void			pwd(void);
 void			env_f(char **command, t_g_env *env);
 void			exit_f(char **command);
 int				redirections(t_cmd_elem *cmd_line, int in, int out);
