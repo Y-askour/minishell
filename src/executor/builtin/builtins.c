@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/01 11:28:32 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/09/02 18:50:25 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	builtins(char **command)
 
 void	env_f(char **command, t_g_env *g_env)
 {
-	t_env *env;
+	t_env	*env;
 
 	(void)command;
 	env = g_env->head;

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 11:52:01 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/02 18:50:56 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	add_at_end(t_g_env *my_env, char *name, char *value)
 	if (!my_env->head)
 	{
 		my_env->head = tmp;
-		return;
+		return ;
 	}
 	while (ptr->next)
 		ptr = ptr->next;
