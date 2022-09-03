@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:42:51 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 13:03:56 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <readline/history.h>
 # include <sys/stat.h>
 # include <termios.h>
-# define  PATH_MAX  255
+#include <limits.h>
+#include <errno.h>
 
 /******TOKENS*********/
 # define WORD -1
