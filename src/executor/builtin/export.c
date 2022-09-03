@@ -6,38 +6,38 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/03 18:30:39 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 18:51:19 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//void	add_env_1(char **split, t_env *g_env)
-//{
-//	t_env	*tmp;
-//
-//	tmp = g_env;
-//	while (tmp)
-//	{
-//		if (!ft_strncmp(tmp->name, split[0], \
-//				max_len(tmp->name, split[0]) - 1))
-//		{
-//			free(split[0]);
-//			if (split[1])
-//			{
-//				tmp->value = ft_strjoin(tmp->value, split[1]);
-//			}
-//			else
-//				free(split[1]);
-//			free(split);
-//			return ;
-//		}
-//		tmp = tmp->next;
-//	}
-//	add_env_helper(g_env, split);
-//	free(split);
-//	return ;
-//}
+void	add_env_1(char **split, t_g_env *g_env)
+{
+	t_env	*tmp;
+
+	tmp = g_env->head;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->name, split[0], \
+				max_len(tmp->name, split[0]) - 1))
+		{
+			free(split[0]);
+			if (split[1])
+			{
+				tmp->value = ft_strjoin(tmp->value, split[1]);
+			}
+			else
+				free(split[1]);
+			free(split);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	add_env_helper(g_env, split);
+	free(split);
+	return ;
+}
 
 int	check_to_add(char *command)
 {
@@ -107,6 +107,8 @@ void add_env(char *command, t_g_env *g_env)
 
 	env = g_env->head;
 	splited = split_env(command, '=');
+	if (splited[0][ft_strlen(splited[0]) - 1] == '+')
+		return (add_env_1(splited, g_env));
 	if (!search_env(splited[0],splited[1],g_env))
 	{
 		node = malloc(sizeof(t_env)* 1);
