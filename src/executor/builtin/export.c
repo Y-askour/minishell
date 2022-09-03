@@ -6,11 +6,38 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/03 14:56:48 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 18:30:39 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//void	add_env_1(char **split, t_env *g_env)
+//{
+//	t_env	*tmp;
+//
+//	tmp = g_env;
+//	while (tmp)
+//	{
+//		if (!ft_strncmp(tmp->name, split[0], \
+//				max_len(tmp->name, split[0]) - 1))
+//		{
+//			free(split[0]);
+//			if (split[1])
+//			{
+//				tmp->value = ft_strjoin(tmp->value, split[1]);
+//			}
+//			else
+//				free(split[1]);
+//			free(split);
+//			return ;
+//		}
+//		tmp = tmp->next;
+//	}
+//	add_env_helper(g_env, split);
+//	free(split);
+//	return ;
+//}
 
 int	check_to_add(char *command)
 {
@@ -47,8 +74,8 @@ char	**split_env(char	*to_split, char	sp)
 	}
 	else
 	{
-	splited[0] = ft_strndup(to_split,i + 1);
-	splited[1] = ft_strdup(&to_split[i + 1]);
+		splited[0] = ft_strndup(to_split,i + 1);
+		splited[1] = ft_strdup(&to_split[i + 1]);
 	}
 	return (splited);
 }

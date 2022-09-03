@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:15:51 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/02 18:50:56 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 16:14:27 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_env_loop(char **env,	t_g_env *my_env)
 	i = 0;
 	while (env[i])
 	{
-		splited = ft_split(env[i], '=');
+		splited = split_env(env[i], '=');
 		if (!ft_strncmp(splited[0], "SHLVL", max_len(splited[0], "SHLVL")))
 		{
 			tmp = ft_itoa(ft_atoi(splited[1]) + 1);

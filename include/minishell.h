@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/03 13:03:56 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 16:14:49 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,6 @@ int				cd_to_check(char **command);
 void			cd_only(t_g_env *env);
 void			cd_to(char **pwd, char **old_pwd, char **command, t_g_env *env);
 int				check_path(char **command, char **pwd, char **old_pwd);
+char			**split_env(char	*to_split, char	sp);
 int				g_exit_status;
 #endif
