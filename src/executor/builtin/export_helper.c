@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:33:53 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 14:18:40 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -21,7 +21,8 @@ char	**lst_to_arr(t_env *g_env)
 	ptr = g_env;
 	while (ptr)
 	{
-		i++;
+		if (ptr->value)
+			i++;
 		ptr = ptr->next;
 	}
 	env = malloc(sizeof(char *) * i + 1);
@@ -29,9 +30,12 @@ char	**lst_to_arr(t_env *g_env)
 	i = 0;
 	while (ptr)
 	{
-		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
+		if (ptr->value)
+		{
+			env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
 					ft_strdup("=")), ft_strdup(ptr->value));
-		i++;
+			i++;
+		}
 		ptr = ptr->next;
 	}
 	env[i] = NULL;

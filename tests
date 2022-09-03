@@ -18,3 +18,5 @@ exit(exit_status)
 check errors printed 
 lowercase the bash lower commands
 ./src : $? 126 and permission denied 126
+check command not found leaks 
+leaks in get_env.c

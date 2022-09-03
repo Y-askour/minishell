@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/02 18:50:25 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 14:49:37 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	env_f(char **command, t_g_env *g_env)
 	env = g_env->head;
 	while (env)
 	{
-		if (ft_strncmp(env->value, "", max_len(env->value, "")))
+		if (env->value && ft_strncmp(env->value, "", max_len(env->value, "")))
 			printf("%s=%s\n", env->name, env->value);
 		env = env->next;
 	}
