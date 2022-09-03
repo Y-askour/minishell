@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:55:45 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/31 11:59:59 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 17:41:34 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	expand_tild(t_token_elem *temp, t_env *env, t_token_list *list)
 	if (temp->type == TILDE)
 		join_tild(temp, list);
 	if ((!ft_strncmp("~", temp->value, max_len("~", temp->value)) && \
-		temp->type != TILDE))
+		temp->type != TILDE) && (!temp->next || temp->next->type == WHSPACE))
 	{
 		tofree = temp->value;
 		temp->value = env_var("HOME", env);
