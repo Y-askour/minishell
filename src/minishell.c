@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:35:32 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/31 19:28:09 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/03 11:42:38 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	loop_body(char **line, t_token_list **tokens,
 		t_cmd_list **cmd_line, t_g_env *g_env)
 {
 	*line = display_prompt();
-	if (!ft_strlen(*line))
+	if (!(*line))
 		return (1);
 	*tokens = tokenizer(*line);
 	if (!is_heredoc(*tokens, g_env))

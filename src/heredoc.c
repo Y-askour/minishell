@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 11:43:56 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/08/31 11:57:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/02 17:31:17 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	is_heredoc(t_token_list *list, t_g_env *env)
 {
 	t_token_elem	*node;
 	int				fd[2];
-	t_env					*head;
+	t_env			*head;
 
 	node = list->head;
 	head = env->head;
