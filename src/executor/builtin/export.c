@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:59:42 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:46:06 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,27 @@ void	add_env(char *command, t_g_env *g_env)
 	free(splited);
 }
 
-void	add_null_value(char *command, t_g_env *env)
+int	add_null_value_helper(t_g_env *env, char *command)
 {
-	t_env	*head;
-	t_env	*node;
-
-	head = env->head;
 	if (!env->head)
 	{
 		env->head = malloc(sizeof(t_env) * 1);
 		env->head->name = ft_strdup(command);
 		env->head->value = NULL;
 		env->head->next = NULL;
-		return ;
+		return (1);
 	}
+	return (0);
+}
+
+void	add_null_value(char *command, t_g_env *env)
+{
+	t_env	*head;
+	t_env	*node;
+
+	head = env->head;
+	if (add_null_value_helper(env, command))
+		return ;
 	while (head)
 	{
 		if (!ft_strncmp(command, head->name, max_len(command, head->name)))
