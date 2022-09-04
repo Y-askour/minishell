@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 15:38:58 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:21:14 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ int	builtins(char **command)
 void	env_f(char **command, t_g_env *g_env)
 {
 	t_env	*env;
-
-	(void)command;
+	if (command[1])
+	{
+		error_handler("too many arguments", 1);
+		return ;
+	}
 	env = g_env->head;
 	while (env)
 	{
