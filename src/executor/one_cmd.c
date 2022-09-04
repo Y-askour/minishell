@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 15:12:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:11:48 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -80,7 +80,7 @@ int	child(t_cmd_elem *cmdline, char **command, t_g_env *env, char **paths)
 		error_handler("minishell: path : command not found", 127);
 		exit(127);
 	}
-	list = lst_to_arr(env);
+	list = lst_to_arr(env->head);
 	if (redirections(cmdline, 0, 1) == -1)
 		exit(1);
 	if (command[0][0] == '/')

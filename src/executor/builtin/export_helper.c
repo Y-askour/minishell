@@ -6,47 +6,36 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:04:18 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:10:33 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-char	**lst_to_arr_util(t_g_env *g_env, int *i)
+char	**lst_to_arr(t_env *g_env)
 {
 	char	**env;
-	t_env	*ptr;
-
-	env = malloc(sizeof(char *) * *i + 1);
-	ptr = g_env->head;
-	*i = 0;
-	while (ptr)
-	{
-		if (ptr->value)
-		{
-			env[*i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
-					ft_strdup("=")), ft_strdup(ptr->value));
-			i++;
-		}
-		ptr = ptr->next;
-	}
-	env[*i] = NULL;
-	return (env);
-}
-
-char	**lst_to_arr(t_g_env *g_env)
-{
 	t_env	*ptr;
 	int		i;
 
 	i = 0;
-	ptr = g_env->head;
+	ptr = g_env;
 	while (ptr)
 	{
-		if (ptr->value)
-			i++;
+		i++;
 		ptr = ptr->next;
 	}
-	return (lst_to_arr_util(g_env, &i));
+	env = malloc(sizeof(char *) * i + 1);
+	ptr = g_env;
+	i = 0;
+	while (ptr)
+	{
+		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
+					ft_strdup("=")), ft_strdup(ptr->value));
+		i++;
+		ptr = ptr->next;
+	}
+	env[i] = NULL;
+	return (env);
 }
 
 void	add_env_helper(t_g_env *g_env, char **split)
