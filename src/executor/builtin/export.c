@@ -6,78 +6,10 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 15:34:01 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 15:47:01 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
-
-void	add_env_1(char **split, t_g_env *g_env)
-{
-	t_env	*tmp;
-
-	tmp = g_env->head;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->name, split[0], \
-				max_len(tmp->name, split[0]) - 1))
-		{
-			free(split[0]);
-			if (split[1])
-			{
-				tmp->value = ft_strjoin(tmp->value, split[1]);
-			}
-			else
-				free(split[1]);
-			free(split);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	add_env_helper(g_env, split);
-	free(split);
-	return ;
-}
-
-int	check_to_add(char *command)
-{
-	int	i;
-
-	i = 0;
-	while (command[i])
-	{
-		if (command[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	**split_env(char *to_split, char sp)
-{
-	char	**splited;
-	int		i;
-
-	i = 0;
-	splited = NULL;
-	while (to_split[i])
-	{
-		if (to_split[i] == sp)
-			break ;
-		i++;
-	}
-	splited = malloc(sizeof(char) * 2);
-	if (!to_split[i])
-	{
-		splited[0] = to_split;
-		splited[1] = ft_strdup("");
-	}
-	else
-	{
-		splited[0] = ft_strndup(to_split, i + 1);
-		splited[1] = ft_strdup(&to_split[i + 1]);
-	}
-	return (splited);
-}
 
 int	search_env(char *name, char *value, t_g_env *g_env)
 {
