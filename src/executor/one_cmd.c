@@ -6,10 +6,9 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 14:28:23 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 15:12:28 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 int	check_dir(char *cmd, int check)
