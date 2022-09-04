@@ -6,40 +6,47 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 14:13:45 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:32:30 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-char	**lst_to_arr(t_env *g_env)
+char	**lst_to_arr_util(t_g_env *g_env, int *i)
 {
 	char	**env;
 	t_env	*ptr;
-	int		i;
 
-	i = 0;
-	ptr = g_env;
-	while (ptr)
-	{
-		if (ptr->value)
-			i++;
-		ptr = ptr->next;
-	}
-	env = malloc(sizeof(char *) * i + 1);
-	ptr = g_env;
-	i = 0;
+	env = malloc(sizeof(char *) * *i + 1);
+	ptr = g_env->head;
+	*i = 0;
 	while (ptr)
 	{
 		if (ptr->value)
 		{
-			env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
+			env[*i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
 					ft_strdup("=")), ft_strdup(ptr->value));
 			i++;
 		}
 		ptr = ptr->next;
 	}
-	env[i] = NULL;
+	env[*i] = NULL;
 	return (env);
+}
+
+char	**lst_to_arr(t_g_env *g_env)
+{
+	t_env	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = g_env->head;
+	while (ptr)
+	{
+		if (ptr->value)
+			i++;
+		ptr = ptr->next;
+	}
+	return (lst_to_arr_util(g_env, &i));
 }
 
 void	add_env_helper(t_g_env *g_env, char **split)
