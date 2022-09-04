@@ -6,13 +6,13 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:00:50 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 12:23:11 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 15:26:03 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd()
+void	pwd(void)
 {	
 	char	*pwd;
 

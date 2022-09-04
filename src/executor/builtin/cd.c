@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/01 11:27:09 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:26:45 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	cd_switch(t_g_env *env)
 		return ;
 	}
 	if (chdir(tmp->value) == -1)
-		return;
+		return ;
 	printf("%s \n", tmp->value);
 	old = tmp;
 	cd_switch_change(env, old);
