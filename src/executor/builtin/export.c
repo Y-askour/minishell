@@ -6,10 +6,11 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:03:21 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:59:42 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
+
+#include"minishell.h"
 
 int	search_env(char *name, char *value, t_g_env *g_env)
 {

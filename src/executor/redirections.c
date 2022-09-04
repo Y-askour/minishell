@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 14:07:48 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/29 14:06:34 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/09/04 20:52:47 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	red_in(t_red_elem *red, int in)
 	{
 		if (access(red->file, F_OK))
 		{
-			error_handler("minishell: path : No such  file or directory", 1);
+			error_handler("minishell : No such  file or directory", 1);
 			g_exit_status = 1;
 			return (-1);
 		}
@@ -42,7 +42,7 @@ int	red_out(t_red_elem *red, int out)
 	f1 = open(red->file, O_CREAT | O_WRONLY, 0666);
 	if (f1 < 0)
 	{
-		error_handler("minishell: path : No such  file or directory", 1);
+		error_handler("minishell : No such  file or directory", 1);
 		return (-1);
 	}
 	dup2(f1, out);
@@ -57,7 +57,7 @@ int	red_append(t_red_elem *red, int out)
 	f1 = open(red->file, O_CREAT | O_APPEND | O_RDWR, 0666);
 	if (f1 < 0)
 	{
-		error_handler("minishell: path : No such  file or directory", 1);
+		error_handler("minishell : No such  file or directory", 1);
 		return (-1);
 	}
 	dup2(f1, out);

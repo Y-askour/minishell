@@ -6,10 +6,11 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:48:16 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:11:48 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:54:43 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
+
+#include"minishell.h"
 
 int	check_dir(char *cmd, int check)
 {
@@ -20,18 +21,18 @@ int	check_dir(char *cmd, int check)
 		lstat(cmd, &finfo);
 		if (S_ISDIR(finfo.st_mode))
 		{
-			error_handler("minishell : path: is a directory", 126);
+			error_handler("minishell : is a directory", 126);
 			exit(126);
 		}
 		if (access(cmd, X_OK))
 		{
-			error_handler("minishell : path: Permission denied", 126);
+			error_handler("minishell : Permission denied", 126);
 			exit(126);
 		}
 	}
 	else if (check == 0)
 	{
-		error_handler("minishell : path: No such file or directory", 127);
+		error_handler("minishell : No such file or directory", 127);
 		exit(1);
 	}
 	return (0);
@@ -50,7 +51,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 	}
 	if (!paths)
 	{
-		error_handler("minishell: path : command not found", 127);
+		error_handler("minishell : command not found", 127);
 		exit(127);
 	}
 	while (paths[i])
@@ -61,7 +62,7 @@ void	path_search(char **paths, char **command, char	**env, int *check)
 		free(cmd);
 		i++;
 	}
-	error_handler("minishell: path : command not found", 127);
+	error_handler("minishell : command not found", 127);
 	exit(127);
 }
 
@@ -77,7 +78,7 @@ int	child(t_cmd_elem *cmdline, char **command, t_g_env *env, char **paths)
 	i = 0;
 	if (!ft_strncmp(command[0], "", max_len(command[0], "")))
 	{
-		error_handler("minishell: path : command not found", 127);
+		error_handler("minishell : command not found", 127);
 		exit(127);
 	}
 	list = lst_to_arr(env->head);

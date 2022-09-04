@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 10:58:59 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:01:22 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:55:37 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	cd(char **command, t_g_env *env)
 		{
 			free(pwd);
 			free(old_pwd);
-			error_handler("cd : path: No such file or directory", 1);
+			error_handler("cd : No such file or directory", 1);
 			return ;
 		}
 	}

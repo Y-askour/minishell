@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:02:05 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:55:07 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	cd_to_check(char **command)
 	lstat(command[1], &finfo);
 	if (!S_ISDIR(finfo.st_mode))
 	{
-		error_handler("cd : path: is not directory", 126);
+		error_handler("cd : is not directory", 126);
 		return (1);
 	}
 	if (access(command[1], X_OK))
 	{
-		error_handler("cd : path: Permission denied", 126);
+		error_handler("cd : Permission denied", 126);
 		return (1);
 	}
 	return (0);
@@ -51,7 +51,8 @@ void	cd_to(char **pwd, char **old_pwd, char **command, t_g_env *env)
 		return ;
 	chdir(command[1]);
 	if (errno == ENOENT)
-		error_handler("error azaml", 1);
+		error_handler("cd: error retrieving current directory: getcwd: \
+cannot access parent directories: No such file or directory", 1);
 	tmp = env->head;
 	while (tmp)
 	{

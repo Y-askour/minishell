@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:28:09 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 20:53:14 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	exit_f(char **command)
 		if (!ft_isdigit(command[1][j]))
 		{
 			error_handler("exit\nminishell: exit : numeric \
-				argument required", 255);
+argument required", 255);
 			exit(255);
 		}
 		j++;
