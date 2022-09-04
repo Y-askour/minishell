@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 21:11:01 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 21:19:06 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -60,14 +60,12 @@ void	add_env_helper(t_g_env *g_env, char **split)
 	tmp->next = node;
 }
 
-int	add_env_2(char **split,t_g_env *g_env)
+int	add_env_2(char **split, t_g_env *g_env)
 {
-
-	printf("hey\n");
 	if (!g_env->head)
 	{
 		g_env->head = malloc(sizeof(t_env) * 1);
-		g_env->head->name = ft_strndup(split[0],ft_strlen(split[0]));
+		g_env->head->name = ft_strndup(split[0], ft_strlen(split[0]));
 		free(split[0]);
 		if (split[1])
 			g_env->head->value = split[1];
@@ -89,7 +87,7 @@ void	add_env_1(char **split, t_g_env *g_env)
 
 	tmp = g_env->head;
 	if (add_env_2(split, g_env))
-		return;
+		return ;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, split[0], \
