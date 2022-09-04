@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:48:26 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/03 14:49:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 15:38:58 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,22 @@ void	env_f(char **command, t_g_env *g_env)
 	}
 }
 
+void	exit_helper(char **command)
+{
+	int	i;
+
+	i = 1;
+	while (command[i])
+		i++;
+	if (i == 2)
+		exit(ft_atoi(command[1]));
+	else
+		error_handler("exit\nminishell : exit : too many arguments", 1);
+}
+
 void	exit_f(char **command)
 {
 	int	j;
-	int	i;
 
 	j = 0;
 	if (!command[1])
@@ -93,11 +105,5 @@ void	exit_f(char **command)
 		}
 		j++;
 	}
-	i = 1;
-	while (command[i])
-		i++;
-	if (i == 2)
-		exit(ft_atoi(command[1]));
-	else
-		error_handler("exit\nminishell : exit : too many arguments", 1);
+	exit_helper(command);
 }
