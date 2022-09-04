@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:55:14 by yaskour           #+#    #+#             */
-/*   Updated: 2022/08/31 13:56:10 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 13:53:51 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	delete_node(char *name, t_g_env *env)
 	i = 0;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->name,name,max_len(name,tmp->name)))
+		if (!ft_strncmp(tmp->name, name, max_len(name, tmp->name)))
 		{
 			if (i == 0)
 				env->head = env->head->next;
@@ -62,7 +62,6 @@ void	delete_node(char *name, t_g_env *env)
 void	unset(char **command, t_g_env *g_env)
 {
 	int	i;
-
 
 	i = 0;
 	while (command[i])

@@ -6,7 +6,7 @@
 /*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 18:19:17 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/03 14:40:37 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 13:59:21 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	cd_to(char **pwd, char **old_pwd, char **command, t_g_env *env)
 		return ;
 	chdir(command[1]);
 	if (errno == ENOENT)
-		error_handler("error azaml",1);
+		error_handler("error azaml", 1);
 	tmp = env->head;
 	while (tmp)
 	{
@@ -107,6 +107,6 @@ void	cd_only(t_g_env *env)
 		return ;
 	}
 	if (chdir(tmp->value) == -1)
-		return;
+		return ;
 	cd_only_change_pwd(env);
 }

@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:45:05 by aboudoun          #+#    #+#             */
-/*   Updated: 2022/09/03 11:23:38 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:05:56 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ char	*display_prompt(void)
 	if (!line)
 	{
 		write(1, "exit\n", 5);
-		exit(g_exit_status);		
+		exit(g_exit_status);
 	}
 	else if (!(*line) || all_wspaces(line))
 	{
 		free(line);
-		return(NULL);
+		return (NULL);
 	}
 	else
 		add_history(line);
