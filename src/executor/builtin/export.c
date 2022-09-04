@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 21:46:06 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/04 21:53:28 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,30 @@ void	add_null_value(char *command, t_g_env *env)
 	head->next = node;
 }
 
+int	while_export_f(char	**command, int *i, t_g_env *env)
+{
+	while (command[*i])
+	{
+		if (option(command[1]))
+		{
+			error_handler("minishell : export : invalid option", 1);
+			return (-1);
+		}
+		else if (valid(command[*i]))
+		{
+			if (check_to_add(command[*i]))
+				add_env(command[*i], env);
+			else
+				add_null_value(command[*i], env);
+		}
+		else
+			error_handler("minishell: export: `=` \
+					:not a valid indentifier", 1);
+		*i = *i + 1;
+	}
+	return (0);
+}
+
 int	export_f(char **command, t_g_env *env)
 {
 	int	i;
@@ -106,25 +130,8 @@ int	export_f(char **command, t_g_env *env)
 	if (i >= 2)
 	{
 		i = 1;
-		while (command[i])
-		{
-			if (option(command[1]))
-			{
-				error_handler("minishell : export : invalid option", 1);
-				return (-1);
-			}
-			else if (valid(command[i]))
-			{
-				if (check_to_add(command[i]))
-					add_env(command[i], env);
-				else
-					add_null_value(command[i], env);
-			}
-			else
-				error_handler("minishell: export: `=` \
-						:not a valid indentifier", 1);
-			i++;
-		}
+		if (while_export_f(command, &i, env) == -1)
+			return (-1);
 	}
 	return (0);
 }
