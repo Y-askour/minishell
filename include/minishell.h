@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:57:31 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:10:57 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/05 11:10:25 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void			simple_cmd(t_cmd_elem *cmdline, t_env *g_env);
 void			end_pipes(char **paths);
 
 // builtins
-
+int				search_env(char *name, char *value, t_g_env *g_env);
 int				builtins(char **command);
 int				run_builtins(t_cmd_elem *cmdline, char **command, t_g_env *env);
 void			cd(char **command, t_g_env *g_env);

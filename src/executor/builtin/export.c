@@ -6,31 +6,11 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:01:36 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 21:53:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/05 11:17:09 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
-
-int	search_env(char *name, char *value, t_g_env *g_env)
-{
-	t_env	*ptr;
-
-	ptr = g_env->head;
-	while (ptr)
-	{
-		if (!ft_strncmp(name, ptr->name, max_len(name, ptr->name)))
-		{
-			free(name);
-			if (ptr->value)
-				free(ptr->value);
-			ptr->value = value;
-			return (1);
-		}
-		ptr = ptr->next;
-	}
-	return (0);
-}
 
 void	add_env(char *command, t_g_env *g_env)
 {
@@ -114,8 +94,7 @@ int	while_export_f(char	**command, int *i, t_g_env *env)
 				add_null_value(command[*i], env);
 		}
 		else
-			error_handler("minishell: export: `=` \
-					:not a valid indentifier", 1);
+			error_handler("minishell: export : invalid indentifier", 1);
 		*i = *i + 1;
 	}
 	return (0);
