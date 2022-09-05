@@ -6,7 +6,7 @@
 /*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:55:14 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 20:59:05 by aboudoun         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:16:47 by aboudoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	unset(char **command, t_g_env *g_env)
 			else if (unset_valid(command[i]))
 				delete_node(command[i], g_env);
 			else
-				error_handler("minishell: unset: `=` \
-					:not a valid indentifier", 1);
+				error_handler("minishell: unset : in valid indentifier", 1);
 			i++;
 		}
 	}

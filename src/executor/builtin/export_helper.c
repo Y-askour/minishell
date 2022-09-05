@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaskour <yaskour@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aboudoun <aboudoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:27:22 by yaskour           #+#    #+#             */
-/*   Updated: 2022/09/04 22:12:28 by yaskour          ###   ########.fr       */
+/*   Updated: 2022/09/05 11:29:19 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
 
-char	**lst_to_arr(t_env *g_env)
-{
-	char	**env;
-	t_env	*ptr;
-	int		i;
-
-	i = 0;
-	ptr = g_env;
-	while (ptr)
-	{
-		i++;
-		ptr = ptr->next;
-	}
-	env = malloc(sizeof(char *) * i + 1);
-	ptr = g_env;
-	i = 0;
-	while (ptr)
-	{
-		env[i] = ft_strjoin(ft_strjoin(ft_strdup(ptr->name), \
-					ft_strdup("=")), ft_strdup(ptr->value));
-		i++;
-		ptr = ptr->next;
-	}
-	env[i] = NULL;
-	return (env);
-}
+#include"minishell.h"
 
 void	add_env_helper(t_g_env *g_env, char **split)
 {
